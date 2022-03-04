@@ -1,0 +1,20 @@
+title: Public
+
+description: role publique, pour créer des nouveau utilisateurs
+
+permissions:
+  access:
+    *: false
+  files:
+    *: false
+  languages:
+    *: false
+  pages:
+    *: false
+  site:
+    *: false
+  user:
+    *: false
+  users:
+    *: false
+    create: true

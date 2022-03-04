@@ -1,12 +1,26 @@
 <?php
 
+use Kirby\Cms\Page;
+
 return [
     'debug'  => true,
     'routes' => [
         [
-            'pattern' => '/home',
+            'pattern' => 'create-user',
             'action'  => function () {
-                return page('home');
+                return Page::factory([
+                    'slug'      => 'create-user',
+                    'template'  => 'create-user',
+                ]);
+            }
+        ],
+        [
+            'pattern' => 'user-panel',
+            'action'  => function () {
+                return Page::factory([
+                    'slug'      => 'user-panel',
+                    'template'  => 'user-panel',
+                ]);
             }
         ],
         [
