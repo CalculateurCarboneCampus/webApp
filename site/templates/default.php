@@ -16,4 +16,3 @@ use Kirby\Cms\User;
 echo json_encode([
   'page' => $page->title(),
 ]);
-

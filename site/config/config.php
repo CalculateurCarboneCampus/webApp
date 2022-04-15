@@ -6,11 +6,11 @@ return [
     'debug'  => true,
     'routes' => [
         [
-            'pattern' => 'create-user',
+            'pattern' => 'user-create',
             'action'  => function () {
                 return Page::factory([
-                    'slug'      => 'create-user',
-                    'template'  => 'create-user',
+                    'slug'      => 'user-create',
+                    'template'  => 'user-create',
                 ]);
             }
         ],
@@ -20,6 +20,33 @@ return [
                 return Page::factory([
                     'slug'      => 'user-panel',
                     'template'  => 'user-panel',
+                ]);
+            }
+        ],
+        [
+            'pattern' => 'user-login',
+            'action'  => function () {
+                return Page::factory([
+                    'slug'      => 'user-login',
+                    'template'  => 'user-login',
+                ]);
+            }
+        ],
+        [
+            'pattern' => 'user-logout',
+            'action'  => function () {
+                return Page::factory([
+                    'slug'      => 'user-logout',
+                    'template'  => 'user-logout',
+                ]);
+            }
+        ],
+        [
+            'pattern' => 'project',
+            'action'  => function () {
+                return Page::factory([
+                    'slug'      => 'project',
+                    'template'  => 'project',
                 ]);
             }
         ],

@@ -1,8 +1,15 @@
 title: Default Page
-preset: page
-fields:
-  text:
-    label: Text
-    type: textarea
-    size: large
+
+columns:
+  - width: 3/3
+    fields:
+      text:
+        label: Description
+        type: textarea
+        size: small
+  - width: 3/3
+    fields:
+      item:
+        label: Section
+        extends: fields/itemSection
 

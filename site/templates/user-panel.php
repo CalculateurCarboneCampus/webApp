@@ -12,27 +12,70 @@ use Kirby\Cms\Site;
  * @var Page  $page
  */
 
-$user     = $kirby->user();
-$userName = $kirby->user()->name();
+function createSlug(string $str, string $delimiter = '-'): string {
 
-//echo '<pre>';
-//print_r($user);
-//echo '</pre>';
-
-if(get('newProjectName')) {
-  $newPage = new Page([
-    "slug" => get('newProjectName'),
-  ]);
-
-  $newPage->save();
+  $slug = strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))), $delimiter));
+  return $slug;
 
 }
 
-echo '<h2>Projets</h2>';
+if(! $kirby->user() ) go('user-create');
 
-echo "<p>Bonjour $userName</p>";
+$user     = $kirby->user();
+$userName = $kirby->user()->name();
 
+$projects =
+  array_filter(
+    $kirby->site()->pages()->toArray(),
+    function ($page) use ($kirby) {
+      try {
+        return $page['content']['userid'] == $kirby->user()->id();
+      } catch (Exception $e) {
+        return false;
+      }
+    });
+
+
+$newPage = null;
+
+if(get('newProjectName')) {
+  $newPage = new Page([
+    "slug" => createSlug(get('newProjectName')),
+    "isDraft" => false,
+  ]);
+
+  $data = [
+    'userID' => $kirby->user()->id(),
+    'status' => 'draft',
+    'content' => json_encode([
+      'data' => 'value',
+    ]),
+  ];
+
+  $newPage = $newPage->save($data, null, false);
+
+}
 ?>
+
+<?php snippet('header') ?>
+
+<h1>Mon éspace</h1>
+
+<h2>Projets - <?= $userName ?></h2>
+
+<div>
+  <ul>
+    <?php
+    foreach ($projects as $project) {
+      $projectId = $project['id'];
+      $projectStatus = $project['content']['status'];
+      $projectUrl = $project['slug'];
+
+      echo "<li>$projectId, status: $projectStatus, <a href='project?i=$projectUrl' >edit</a></li>";
+    }
+    ?>
+  </ul>
+</div>
 
 <form>
   <input type="submit" value="ajouter un projet">
@@ -41,4 +84,14 @@ echo "<p>Bonjour $userName</p>";
     nom du nouveau projet
     <input type="text" name="newProjectName">
   </label>
+
+  <?php
+  if($newPage) {
+    $slug = $newPage->slug();
+    go("project?i=$slug");
+  }
+  ?>
+
 </form>
+
+<?php snippet('footer') ?>

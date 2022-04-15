@@ -57,8 +57,9 @@ if(! $newUser['error']) {
 
 ?>
 
+<?php snippet('header') ?>
 
-<h1>Create new user</h1>
+<h1>Creer un compte</h1>
 
 <?php if( $newUser['error'] ): ?>
   <p>Erreur lors de la création de l'utilisateur: </p>
@@ -83,3 +84,9 @@ if(! $newUser['error']) {
 
   <input type="submit" >
 </form>
+
+<h2>Déja un compte?</h2>
+<p><a href="user-login" >se connecter -></a></p>
+
+
+<?php snippet('footer') ?>

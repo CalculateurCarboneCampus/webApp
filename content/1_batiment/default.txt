@@ -1,0 +1,39 @@
+Title: batiment
+
+----
+
+Text: 
+
+----
+
+Item:
+
+- 
+  name: "Consommation d'énergie chauffage"
+  description: ""
+  item:
+    - 
+      name: Gaz europe
+      description: ""
+      donnes: 23
+      tco2e: 0.24
+      unit: kwhPCI
+      srcfr: Fournisseur
+    - 
+      name: Mazout
+      description: ""
+      donnes: 23
+      tco2e: 3.19
+      unit: litre
+      srcfr: Fournisseur
+- 
+  name: "Consommation d'électricité"
+  description: ""
+  item:
+    - 
+      name: A définir sur base moyenne suisse
+      description: ""
+      donnes: 23
+      tco2e: 0.18
+      unit: KWh
+      srcfr: Fournisseur
