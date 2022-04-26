@@ -30,8 +30,8 @@ use Kirby\Cms\Site;
 
 <header>
   <?php
-  $userName = $kirby->user()->username();
   if ($kirby->user() && $kirby->user()->role() != 'public') {
+    $userName = $kirby->user()->username();
     echo '<a href="/user-panel">administration </a>';
     echo "$userName <a href='/user-logout'>logout </a>";
   }
