@@ -1,5 +1,8 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+
+
 use Kirby\Cms\App;
 use Kirby\Cms\Page;
 use Kirby\Cms\Pages;
@@ -14,7 +17,7 @@ use Kirby\Cms\User;
  */
 
 echo json_encode(
-  $pages->filter(function ($field) {
+  array_values($pages->filter(function ($field) {
     return $field->num() > 0;
   })->map(function ($value) {
     return [
@@ -22,5 +25,5 @@ echo json_encode(
       'description'     => $value->text()->value(),
       'entitySections'  => $value->item()->toStructure()->toArray(),
     ];
-  })
+  })->data)
 );
