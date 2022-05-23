@@ -18,6 +18,7 @@ window.setTimeout(() => {
   useDataStore().setCCCData([
     {
       entityName: "Bâtiment",
+      description: "",
       entitySections: [
         {
           name: "Consomation d'energie chauffage",
@@ -45,6 +46,7 @@ window.setTimeout(() => {
     },
     {
       entityName: "Achats",
+      description: "",
       entitySections: [
         {
           name: "Consomation d'energie chauffage",
@@ -72,6 +74,7 @@ window.setTimeout(() => {
     },
     {
       entityName: "Mobilité",
+      description: "",
       entitySections: [
         {
           name: "Consomation d'energie chauffage",
@@ -99,6 +102,7 @@ window.setTimeout(() => {
     },
     {
       entityName: "Fret",
+      description: "",
       entitySections: [
         {
           name: "Consomation d'energie chauffage",
@@ -126,6 +130,7 @@ window.setTimeout(() => {
     },
     {
       entityName: "Déchêts",
+      description: "",
       entitySections: [
         {
           name: "Consomation d'electricité",

@@ -1,6 +1,7 @@
 export interface ICCCDataEntity {
   entityName: string
   entitySections: ICCCDataSection[]
+  description: string
 }
 
 export interface ICCCDataSection {
