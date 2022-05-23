@@ -7,13 +7,12 @@
     </div>
 
     <div class="v-app-data-view-item__element ccc-with-gutter">
-      <div
-          class="v-app-data-view-item__element__value ccc-with-gutter"
-      >
-        {{dataItem.value}}
-      </div>
 
-      <input type="number" v-model="dataItem.value">
+      <input
+          class="v-app-data-view-item__element__value ccc-with-gutter"
+          type="number"
+          v-model="dataItem.value"
+      >
 
       <div
           class="v-app-data-view-item__element__unit ccc-with-gutter"
@@ -97,6 +96,10 @@ export default defineComponent({
     align-items: center;
 
     .v-app-data-view-item__element__value {
+      display: block;
+      border: none;
+      padding-left: var(--ccc-gutter-half);
+      padding-right: 0;
       background-color: var(--ccc-color-alternate);
       height: var(--ccc-ui-size-unit);
       line-height: var(--ccc-ui-size-unit);
