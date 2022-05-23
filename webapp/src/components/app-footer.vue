@@ -1,14 +1,16 @@
 <template>
-  <div class="v-app-footer">
-    <div>
+  <div class="v-app-footer ccc-with-raw">
+    <div class="ccc-with-gutter">
       Initié par:
     </div>
 
-    <img
-        class="v-app-footer__logo"
-        alt="logo hesso"
-        src="/logo--hesso.png"
-    >
+    <div class="ccc-with-gutter">
+      <img
+          class="v-app-footer__logo"
+          alt="logo hesso"
+          src="/logo-hesso.svg"
+      >
+    </div>
   </div>
 </template>
 
@@ -23,6 +25,7 @@ export default defineComponent({
 .v-app-footer {
   display: flex;
   justify-content: center;
+  align-items: center;
 
   > * {
     display: block;

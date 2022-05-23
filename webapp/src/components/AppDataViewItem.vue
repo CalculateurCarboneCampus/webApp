@@ -3,19 +3,22 @@
     <div class="ccc-with-gutter">
       <div
           class="v-app-data-view-item__choice ccc-with-gutter"
-      >{{data.name}}</div>
+      >{{dataItem.name}}</div>
     </div>
 
     <div class="v-app-data-view-item__element ccc-with-gutter">
       <div
           class="v-app-data-view-item__element__value ccc-with-gutter"
       >
-        {{data.value}}
+        {{dataItem.value}}
       </div>
+
+      <input type="number" v-model="dataItem.value">
+
       <div
           class="v-app-data-view-item__element__unit ccc-with-gutter"
       >
-        {{data.valueUnit}}
+        {{dataItem.valueUnit}}
       </div>
     </div>
 
@@ -23,7 +26,7 @@
       <div
           class="v-app-data-view-item__element__value has-not-interaction ccc-with-gutter"
       >
-        {{data.tco2e}}
+        {{dataItem.tco2e}}
       </div>
       <div
           class="v-app-data-view-item__element__unit ccc-with-gutter"
@@ -37,15 +40,42 @@
 <script lang="ts">
 import {defineComponent} from "vue"
 import type {PropType} from "vue"
-import type {ICCCDataItem} from "@/GlobalInterfaces"
+import type {ICCCDataItem, ICCCDataSection} from "@/GlobalInterfaces"
+import {useDataStore} from "@/stores/dataStore"
 
 export default defineComponent({
   props: {
-    data: {
+    index: {
       required: true,
-      type: Object as PropType<ICCCDataItem>
+      type: Number,
+    },
+    parentSectionIndex: {
+      required: true,
+      type: Number,
+    },
+  },
+
+  data() {
+    return {
+      dataStore: useDataStore()
     }
   },
+
+  computed: {
+    dataItem(): ICCCDataItem {
+      const indexOfCurrentEntity = this.dataStore.CCCData
+          .indexOf(this.dataStore.CCCData.filter( (value) => {
+            return value.entityName === this.dataStore.currentEntityName
+          })[0] || null)
+
+      return this.dataStore
+          .CCCData[indexOfCurrentEntity]
+          .entitySections[this.parentSectionIndex]
+          .item[this.index]
+
+    }
+  },
+
 
 })</script>
 

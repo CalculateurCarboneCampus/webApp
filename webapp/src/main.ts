@@ -128,17 +128,6 @@ window.setTimeout(() => {
       entityName: "Déchêts",
       entitySections: [
         {
-          name: "Consomation d'energie chauffage",
-          item: [
-            {
-              name: "Gaz europe",
-              value: 0,
-              valueUnit: 'KW/h',
-              tco2e: 0.006,
-            }
-          ]
-        },
-        {
           name: "Consomation d'electricité",
           item: [
             {

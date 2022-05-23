@@ -12,8 +12,8 @@
           class="v-section-data ccc-with-raw"
       >
         <app-data-view
-            v-for="data of dataSection"
-            :dataViewProp="data"
+            v-for="(data, index) of dataSection"
+            :index="index"
         ></app-data-view>
       </section>
     </div>

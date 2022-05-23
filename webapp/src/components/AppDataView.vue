@@ -6,12 +6,13 @@
       <div class="ccc-with-gutter ccc-no-margin">
         <h4
             class="v-app-data-view__section__title ccc-with-gutter"
-        >{{ dataViewProp.name }}</h4>
+        >{{ dataSection.name }}</h4>
       </div>
 
       <app-data-view-item
-        v-for="dataItem of dataViewProp.item"
-        :data="dataItem"
+        v-for="(dataItem, ItemIndex) of dataSection.item"
+        :index="ItemIndex"
+        :parent-section-index="index"
       ></app-data-view-item>
 
       <div class="ccc-with-gutter">
@@ -32,12 +33,32 @@ import {useDataStore} from "@/stores/dataStore"
 
 export default defineComponent({
   components: {ButtonAdd, AppDataViewItem},
+
+  data() {
+    return {
+      dataStore: useDataStore()
+    }
+  },
+
   props: {
-    dataViewProp: {
+    index: {
       required: true,
-      type: Object as PropType<ICCCDataSection>,
+      type:  Number,
     },
   },
+
+  computed: {
+    dataSection(): ICCCDataSection {
+      const indexOfCurrentEntity = this.dataStore.CCCData
+          .indexOf(this.dataStore.CCCData.filter( (value) => {
+            return value.entityName === this.dataStore.currentEntityName
+          })[0] || null)
+
+      return this.dataStore.CCCData[indexOfCurrentEntity].entitySections[this.index]
+
+    }
+  }
+
 })</script>
 
 <style lang="scss">

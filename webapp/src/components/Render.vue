@@ -32,6 +32,7 @@ export default defineComponent({
 <style lang="scss">
 .v-render {
   margin-right: var(--ccc-gutter-half);
+  max-width: 20rem;
 
   .v-render__header {
     display: inline-block;
@@ -39,6 +40,7 @@ export default defineComponent({
     box-shadow: var(--ccc-box-shadow);
     position: relative;
     z-index: 0;
+    margin-right: 2rem;
 
     > * {
       display: inline-block;
@@ -69,7 +71,7 @@ export default defineComponent({
   img {
     display: block;
     width: 100%;
-    max-width: 250px;
+    max-height: 10rem;
     margin: auto;
   }
 }

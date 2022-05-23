@@ -6,18 +6,18 @@
   --ccc-color-white: white;
 
   --ccc-box-shadow:
-    1px 1px 0px 0px var(--ccc-color-dark),
-    2px 2px 0px 0px var(--ccc-color-dark),
-    3px 3px 0px 0px var(--ccc-color-dark),
-    4px 4px 0px 0px var(--ccc-color-dark),
-    5px 5px 0px 0px var(--ccc-color-dark),
-    6px 6px 0px 0px var(--ccc-color-dark),
-    7px 7px 0px 0px var(--ccc-color-dark),
-    8px 8px 0px 0px var(--ccc-color-dark),
-    9px 9px 0px 0px var(--ccc-color-dark),
-    10px 10px 0px 0px var(--ccc-color-dark);
+    .05rem .05rem 0px 0px var(--ccc-color-dark),
+    .10rem .10rem 0px 0px var(--ccc-color-dark),
+    .15rem .15rem 0px 0px var(--ccc-color-dark),
+    .20rem .20rem 0px 0px var(--ccc-color-dark),
+    .25rem .25rem 0px 0px var(--ccc-color-dark),
+    .30rem .30rem 0px 0px var(--ccc-color-dark),
+    .35rem .35rem 0px 0px var(--ccc-color-dark),
+    .40rem .40rem 0px 0px var(--ccc-color-dark),
+    .45rem .45rem 0px 0px var(--ccc-color-dark),
+    .50rem .50rem 0px 0px var(--ccc-color-dark);
 
-  --ccc-unit: 20px;
+  --ccc-unit: 15px;
   --ccc-gutter: var(--ccc-unit);
   --ccc-gutter-half: calc( var(--ccc-unit) / 2);
 
