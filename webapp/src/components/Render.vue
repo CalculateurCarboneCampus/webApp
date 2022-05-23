@@ -6,7 +6,7 @@
 
     <div class="v-render__body ccc-with-gutter ccc-no-margin ccc-with-raw">
 
-      <p class="v-render__result-value">3,646 tCO2e</p>
+      <p class="v-render__result-value">{{totalValue}} tCO2e</p>
 
       <img
           alt="render icon fly"
@@ -22,10 +22,27 @@
 
 <script lang="ts">
 import {defineComponent} from "vue"
+import {useDataStore} from "@/stores/dataStore"
 
 export default defineComponent({
 
+  data() {
+    return {
+      dataStore: useDataStore()
+    }
+  },
 
+  computed: {
+    totalValue(): number {
+      return this.dataStore.CCCData.map( entityValue => {
+        return entityValue.entitySections.map( sectionValue => {
+          return sectionValue.item.map( itemValue => {
+            return itemValue.donnes * itemValue.tco2e
+          }).reduce( (previousValue, currentValue) => { return previousValue + currentValue } )
+        }).reduce( (previousValue, currentValue) => { return previousValue + currentValue } )
+      }).reduce( (previousValue, currentValue) => { return previousValue + currentValue } )
+    }
+  }
 
 })</script>
 

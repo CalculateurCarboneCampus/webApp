@@ -6,10 +6,10 @@
 
     <nav>
       <div class="ccc-with-gutter">
-        <a href="#" class="v-app-header__link" >Mon espace</a>
+        <a href="http://localhost:8000/project" class="v-app-header__link" >Mon espace</a>
       </div>
       <div class="ccc-with-gutter">
-        <a href="#" class="v-app-header__link" >À propos</a>
+        <a href="https://calculateurcarbonecampus.github.io/" target="_blank" class="v-app-header__link" >À propos</a>
       </div>
     </nav>
   </div>
