@@ -1,8 +1,7 @@
 <template>
   <div class="v-app-data-view-item">
-    <div class="ccc-with-gutter">
-      <div
-          class="v-app-data-view-item__choice ccc-with-gutter"
+    <div class="v-app-data-view-item__choice-container ccc-with-gutter">
+      <div class="v-app-data-view-item__choice ccc-with-gutter"
       >{{dataItem.name}}</div>
     </div>
 
@@ -11,13 +10,13 @@
       <input
           class="v-app-data-view-item__element__value ccc-with-gutter"
           type="number"
-          v-model="dataItem.value"
+          v-model="dataItem.donnes"
       >
 
       <div
           class="v-app-data-view-item__element__unit ccc-with-gutter"
       >
-        {{dataItem.valueUnit}}
+        {{ dataItem.unit }}
       </div>
     </div>
 
@@ -84,6 +83,16 @@ export default defineComponent({
   user-select: none;
   white-space: nowrap;
 
+  > * {
+    width: calc(100% / 4);
+    box-sizing: border-box;
+  }
+
+  .v-app-data-view-item__choice-container {
+    flex-grow: 0;
+    width: 100%;
+  }
+
   .v-app-data-view-item__choice {
     background-color: var(--ccc-color-alternate);
     height: var(--ccc-ui-size-unit);
@@ -94,6 +103,11 @@ export default defineComponent({
   .v-app-data-view-item__element {
     display: flex;
     align-items: center;
+
+    > * {
+      box-sizing: border-box;
+      width: 50%;
+    }
 
     .v-app-data-view-item__element__value {
       display: block;

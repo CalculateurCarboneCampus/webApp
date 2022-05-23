@@ -46,13 +46,13 @@ export default defineComponent({
 
 <style lang="scss">
 .v-app-nav-item {
-  --ccc-icon-size: 5rem;
+  position: relative;
+  --ccc-icon-size: 6rem;
   background-color: var(--ccc-color-dark);
   color: var(--ccc-color-white);
   text-align: center;
   width: var(--ccc-icon-size);
   height: var(--ccc-icon-size);
-  line-height: var(--ccc-icon-size);
   user-select: none;
   cursor: pointer;
   margin-left: .5rem;
@@ -60,6 +60,13 @@ export default defineComponent({
   transition: box-shadow 250ms, transform 250ms;
   transform: translate(0);
   box-shadow: none;
+
+  > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
   &:hover {
     background-color: var(--ccc-color-main);

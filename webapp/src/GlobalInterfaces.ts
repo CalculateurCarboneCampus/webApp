@@ -11,7 +11,7 @@ export interface ICCCDataSection {
 
 export interface ICCCDataItem {
   name: string
-  value: number
-  valueUnit: string
+  donnes: number
+  unit: string
   tco2e: number
 }
