@@ -1,0 +1,25 @@
+:root{
+  --ccc-color-main: #4f7bff;
+  --ccc-color-main--light: #9cb4ff;
+  --ccc-color-dark: black;
+  --ccc-color-alternate: #ffffc2;
+  --ccc-color-white: white;
+
+  --ccc-box-shadow:
+    1px 1px 0px 0px var(--ccc-color-dark),
+    2px 2px 0px 0px var(--ccc-color-dark),
+    3px 3px 0px 0px var(--ccc-color-dark),
+    4px 4px 0px 0px var(--ccc-color-dark),
+    5px 5px 0px 0px var(--ccc-color-dark),
+    6px 6px 0px 0px var(--ccc-color-dark),
+    7px 7px 0px 0px var(--ccc-color-dark),
+    8px 8px 0px 0px var(--ccc-color-dark),
+    9px 9px 0px 0px var(--ccc-color-dark),
+    10px 10px 0px 0px var(--ccc-color-dark);
+
+  --ccc-unit: 20px;
+  --ccc-gutter: var(--ccc-unit);
+  --ccc-gutter-half: calc( var(--ccc-unit) / 2);
+
+  --ccc-ui-size-unit: calc( var(--ccc-unit) * 2);
+}
