@@ -9,13 +9,25 @@
       <p class="v-render__result-value">{{totalValue}} tCO2e</p>
 
       <img
+          v-if="totalValue < coffeeLimit"
+          alt="render icon fly"
+          src="../assets/cafe.svg"
+      >
+      <img
+          v-else
           alt="render icon fly"
           src="../assets/avion.svg"
       >
     </div>
 
     <div class="v-render__footer ccc-with-gutter ccc-no-margin ccc-with-raw">
-      <p><i>3,646 tonnes de CO2 émis correspond à faire <strong>10 allers retours Genève Londres en avion</strong></i></p>
+      <p
+          v-if="totalValue < coffeeLimit"
+      ><i>{{totalValue}} tonnes de CO2 émis correspond à faire environs <strong>{{Math.round( totalValue / coffeeValue )}} cafés</strong></i></p>
+
+      <p
+          v-else
+      ><i>{{totalValue}} tonnes de CO2 émis correspond à faire environs <strong>{{Math.round( totalValue / flyValue )}} allers retours Genève Londres en avion</strong></i></p>
     </div>
   </div>
 </template>
@@ -28,17 +40,22 @@ export default defineComponent({
 
   data() {
     return {
-      dataStore: useDataStore()
+      dataStore: useDataStore(),
+      coffeeValue: 0.005, // tones
+      coffeeLimit: 1, // tones
+      phoneValue: 0.1,
+      phoneLimit: .5,
+      flyValue: 1, // tones
     }
   },
 
   computed: {
-    totalValue(): number {
+    totalValue(): any {
       return this.dataStore.CCCData.map( entityValue => {
         return entityValue.entitySections.map( sectionValue => {
           return sectionValue.item.map( itemValue => {
             return itemValue.donnes * itemValue.tco2e
-          }).reduce( (previousValue, currentValue) => { return previousValue + currentValue } )
+          }).reduce( (previousValue, currentValue) => { return previousValue + currentValue }, 0 )
         }).reduce( (previousValue, currentValue) => { return previousValue + currentValue } )
       }).reduce( (previousValue, currentValue) => { return previousValue + currentValue } )
     }

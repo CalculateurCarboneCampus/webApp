@@ -5,26 +5,38 @@
       <app-navigation></app-navigation>
     </div>
 
+    <template
+        v-if="dataStore.currentEntityName !== 'Résultat'"
+    >
+      <div class="v-home-view__data-container ccc-with-gutter">
+        <h1 class="v-home-view__project-title">Titre projet</h1>
+        <section
+            class="v-section-data ccc-with-raw"
+        >
+          <app-data-view
+              v-for="(data, index) of dataSection"
+              :index="index"
+          ></app-data-view>
+        </section>
+      </div>
 
-    <div class="v-home-view__data-container ccc-with-gutter">
-      <h1 class="v-home-view__project-title">Titre projet</h1>
-      <section
-          class="v-section-data ccc-with-raw"
-      >
-        <app-data-view
-            v-for="(data, index) of dataSection"
-            :index="index"
-        ></app-data-view>
-      </section>
-    </div>
+      <div class="ccc-with-gutter">
+        <section
+            class="v-result-viewer"
+        >
+          <render></render>
+        </section>
+      </div>
+    </template>
 
-    <div class="ccc-with-gutter">
-      <section
-          class="v-result-viewer"
-      >
-        <render></render>
-      </section>
-    </div>
+    <template v-else>
+      <div class="ccc-with-gutter ccc-with-raw">
+        <div
+            class="v-result-print"
+        ></div>
+      </div>
+    </template>
+
 
   </div>
 </template>
@@ -77,6 +89,19 @@ export default defineComponent({
   .v-home-view__data-container {
     flex-grow: 1;
   }
+
+  .v-result-print {
+    width: 21cm;
+    height: 29.7cm;
+    background-color: white;
+    transform: scale(.8);
+    transform-origin: top left;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
 }
 
 </style>
