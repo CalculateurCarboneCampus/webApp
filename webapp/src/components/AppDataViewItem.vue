@@ -1,7 +1,8 @@
 <template>
   <div class="v-app-data-view-item">
-    <div class="v-app-data-view-item__choice-container ccc-with-gutter">
-      <div class="v-app-data-view-item__choice ccc-with-gutter"
+    <div class="v-app-data-view-item__choice-box ccc-with-gutter">
+      <div class="v-app-data-view-item__choice-box__ui">-</div>
+      <div class="v-app-data-view-item__choice-box__value"
       >{{dataItem.name}}</div>
     </div>
 
@@ -79,6 +80,7 @@ export default defineComponent({
 
 <style lang="scss">
 .v-app-data-view-item {
+  position: relative;
   display: flex;
   user-select: none;
   white-space: nowrap;
@@ -88,16 +90,30 @@ export default defineComponent({
     box-sizing: border-box;
   }
 
-  .v-app-data-view-item__choice-container {
+  .v-app-data-view-item__choice-box {
     flex-grow: 0;
     width: 100%;
   }
 
-  .v-app-data-view-item__choice {
+  .v-app-data-view-item__choice-box__value {
     background-color: var(--ccc-color-alternate);
     height: var(--ccc-ui-size-unit);
     line-height: var(--ccc-ui-size-unit);
+    padding-left: var(--ccc-gutter);
     cursor: pointer;
+  }
+
+  .v-app-data-view-item__choice-box__ui {
+    line-height: var(--ccc-ui-size-unit);
+    position: absolute;
+    top: 50%;
+    left: var(--ccc-gutter-half);
+    background-color: var(--ccc-color-white);
+    transform: translate( -50%, -50%);
+    border-radius: 100%;
+    height: var(--ccc-ui-size-unit);
+    width: var(--ccc-ui-size-unit);
+    text-align: center;
   }
 
   .v-app-data-view-item__element {
@@ -129,7 +145,6 @@ export default defineComponent({
       color: var(--ccc-color-white);
     }
   }
-
 
 }
 </style>
