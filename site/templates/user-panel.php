@@ -39,10 +39,29 @@ $projects =
 $newPage = null;
 
 if(get('newProjectName')) {
-  $newPage = new Page([
-    "slug" => createSlug(get('newProjectName')),
+
+  $userPage = page($user->id());
+  $slugPage = createSlug(get('newProjectName'));
+
+  if($userPage == null) {
+    $userPage = new Page([
+      "slug" => $user->id(),
+      "isDraft" => false,
+    ]);
+  }
+
+  if( $userPage->find($slugPage) !== null ) {
+    echo 'un projet avec le même nom existe déjà';
+    exit;
+  }
+
+  $newPage = $userPage->createChild([
+    "slug" => $slugPage,
     "isDraft" => false,
+    'template' => 'defaultProjectData',
   ]);
+
+  $newPage = $newPage->changeStatus('unlisted');
 
   $data = [
     'userID' => $kirby->user()->id(),
@@ -87,8 +106,8 @@ if(get('newProjectName')) {
 
   <?php
   if($newPage) {
-    $slug = $newPage->slug();
-    go("project?i=$slug");
+//    $slug = $newPage->slug();
+//    go("project?i=$slug");
   }
   ?>
 

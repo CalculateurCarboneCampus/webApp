@@ -12,6 +12,9 @@ use Kirby\Cms\User;
  * @var Pages $pages
  * @var Page  $page
  */
+
+if( $kirby->user() == null ) go('user-login');
+
 ?>
 
 <?php snippet('header') ?>

@@ -50,6 +50,16 @@ return [
                 ]);
             }
         ],
+
+        [
+            'pattern' => 'connection',
+            'action'  => function () {
+                return Page::factory([
+                    'slug'      => 'connection',
+                    'template'  => 'connection',
+                ]);
+            }
+        ],
         [
             'pattern' => '(:any)',
             'action'  => function () {
