@@ -60,6 +60,17 @@ return [
                 ]);
             }
         ],
+
+        [
+            'pattern' => '/',
+            'action'  => function () {
+                return Page::factory([
+                    'slug'      => 'home',
+                    'template'  => 'default',
+                ]);
+            }
+        ],
+
         [
             'pattern' => '(:any)',
             'action'  => function () {
