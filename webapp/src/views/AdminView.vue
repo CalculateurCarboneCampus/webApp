@@ -13,7 +13,7 @@
             class="v-admin-view__projects__item__slug"
         >{{project.slug}}</div>
         <router-link
-            class="ccc-ui-button"
+            class="ccc-ui-button--small"
             :to="{name: 'admin.project', params: {userID: user.userID, projectSlug: project.slug}}"
         >edit -></router-link>
       </div>

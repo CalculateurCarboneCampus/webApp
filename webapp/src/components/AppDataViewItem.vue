@@ -142,10 +142,14 @@ export default defineComponent({
 
   .v-app-data-view-item__choice-box__value {
     background-color: var(--ccc-color-alternate);
-    height: var(--ccc-ui-size-unit);
-    line-height: var(--ccc-ui-size-unit);
     padding-left: var(--ccc-gutter);
     cursor: pointer;
+    width: 250px;
+    padding-right: 1rem;
+    white-space: break-spaces;
+    line-height: 1rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
   }
 
   .v-app-data-view-item__choice-box__ui {

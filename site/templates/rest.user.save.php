@@ -68,39 +68,36 @@ if( UserData::phpInputValidateToCreateInstanceOfUserData()->error ) {
         ]);
       }
 
-      if( $userPage->find($slugPage) !== null ) {
+//      if( $userPage->find($slugPage) !== null ) {
+//
+//        echo json_encode([
+//          'error' => 'un projet avec le même nom existe déjà',
+//        ]);
+//
+//      } else {
+//        $newPage = $userPage->createChild([
+//          "slug" => $slugPage,
+//          "isDraft" => false,
+//          'template' => 'defaultProjectData',
+//        ]);
+//
+//        $newPage = $newPage->changeStatus('unlisted');
 
-        echo json_encode([
-          'error' => 'un projet avec le même nom existe déjà',
-        ]);
-
-      } else {
-        $newPage = $userPage->createChild([
-          "slug" => $slugPage,
-          "isDraft" => false,
-          'template' => 'defaultProjectData',
-        ]);
-
-        $newPage = $newPage->changeStatus('unlisted');
+        $newPage = $userPage->find($slugPage);
 
         $data = [
           'userID' => $kirby->user()->id(),
           'status' => 'draft',
-          'content' => json_encode([
-            'data' => 'value',
-          ]),
+          'content' => json_encode(get('value')),
         ];
 
-        $newPage = $newPage->save($data, null, false);
+        $newPage = $newPage->save($data, null, true);
 
         echo json_encode([
-          'userID'      => $userData->connectedUserID,
-          'username'    => $userData->connectedUserName,
-          'email'       => $userData->connectedUserEmail,
-          'isConnected' => $userData->connectedUserIsLoggedIn,
-          'projects'    => $userData->connectedUserProjects,
+          'error' => null,
+          'success' => true,
         ]);
-      }
+//      }
     } else {
       echo json_encode([
         'error' => 'no \'projectName\' parameter',

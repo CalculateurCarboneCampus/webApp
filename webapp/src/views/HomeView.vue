@@ -60,48 +60,10 @@ export default defineComponent({
     }
   },
 
-  computed: {
-    dataSection(): ICCCDataSection[] {
-      return this.dataStore.CCCData.filter( (value) => {
-        return value.entityName === this.dataStore.currentEntityName
-      })[0]?.entitySections
-    }
-  }
+  computed: {}
 
 })</script>
 
 <style lang="scss">
-.v-home-view {
-  display: flex;
-
-  .v-section-data {
-    background-color: var(--ccc-color-main);
-    border-radius: var(--ccc-ui-size-unit);
-    box-shadow: var(--ccc-box-shadow);
-    margin-right: var(--ccc-gutter-half);
-  }
-
-  .v-home-view__project-title {
-    margin-top: 0;
-    margin-bottom: 2rem;
-  }
-
-  .v-home-view__data-container {
-    flex-grow: 1;
-  }
-
-  .v-result-print {
-    width: 21cm;
-    height: 29.7cm;
-    background-color: white;
-    transform: scale(.8);
-    transform-origin: top left;
-  }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
 
 </style>

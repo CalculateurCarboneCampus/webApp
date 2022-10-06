@@ -6,4 +6,4 @@ Status: draft
 
 ----
 
-Content: {"data":"value"}
+Content: {"value":"h\u00e9h\u00e9"}

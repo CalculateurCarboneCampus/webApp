@@ -23,27 +23,35 @@ export class User {
     this.id = id
     this.password = password
 
-    const myHeaders = new Headers()
-    // todo: cookie session
-    // myHeaders.append("Cookie", "kirby_session=")
+    this.reloadData().then(async () => {
+      if(this.state.isConnected) await router.push('/admin')
 
-    const raw = JSON.stringify({
-      userId: this.id,
-      userPassword: this.password,
+      return this
     })
+  }
 
-    const response = await fetch("http://localhost:8000/rest.user.data", {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      credentials: "same-origin",
-    })
+  public async reloadData() {
 
-    this.state = await response.json() as api.userData
+      console.log("reloadData")
+      const myHeaders = new Headers()
+      // todo: cookie session
+      // myHeaders.append("Cookie", "kirby_session=")
 
-    if(this.state.isConnected) await router.push('/admin')
+      const raw = JSON.stringify({
+        userId: this.id,
+        userPassword: this.password,
+      })
 
-    return this
+      const response = await fetch("http://localhost:8000/rest.user.data", {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        credentials: "same-origin",
+      })
+
+      this.state = await response.json() as api.userData
+
+      return this
   }
 
   public get isConnected() {return this.state.isConnected}
@@ -54,13 +62,8 @@ export class User {
 
   public get userID() {return this.state.userID}
 
-  private static async getDataFromApi() {
-    return await (await window.fetch('http://localhost:8000/rest.public.data', {})).json() as {
-      isConnected: boolean,
-      error: string | null,
-      projects: [] | null,
-    }
-  }
+  public set error(value: string | null) {this.state.error}
+  public get error(): string | null {return this.state.error}
 
   async save(raw: {projectName: string | string[], value: object}) {
 
@@ -76,8 +79,6 @@ export class User {
       credentials: "same-origin",
     })
 
-    console.log(await response.json())
-
-    return this
+    return await response.json() as { 'error': string | null, success: boolean }
   }
 }
