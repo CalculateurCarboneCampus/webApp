@@ -6,7 +6,9 @@
 
     <nav>
       <div class="ccc-with-gutter">
-        <a href="http://localhost:8000/project" class="v-app-header__link" >Mon espace</a>
+        <router-link
+            to="/admin"
+            class="v-app-header__link" >Mon éspace</router-link>
       </div>
       <div class="ccc-with-gutter">
         <a href="https://calculateurcarbonecampus.github.io/" target="_blank" class="v-app-header__link" >À propos</a>

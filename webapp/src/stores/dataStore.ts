@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import type {ICCCDataEntity, ICCCDataSection} from "@/GlobalInterfaces"
+import {User} from "@/global/User"
 
 export const useDataStore = defineStore({
   id: 'dataStore',
@@ -7,6 +8,7 @@ export const useDataStore = defineStore({
   state: () => ({
     CCCData: [] as ICCCDataEntity[],
     currentEntityName: "",
+    user: new User(),
   }),
 
   getters: {

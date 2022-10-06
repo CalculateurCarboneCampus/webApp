@@ -51,16 +51,53 @@ return [
             }
         ],
 
+        /*
+         * PUBLIC
+         */
         [
-            'pattern' => 'connection',
+            'pattern' => 'rest.public.data',
             'action'  => function () {
                 return Page::factory([
-                    'slug'      => 'connection',
-                    'template'  => 'connection',
+                    'slug'      => 'rest.public.data',
+                    'template'  => 'rest.public.data',
                 ]);
             }
         ],
 
+        /*
+         * USER
+         */
+
+        [
+            'pattern' => 'rest.user.data',
+            'action'  => function () {
+                header("Access-Control-Allow-Origin: *");
+
+                return Page::factory([
+                    'slug'      => 'rest.user.data',
+                    'template'  => 'rest.user.data',
+                ]);
+            },
+            'method' => 'POST',
+        ],
+
+        [
+            'pattern' => 'rest.user.save',
+            'action'  => function () {
+                header("Access-Control-Allow-Origin: *");
+
+                return Page::factory([
+                    'slug'      => 'rest.user.save',
+                    'template'  => 'rest.user.save',
+                ]);
+            },
+            'method' => 'POST',
+        ],
+
+
+        /*
+         * OTHER
+         */
         [
             'pattern' => '/',
             'action'  => function () {
