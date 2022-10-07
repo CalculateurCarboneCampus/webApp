@@ -1,5 +1,7 @@
 import type {api} from "@/global/api"
 import router from "@/router"
+import type {ICCCDataEntity} from "@/GlobalInterfaces"
+import type {ICCCDataItem, ICCCDataSection} from "@/GlobalInterfaces"
 
 export class User {
 
@@ -14,6 +16,8 @@ export class User {
 
   private id = ""
   private password = ""
+
+  tempCurrentEditedProject: IUserEditedDataEntity[] | null = null
 
   constructor() {
     return this
@@ -65,9 +69,7 @@ export class User {
   public set error(value: string | null) {this.state.error}
   public get error(): string | null {return this.state.error}
 
-  async save(raw: {projectName: string | string[], value: object}) {
-
-    console.log("hello")
+  async save(raw: {projectName: string | string[], value: string}) {
 
     const response = await fetch("http://localhost:8000/rest.user.save", {
       method: 'POST',
@@ -81,4 +83,47 @@ export class User {
 
     return await response.json() as { 'error': string | null, success: boolean }
   }
+
+  async createNewProject(userEditedData: ICCCDataEntity[], projectName: string) {
+
+    this.tempCurrentEditedProject = userEditedData.map(CCCDataEntity => {
+
+      CCCDataEntity.entitySections = (CCCDataEntity as IUserEditedDataEntity).entitySections.map(CCCDataSection => {
+
+        CCCDataSection.item = CCCDataSection.item.map(CCCDataItem => {
+          CCCDataItem.edited = false
+          return CCCDataItem
+        })
+        return CCCDataSection
+
+      })
+
+      return CCCDataEntity
+    })
+
+    return new Promise<User>(resolve => {
+      this.save({
+        projectName: projectName,
+        value: JSON.stringify(this.tempCurrentEditedProject as IUserEditedDataEntity[]),
+      }).then(async response => {
+        if(response.success) {
+          resolve(await this.reloadData())
+        } else {
+          resolve(this)
+        }
+      })
+    })
+  }
+}
+
+export interface IUserEditedDataEntity extends ICCCDataEntity {
+  entitySections: IUserEditedDataSection[]
+}
+
+export interface IUserEditedDataSection extends ICCCDataSection {
+  item: IUserEditedDataItem[]
+}
+
+export interface IUserEditedDataItem extends ICCCDataItem {
+  edited: boolean
 }

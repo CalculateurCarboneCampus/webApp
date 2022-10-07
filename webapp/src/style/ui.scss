@@ -8,7 +8,7 @@
 .ccc-ui-button {
   border: none;
   font-size: .8rem;
-  line-height: 1rem;
+  line-height: 2rem;
   font-family: inherit;
   display: inline-block;
   color: var(--ccc-color-white);
@@ -18,4 +18,18 @@
   padding-right: var(--ccc-gutter-half);
   border-top-left-radius: var(--ccc-ui-size-unit);
   border-bottom-left-radius: var(--ccc-ui-size-unit);
+  cursor: pointer;
+}
+button.ccc-ui-button {
+  line-height: 1rem;
+}
+
+
+.ccc-ui-circle {
+  background-color: var(--ccc-color-white);
+  line-height: var(--ccc-ui-size-unit);
+  border-radius: 100%;
+  height: var(--ccc-ui-size-unit);
+  width: var(--ccc-ui-size-unit);
+  text-align: center;
 }

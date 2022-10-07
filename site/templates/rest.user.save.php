@@ -85,6 +85,16 @@ if( UserData::phpInputValidateToCreateInstanceOfUserData()->error ) {
 
         $newPage = $userPage->find($slugPage);
 
+        if ($newPage == null) {
+          $newPage = $userPage->createChild([
+            "slug" => $slugPage,
+            "isDraft" => false,
+            'template' => 'defaultProjectData',
+          ]);
+
+          $newPage = $newPage->changeStatus('unlisted');
+        }
+
         $data = [
           'userID' => $kirby->user()->id(),
           'status' => 'draft',

@@ -17,6 +17,13 @@
             :to="{name: 'admin.project', params: {userID: user.userID, projectSlug: project.slug}}"
         >edit -></router-link>
       </div>
+      <div
+          @click="addCalculation"
+          class="v-admin-view__add-calculation"
+      >
+        <div class="ccc-ui-circle">+</div>
+        <div>Nouveau Calcul</div>
+      </div>
     </div>
   </div>
 </template>
@@ -26,6 +33,7 @@ import {defineComponent} from "vue"
 import {useDataStore} from "@/stores/dataStore"
 import type {api} from "@/global/api"
 import type {User} from "@/global/User"
+import type {IUserEditedDataEntity} from "@/global/User"
 
 export default defineComponent({
 
@@ -37,12 +45,18 @@ export default defineComponent({
 
   computed: {
     user(): User {
-      return this.dataStore.$state.user
+      return this.dataStore.$state.user as User
     },
 
-    projects(): api.project[] {
+    projects(): { [key: string] : api.project} {
       return this.dataStore.$state.user.listOfProjects
     }
+  },
+
+  methods: {
+    addCalculation(): void {
+      this.dataStore.user.createNewProject(this.dataStore.CCCData, 'AAA_new-test')
+    },
   },
 
 })</script>
@@ -50,6 +64,32 @@ export default defineComponent({
 <style lang="scss">
 .v-admin-view {
   .v-admin-view__projects {
+  }
+
+  .v-admin-view__add-calculation {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 1rem;
+    transition: background-color .25s ease-in-out;
+
+    > * {
+      transition: transform .5s ease-in-out;
+    }
+
+    &:hover {
+      background: var(--ccc-color-main);
+
+      div {
+        transform: translate(0, -1rem);
+      }
+
+      .ccc-ui-circle {
+        transform: translate(0, -2rem);
+      }
+    }
   }
 
   .v-admin-view__projects__item {

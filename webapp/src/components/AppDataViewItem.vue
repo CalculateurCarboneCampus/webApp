@@ -1,7 +1,8 @@
 <template>
   <div class="v-app-data-view-item" v-if="dataItem !== null">
     <div class="v-app-data-view-item__choice-box ccc-with-gutter">
-      <div class="v-app-data-view-item__choice-box__ui">-</div>
+      <div class="v-app-data-view-item__choice-box__ui ccc-ui-circle">-</div>
+      <div class="v-app-data-view-item__choice-box__ui ccc-ui-circle">-</div>
       <div class="v-app-data-view-item__choice-box__value"
       >{{dataItem.name}}</div>
     </div>
@@ -52,6 +53,7 @@ import {defineComponent} from "vue"
 import type {PropType} from "vue"
 import type {ICCCDataItem, ICCCDataSection} from "@/GlobalInterfaces"
 import {useDataStore} from "@/stores/dataStore"
+import type {IUserEditedDataItem} from "@/global/User"
 
 export default defineComponent({
   props: {
@@ -68,7 +70,7 @@ export default defineComponent({
   data() {
     return {
       dataStore: useDataStore(),
-      dataItem: null as null | ICCCDataItem,
+      dataItem: null as null | IUserEditedDataItem,
       valueMin:   0,
       valueMax:   9_999,
       valueStep:  1,
@@ -76,16 +78,17 @@ export default defineComponent({
   },
 
   mounted() {
-    const indexOfCurrentEntity = this.dataStore.CCCData
-        .indexOf(this.dataStore.CCCData.filter( (value) => {
+    if (!this.dataStore.user.tempCurrentEditedProject) return
+
+    const indexOfCurrentEntity = this.dataStore.user.tempCurrentEditedProject
+        .indexOf(this.dataStore.user.tempCurrentEditedProject.filter((value) => {
           return value.entityName === this.dataStore.currentEntityName
         })[0] || null)
 
-    this.dataItem = this.dataStore
-        .CCCData[indexOfCurrentEntity]
+    this.dataItem = this.dataStore.user
+        .tempCurrentEditedProject[indexOfCurrentEntity]
         .entitySections[this.parentSectionIndex]
         .item[this.index]
-
   },
 
   methods: {
@@ -153,16 +156,10 @@ export default defineComponent({
   }
 
   .v-app-data-view-item__choice-box__ui {
-    line-height: var(--ccc-ui-size-unit);
     position: absolute;
     top: 50%;
     left: var(--ccc-gutter-half);
-    background-color: var(--ccc-color-white);
     transform: translate( -50%, -50%);
-    border-radius: 100%;
-    height: var(--ccc-ui-size-unit);
-    width: var(--ccc-ui-size-unit);
-    text-align: center;
   }
 
   .v-app-data-view-item__element {

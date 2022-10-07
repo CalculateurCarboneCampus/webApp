@@ -60,6 +60,10 @@ export default defineComponent({
     }
   },
 
+  mounted() {
+    this.dataStore.user.tempCurrentEditedProject = JSON.parse(JSON.parse(this.project?.content.content))
+  },
+
   computed: {
     project(): api.project | null {
       return Object.values(this.dataStore.user.listOfProjects).find(value => {
@@ -80,7 +84,6 @@ export default defineComponent({
         value: {value: this.textValue},
         projectName: this.$route.params.projectSlug,
       }).then(response => {
-        console.log(response.error)
         if( response.success ) this.dataStore.user.reloadData()
         else this.dataStore.user.error = response.error
       })

@@ -1,6 +1,7 @@
 <template>
   <div class="v-app-data-view ccc-with-gutter-xl ccc-with-raw">
     <div
+        v-if="dataSection"
         class="v-app-data-view__section ccc-no-margin"
     >
       <div class="ccc-with-gutter ccc-no-margin">
@@ -24,7 +25,6 @@
 
 <script lang="ts">
 import {defineComponent} from "vue"
-import type { PropType } from 'vue'
 import AppDataViewItem from "@/components/AppDataViewItem.vue"
 import type {ICCCDataSection} from "@/GlobalInterfaces"
 import ButtonAdd from "@/components/ButtonAdd.vue"
@@ -48,13 +48,14 @@ export default defineComponent({
   },
 
   computed: {
-    dataSection(): ICCCDataSection {
-      const indexOfCurrentEntity = this.dataStore.CCCData
-          .indexOf(this.dataStore.CCCData.filter( (value) => {
+    dataSection(): ICCCDataSection | null {
+      if( ! this.dataStore.user.tempCurrentEditedProject) return null
+      const indexOfCurrentEntity = this.dataStore.user.tempCurrentEditedProject
+          .indexOf(this.dataStore.user.tempCurrentEditedProject.filter( (value) => {
             return value.entityName === this.dataStore.currentEntityName
           })[0] || null)
 
-      return this.dataStore.CCCData[indexOfCurrentEntity].entitySections[this.index]
+      return this.dataStore.user.tempCurrentEditedProject[indexOfCurrentEntity].entitySections[this.index]
 
     }
   }
