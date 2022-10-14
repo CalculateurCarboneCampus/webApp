@@ -61,7 +61,9 @@ export default defineComponent({
   },
 
   mounted() {
-    this.dataStore.user.tempCurrentEditedProject = JSON.parse(JSON.parse(this.project?.content.content))
+    if (this.project === null) return
+    console.log( JSON.parse(JSON.parse(this.project.content.content)) )
+    this.dataStore.user.tempCurrentEditedProject = JSON.parse(JSON.parse(this.project.content.content))
   },
 
   computed: {
@@ -81,7 +83,7 @@ export default defineComponent({
   methods: {
     save() {
       this.dataStore.user.save({
-        value: this.textValue,
+        value: JSON.stringify(this.dataStore.user.tempCurrentEditedProject),
         projectName: this.$route.params.projectSlug,
       }).then(response => {
         if( response.success ) this.dataStore.user.reloadData()
