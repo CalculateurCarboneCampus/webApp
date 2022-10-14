@@ -1,6 +1,6 @@
 <template>
   <div class="v-admin-view ccc-with-gutter">
-    <h1 class="ccc-with-gutter">Mon éspace</h1>
+    <h1 class="ccc-with-gutter">Mon éspace: {{dataStore.user.username}}</h1>
 
     <div
         class="v-admin-view__projects"
