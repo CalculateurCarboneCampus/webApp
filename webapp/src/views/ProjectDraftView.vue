@@ -32,13 +32,17 @@
     </template>
 
     <template v-else>
-      <div class="v-result-viewer__print ccc-with-gutter ccc-with-raw">
+      <div class="v-result-viewer__print ccc-with-gutter">
+        <div
+            class="v-result-viewer__print__project-title"
+        >
+          <h1>{{$route.params.projectSlug}}</h1>
+        </div>
         <button
             class="ccc-ui-button v-result-viewer__print__export"
             @click="exportPDF()"
         >export PDF</button>
         <div
-            id="v-result-print"
             class="v-result-print"
         >
           <div
@@ -109,8 +113,8 @@ import type {ICCCDataSection} from "@/GlobalInterfaces"
 import AppNavigation from "@/components/AppNavigation.vue"
 import Render from "@/components/Render.vue"
 import AppDataView from "@/components/AppDataView.vue"
-import * as html2pdf from "html2pdf.js"
-import {} from "html-to-image"
+import {toJpeg} from "html-to-image"
+import type {Options} from "html-to-image/lib/types"
 
 export default defineComponent({
   components: {Render, AppNavigation, AppDataView},
@@ -160,20 +164,27 @@ export default defineComponent({
     },
 
     exportPDF() {
-      const element = document.getElementById('v-result-print');
-      const opt = {
-        margin:       1,
-        filename:     'myfile.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'cm', format: 'A4', orientation: 'portrait' }
-      };
-      console.log(html2pdf)
-      html2pdf.default().from(element).save();
+      const element = document.querySelector('.v-result-print') as HTMLElement
+
+      element.style.transform = 'none'
+
+      const toJpegOption: Options = {
+        quality: 1,
+        pixelRatio: 4,
+      }
+
+      toJpeg(element, toJpegOption ).then(dataUrl => {
+        const htmlLinkElement = document.createElement('a')
+        htmlLinkElement.href = dataUrl
+        htmlLinkElement.download="Calculateur_carbone_campus.jpg"
+        htmlLinkElement.click()
+        element.style.transform = ''
+      })
     },
   },
 
-})</script>
+})
+</script>
 
 <style lang="scss">
 .v-project-draft-view {
@@ -214,14 +225,26 @@ export default defineComponent({
 
   .v-result-viewer__print {
     position: relative;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
   }
 
   .v-result-viewer__print__export {
-    display: block;
-    position: relative;
-    top: 0;
-    left: calc(100%);
+    margin-left: calc(21cm / 100 * 80);
     transform: translate(-100%);
+  }
+
+  .v-result-viewer__print__project-title {
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    > * {
+      margin: 0;
+    }
   }
 
   .v-result-print__logo {
