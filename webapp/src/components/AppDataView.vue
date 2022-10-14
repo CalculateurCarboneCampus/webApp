@@ -53,13 +53,13 @@ export default defineComponent({
   computed: {
     dataSection(): IUserEditedDataSection | null {
       if( ! this.dataStore.user.tempCurrentEditedProject) return null
+
       const indexOfCurrentEntity = this.dataStore.user.tempCurrentEditedProject
           .indexOf(this.dataStore.user.tempCurrentEditedProject.filter( (value) => {
             return value.entityName === this.dataStore.currentEntityName
           })[0] || null)
-      // todo: debugger
-      return this.dataStore.user.tempCurrentEditedProject[indexOfCurrentEntity].entitySections[this.index]
 
+      return this.dataStore.user.tempCurrentEditedProject[indexOfCurrentEntity]?.entitySections[this.index] || null
     },
 
     arrayOfItemInDataSection(): IUserEditedDataItem[] {
