@@ -18,10 +18,9 @@
         >edit -></router-link>
       </div>
       <div
-          @click="addCalculation"
           class="v-admin-view__add-calculation"
       >
-        <div class="ccc-ui-circle">+</div>
+        <div class="ccc-ui-circle" @click="addCalculation">+</div>
         <div>Nouveau Calcul</div>
         <input type="text" v-model="newProjectName">
       </div>
