@@ -110,6 +110,7 @@ import AppNavigation from "@/components/AppNavigation.vue"
 import Render from "@/components/Render.vue"
 import AppDataView from "@/components/AppDataView.vue"
 import * as html2pdf from "html2pdf.js"
+import {} from "html-to-image"
 
 export default defineComponent({
   components: {Render, AppNavigation, AppDataView},
