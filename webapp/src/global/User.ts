@@ -68,6 +68,8 @@ export class User {
 
   public get userID() {return this.state.userID}
 
+  public get username() {return this.state.username}
+
   public set error(value: string | null) {this.state.error}
   public get error(): string | null {return this.state.error}
 

@@ -32,10 +32,69 @@
     </template>
 
     <template v-else>
-      <div class="ccc-with-gutter ccc-with-raw">
+      <div class="v-result-viewer__print ccc-with-gutter ccc-with-raw">
+        <button
+            class="ccc-ui-button v-result-viewer__print__export"
+            @click="exportPDF()"
+        >export PDF</button>
         <div
+            id="v-result-print"
             class="v-result-print"
-        ></div>
+        >
+          <div
+              class="v-result-print__logo"
+          ><img src="/logo.svg" alt=""></div>
+
+          <div
+              class="v-result-print__header"
+          >
+            <div
+                class="v-result-print__project-name"
+            >
+              {{$route.params.projectSlug}}
+            </div>
+            {{dataStore.user.username}}
+            <br>exporté le {{formatedDate}}
+          </div>
+
+          <div
+              class="v-result-print__body"
+          >
+            <div
+                class="v-result-print__circle-result"
+            ></div>
+
+            <div
+                class="v-result-print__circle-result"
+            >
+              <h1>TOTAL: 0 tCO2e</h1>
+            </div>
+
+          </div>
+
+          <div
+              class="v-result-print__footer"
+          >
+            <div class="ccc-with-gutter">
+              Initié par:
+            </div>
+
+            <div class="ccc-with-gutter">
+              <img
+                  alt="logo hesso"
+                  src="../assets/logo_heg-ge.svg"
+              >
+            </div>
+
+            <div class="ccc-with-gutter">
+              <img
+                  alt="logo hesso"
+                  src="/logo-hesso.svg"
+              >
+            </div>
+          </div>
+
+        </div>
       </div>
     </template>
 
@@ -50,6 +109,7 @@ import type {ICCCDataSection} from "@/GlobalInterfaces"
 import AppNavigation from "@/components/AppNavigation.vue"
 import Render from "@/components/Render.vue"
 import AppDataView from "@/components/AppDataView.vue"
+import * as html2pdf from "html2pdf.js"
 
 export default defineComponent({
   components: {Render, AppNavigation, AppDataView},
@@ -80,6 +140,11 @@ export default defineComponent({
         return value.entityName === this.dataStore.currentEntityName
       })[0]?.entitySections
     },
+
+    formatedDate(): string {
+      const date = new Date()
+      return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
+    }
   },
 
   methods: {
@@ -91,7 +156,20 @@ export default defineComponent({
         if( response.success ) this.dataStore.user.reloadData()
         else this.dataStore.user.error = response.error
       })
-    }
+    },
+
+    exportPDF() {
+      const element = document.getElementById('v-result-print');
+      const opt = {
+        margin:       1,
+        filename:     'myfile.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'cm', format: 'A4', orientation: 'portrait' }
+      };
+      console.log(html2pdf)
+      html2pdf.default().from(element).save();
+    },
   },
 
 })</script>
@@ -130,6 +208,71 @@ export default defineComponent({
     background-color: white;
     transform: scale(.8);
     transform-origin: top left;
+    position: relative;
+  }
+
+  .v-result-viewer__print {
+    position: relative;
+  }
+
+  .v-result-viewer__print__export {
+    display: block;
+    position: relative;
+    top: 0;
+    left: calc(100%);
+    transform: translate(-100%);
+  }
+
+  .v-result-print__logo {
+    position: absolute;
+    top: 1cm;
+    left: 1cm;
+    > img {
+      display: block;
+      width: auto;
+      height: 2cm;
+    }
+  }
+  .v-result-print__header {
+    position: absolute;
+    top: 1cm;
+    left: calc(100%/3);
+  }
+
+  .v-result-print__project-name {
+    font-weight: bold;
+  }
+
+  .v-result-print__body {
+    position: absolute;
+    top: calc(100% / 5 * 1);
+    left: 0;
+    width: 100%;
+  }
+
+  .v-result-print__circle-result {
+    position: absolute;
+    top: 0;
+    left: 1cm;
+    width:  calc(10cm - 1.5cm);
+    height: calc(10cm - 1.5cm);
+    border: solid 1pt;
+    border-radius: 100%;
+  }
+
+  .v-result-print__footer {
+    display: flex;
+    width: 100%;
+    position: absolute;
+    bottom: 1cm;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      display: block;
+      height: 1cm;
+    }
   }
 }
 
