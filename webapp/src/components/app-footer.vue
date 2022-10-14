@@ -8,6 +8,14 @@
       <img
           class="v-app-footer__logo"
           alt="logo hesso"
+          src="../assets/logo_heg-ge.svg"
+      >
+    </div>
+
+    <div class="ccc-with-gutter">
+      <img
+          class="v-app-footer__logo"
+          alt="logo hesso"
           src="/logo-hesso.svg"
       >
     </div>
