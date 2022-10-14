@@ -30,9 +30,9 @@ export default defineComponent({
 
   computed: {
     allCCCDataNames(): string[] {
-      return this.dataStore.CCCData.map( value => {
+      return this.dataStore.user.tempCurrentEditedProject?.map( value => {
         return value.entityName
-      })
+      }) || []
     }
   },
 })</script>

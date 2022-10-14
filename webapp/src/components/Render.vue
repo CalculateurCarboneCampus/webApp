@@ -51,7 +51,9 @@ export default defineComponent({
 
   computed: {
     totalValue(): any {
-      return this.dataStore.CCCData.map( entityValue => {
+      if(this.dataStore.user.tempCurrentEditedProject === null) return 0
+
+      return this.dataStore.user.tempCurrentEditedProject.map( entityValue => {
         return entityValue.entitySections.map( sectionValue => {
           return sectionValue.item.map( itemValue => {
             return itemValue.donnes * itemValue.tco2e

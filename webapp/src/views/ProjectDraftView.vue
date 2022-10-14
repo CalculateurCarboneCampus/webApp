@@ -55,7 +55,6 @@ export default defineComponent({
   components: {Render, AppNavigation, AppDataView},
   data() {
     return {
-      textValue: "",
       dataStore: useDataStore()
     }
   },
@@ -74,7 +73,10 @@ export default defineComponent({
     },
 
     dataSection(): ICCCDataSection[] {
-      return this.dataStore.CCCData.filter( (value) => {
+
+      if(this.dataStore.user.tempCurrentEditedProject === null) return []
+
+      return this.dataStore.user.tempCurrentEditedProject.filter( (value) => {
         return value.entityName === this.dataStore.currentEntityName
       })[0]?.entitySections
     },

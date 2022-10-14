@@ -10,8 +10,15 @@
         >{{ dataSection.name }}</h4>
       </div>
 
+      <div
+          v-for="(dataItem, ItemIndex) of arrayOfItemInDataSection"
+      >
+        {{dataItem}}
+      </div>
+
       <app-data-view-item
-        v-for="(dataItem, ItemIndex) of dataSection.item"
+          v-if="showItem"
+        v-for="(dataItem, ItemIndex) of arrayOfItemInDataSection"
         :index="ItemIndex"
         :parent-section-index="index"
       ></app-data-view-item>
@@ -26,10 +33,10 @@
 <script lang="ts">
 import {defineComponent} from "vue"
 import AppDataViewItem from "@/components/AppDataViewItem.vue"
-import type {ICCCDataSection} from "@/GlobalInterfaces"
 import ButtonAdd from "@/components/ButtonAdd.vue"
 import {useDataStore} from "@/stores/dataStore"
 import type {IUserEditedDataEntity, IUserEditedDataSection} from "@/global/User"
+import type {IUserEditedDataItem} from "@/global/User"
 
 
 export default defineComponent({
@@ -37,7 +44,8 @@ export default defineComponent({
 
   data() {
     return {
-      dataStore: useDataStore()
+      dataStore: useDataStore(),
+      showItem: true,
     }
   },
 
@@ -55,9 +63,23 @@ export default defineComponent({
           .indexOf(this.dataStore.user.tempCurrentEditedProject.filter( (value) => {
             return value.entityName === this.dataStore.currentEntityName
           })[0] || null)
-
+      // todo: debugger
       return this.dataStore.user.tempCurrentEditedProject[indexOfCurrentEntity].entitySections[this.index]
 
+    },
+
+    arrayOfItemInDataSection(): IUserEditedDataItem[] {
+      return this.dataSection?.item || []
+    }
+  },
+
+  watch: {
+    arrayOfItemInDataSection() {
+      this.showItem = false
+      // todo: force to reload component
+      window.setTimeout(()=>{
+        this.showItem = true
+      }, 150)
     }
   }
 

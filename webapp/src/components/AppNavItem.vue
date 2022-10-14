@@ -38,7 +38,7 @@ export default defineComponent({
 
   methods: {
     navItemActivated() {
-      this.dataStore.currentEntityName = this.name
+      this.dataStore.setCurrentEntiryName(this.name)
     }
   },
 

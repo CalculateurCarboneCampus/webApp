@@ -55,7 +55,6 @@
 <script lang="ts">
 import {defineComponent} from "vue"
 import type {PropType} from "vue"
-import type {ICCCDataItem, ICCCDataSection} from "@/GlobalInterfaces"
 import {useDataStore} from "@/stores/dataStore"
 import type {IUserEditedDataItem} from "@/global/User"
 

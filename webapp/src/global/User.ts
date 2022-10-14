@@ -55,6 +55,8 @@ export class User {
 
       this.state = await response.json() as api.userData
 
+    // debugger
+
       return this
   }
 
@@ -81,6 +83,8 @@ export class User {
       credentials: "same-origin",
     })
 
+    // debugger
+
     return await response.json() as { 'error': string | null, success: boolean }
   }
 
@@ -91,6 +95,7 @@ export class User {
       CCCDataEntity.entitySections = (CCCDataEntity as IUserEditedDataEntity).entitySections.map(CCCDataSection => {
 
         CCCDataSection.item = CCCDataSection.item.map(CCCDataItem => {
+          // todo: set edited status to false by default
           CCCDataItem.edited = true
           return CCCDataItem
         })
