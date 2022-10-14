@@ -10,12 +10,6 @@
         >{{ dataSection.name }}</h4>
       </div>
 
-      <div
-          v-for="(dataItem, ItemIndex) of arrayOfItemInDataSection"
-      >
-        {{dataItem}}
-      </div>
-
       <app-data-view-item
           v-if="showItem"
         v-for="(dataItem, ItemIndex) of arrayOfItemInDataSection"
