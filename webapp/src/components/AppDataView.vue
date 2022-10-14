@@ -29,6 +29,7 @@ import AppDataViewItem from "@/components/AppDataViewItem.vue"
 import type {ICCCDataSection} from "@/GlobalInterfaces"
 import ButtonAdd from "@/components/ButtonAdd.vue"
 import {useDataStore} from "@/stores/dataStore"
+import type {IUserEditedDataEntity, IUserEditedDataSection} from "@/global/User"
 
 
 export default defineComponent({
@@ -48,7 +49,7 @@ export default defineComponent({
   },
 
   computed: {
-    dataSection(): ICCCDataSection | null {
+    dataSection(): IUserEditedDataSection | null {
       if( ! this.dataStore.user.tempCurrentEditedProject) return null
       const indexOfCurrentEntity = this.dataStore.user.tempCurrentEditedProject
           .indexOf(this.dataStore.user.tempCurrentEditedProject.filter( (value) => {

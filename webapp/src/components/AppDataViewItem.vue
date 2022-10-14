@@ -1,51 +1,55 @@
 <template>
-  <div class="v-app-data-view-item" v-if="dataItem !== null">
-    <div class="v-app-data-view-item__choice-box ccc-with-gutter">
-      <div class="v-app-data-view-item__choice-box__ui ccc-ui-circle">-</div>
-      <div class="v-app-data-view-item__choice-box__ui ccc-ui-circle">-</div>
-      <div class="v-app-data-view-item__choice-box__value"
-      >{{dataItem.name}}</div>
-    </div>
-
-    <div class="v-app-data-view-item__element ccc-with-gutter">
-
-      <div class="v-app-data-view-item__element__value">
-        <input
-            class="v-app-data-view-item__element__value__input"
-            type="number"
-            :min="valueMin"
-            :max="valueMax"
-            :step="valueStep"
-            v-model="dataItemDonnes"
-        >
+  <template v-if="dataItem !== null" >
+    <div class="v-app-data-view-item" v-if="dataItem.edited" >
+      <div class="v-app-data-view-item__choice-box ccc-with-gutter">
         <div
-            class="v-app-data-view-item__element__value__ui-box"
+            class="v-app-data-view-item__choice-box__ui ccc-ui-circle"
+            @click="removeItem"
+        >-</div>
+        <div class="v-app-data-view-item__choice-box__value"
+        >{{dataItem.name}}</div>
+      </div>
+
+      <div class="v-app-data-view-item__element ccc-with-gutter">
+
+        <div class="v-app-data-view-item__element__value">
+          <input
+              class="v-app-data-view-item__element__value__input"
+              type="number"
+              :min="valueMin"
+              :max="valueMax"
+              :step="valueStep"
+              v-model="dataItemDonnes"
+          >
+          <div
+              class="v-app-data-view-item__element__value__ui-box"
+          >
+            <div class="v-app-data-view-item__element__value__ui-box__ui" @click="changeValue(+1)" >+</div>
+            <div class="v-app-data-view-item__element__value__ui-box__ui" @click="changeValue(-1)" >-</div>
+          </div>
+        </div>
+
+        <div
+            class="v-app-data-view-item__element__unit ccc-with-gutter"
         >
-          <div class="v-app-data-view-item__element__value__ui-box__ui" @click="changeValue(+1)" >+</div>
-          <div class="v-app-data-view-item__element__value__ui-box__ui" @click="changeValue(-1)" >-</div>
+          {{ dataItem.unit }}
         </div>
       </div>
 
-      <div
-          class="v-app-data-view-item__element__unit ccc-with-gutter"
-      >
-        {{ dataItem.unit }}
+      <div class="v-app-data-view-item__element ccc-with-gutter">
+        <div
+            class="v-app-data-view-item__element__value has-not-interaction ccc-with-gutter"
+        >
+          {{dataItem.tco2e}}
+        </div>
+        <div
+            class="v-app-data-view-item__element__unit ccc-with-gutter"
+        >
+          tCO2e
+        </div>
       </div>
     </div>
-
-    <div class="v-app-data-view-item__element ccc-with-gutter">
-      <div
-          class="v-app-data-view-item__element__value has-not-interaction ccc-with-gutter"
-      >
-        {{dataItem.tco2e}}
-      </div>
-      <div
-          class="v-app-data-view-item__element__unit ccc-with-gutter"
-      >
-        tCO2e
-      </div>
-    </div>
-  </div>
+  </template>
 </template>
 
 <script lang="ts">
@@ -95,6 +99,10 @@ export default defineComponent({
     changeValue(value: number) {
       if( value > 0 ) this.dataItemDonnes++
       else this.dataItemDonnes--
+    },
+
+    removeItem() {
+      this.dataItem!.edited = false
     }
   },
 

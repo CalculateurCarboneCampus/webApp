@@ -81,7 +81,7 @@ export default defineComponent({
   methods: {
     save() {
       this.dataStore.user.save({
-        value: {value: this.textValue},
+        value: this.textValue,
         projectName: this.$route.params.projectSlug,
       }).then(response => {
         if( response.success ) this.dataStore.user.reloadData()

@@ -23,6 +23,7 @@
       >
         <div class="ccc-ui-circle">+</div>
         <div>Nouveau Calcul</div>
+        <input type="text" v-model="newProjectName">
       </div>
     </div>
   </div>
@@ -39,7 +40,8 @@ export default defineComponent({
 
   data() {
     return {
-      dataStore: useDataStore()
+      dataStore: useDataStore(),
+      newProjectName: '',
     }
   },
 
@@ -55,7 +57,7 @@ export default defineComponent({
 
   methods: {
     addCalculation(): void {
-      this.dataStore.user.createNewProject(this.dataStore.CCCData, 'AAA_new-test')
+      this.dataStore.user.createNewProject(this.dataStore.CCCData, this.newProjectName)
     },
   },
 
@@ -79,11 +81,20 @@ export default defineComponent({
       transition: transform .5s ease-in-out;
     }
 
+    input {
+      opacity: 0;
+      transition: opacity .5s ease-in-out;
+    }
+
     &:hover {
       background: var(--ccc-color-main);
 
       div {
         transform: translate(0, -1rem);
+      }
+
+      input {
+        opacity: 1;
       }
 
       .ccc-ui-circle {
