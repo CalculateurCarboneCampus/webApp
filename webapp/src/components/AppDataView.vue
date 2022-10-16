@@ -10,15 +10,27 @@
         >{{ dataSection.name }}</h4>
       </div>
 
-      <app-data-view-item
-          v-if="showItem"
+      <template
         v-for="(dataItem, ItemIndex) of arrayOfItemInDataSection"
-        :index="ItemIndex"
-        :parent-section-index="index"
-      ></app-data-view-item>
+        v-if="showItem"
+      >
+          <app-data-view-item
+            v-if="dataItem.edited"
+            :index="ItemIndex"
+            :parent-section-index="index"
+          ></app-data-view-item>
+      </template>
 
-      <div class="ccc-with-gutter">
+      <div
+          class="ccc-with-gutter"
+          v-if="showItem && arrayOfUneditedItemInDataSection.length > 0"
+      >
         <button-add>Nouvelle entrée</button-add>
+        <div
+            v-for="unedtitedItem of arrayOfUneditedItemInDataSection"
+        >
+          {{unedtitedItem.name}}
+        </div>
       </div>
     </div>
   </div>
@@ -64,6 +76,12 @@ export default defineComponent({
 
     arrayOfItemInDataSection(): IUserEditedDataItem[] {
       return this.dataSection?.item || []
+    },
+
+    arrayOfUneditedItemInDataSection():IUserEditedDataItem[] {
+      return this.dataSection?.item.filter(value => {
+        return !value.edited
+      }) || []
     }
   },
 
@@ -73,7 +91,7 @@ export default defineComponent({
       // todo: force to reload component
       window.setTimeout(()=>{
         this.showItem = true
-      }, 150)
+      }, 50)
     }
   }
 

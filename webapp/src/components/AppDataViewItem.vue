@@ -1,6 +1,6 @@
 <template>
   <template v-if="dataItem !== null" >
-    <div class="v-app-data-view-item" v-if="dataItem.edited" >
+    <div class="v-app-data-view-item">
       <div class="v-app-data-view-item__choice-box ccc-with-gutter">
         <div
             class="v-app-data-view-item__choice-box__ui ccc-ui-circle"

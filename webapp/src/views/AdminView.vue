@@ -13,7 +13,7 @@
             class="v-admin-view__projects__item__slug"
         >{{project.slug}}</div>
         <router-link
-            class="ccc-ui-button--small"
+            class="ccc-ui-button--small v-admin-view__projects__item__button"
             :to="{name: 'admin.project', params: {userID: user.userID, projectSlug: project.slug}}"
         >edit -></router-link>
       </div>
@@ -102,12 +102,22 @@ export default defineComponent({
     }
   }
 
+  .v-admin-view__projects__item__button {
+    background-color: var(--ccc-color-dark);
+    color: var(--ccc-color-white);
+    padding: .5rem;
+  }
+
   .v-admin-view__projects__item {
-    padding-top:    calc( var(--ccc-unit) / 2 );
-    padding-bottom: calc( var(--ccc-unit) / 2 );
+    padding:    1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    &:hover {
+      background-color: var(--ccc-color-main);
+      border-radius: 1rem;
+    }
 
     > * {
       display: block;
