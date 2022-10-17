@@ -1,6 +1,6 @@
 <template>
-  <div class="v-button-add ccc-with-gutter">
-    <div class="v-button-add__ui">+</div>
+  <div class="v-button-add ccc-with-gutter" :class="{'is-alternate': isAlternate}">
+    <div class="v-button-add__ui">{{icon}}</div>
     <slot></slot>
   </div>
 </template>
@@ -10,6 +10,14 @@ import {defineComponent} from "vue"
 
 export default defineComponent({
   props: {
+    icon: {
+      default: '+',
+      type: String,
+    },
+    isAlternate: {
+      type: Boolean,
+      default: false,
+    }
   },
 
 })</script>
@@ -35,6 +43,17 @@ export default defineComponent({
     height: var(--ccc-ui-size-unit);
     width: var(--ccc-ui-size-unit);
     text-align: center;
+  }
+
+  &.is-alternate {
+    padding-left: var(--ccc-gutter-half);
+    padding-right: calc(var(--ccc-ui-size-unit) / 2);
+
+    .v-button-add__ui {
+      left: auto;
+      right: 0;
+      transform: translate( 50%, -50%);
+    }
   }
 }
 </style>

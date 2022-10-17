@@ -25,11 +25,19 @@
           class="ccc-with-gutter"
           v-if="showItem && arrayOfUneditedItemInDataSection.length > 0"
       >
-        <button-add>Nouvelle entrée</button-add>
+        <button-add
+            @click="showAddNewItemList = !showAddNewItemList"
+        >Nouvelle entrée</button-add>
         <div
-            v-for="unedtitedItem of arrayOfUneditedItemInDataSection"
+            v-if="showAddNewItemList"
         >
-          {{unedtitedItem.name}}
+          <button-add
+              :is-alternate="true"
+              v-for="unedtitedItem of arrayOfUneditedItemInDataSection"
+              @click="unedtitedItem.edited = true"
+          >
+            {{unedtitedItem.name}}
+          </button-add>
         </div>
       </div>
     </div>
@@ -52,6 +60,7 @@ export default defineComponent({
     return {
       dataStore: useDataStore(),
       showItem: true,
+      showAddNewItemList: false,
     }
   },
 
