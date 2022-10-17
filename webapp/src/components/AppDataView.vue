@@ -22,7 +22,7 @@
       </template>
 
       <div
-          class="ccc-with-gutter"
+          class="ccc-with-gutter v-app-data-view__listItemToAdd"
           v-if="showItem && arrayOfUneditedItemInDataSection.length > 0"
       >
         <button-add
@@ -30,13 +30,14 @@
         >Nouvelle entrée</button-add>
         <div
             v-if="showAddNewItemList"
+            class="v-app-data-view__listItemToAdd__item"
         >
           <button-add
-              :is-alternate="true"
               v-for="unedtitedItem of arrayOfUneditedItemInDataSection"
+              :is-alternate="true"
               @click="unedtitedItem.edited = true"
           >
-            {{unedtitedItem.name}}
+            {{ unedtitedItem.name }}
           </button-add>
         </div>
       </div>
@@ -123,5 +124,23 @@ export default defineComponent({
     box-shadow: var(--ccc-box-shadow);
     padding-right: var(--ccc-ui-size-unit);
   }
+}
+
+.v-app-data-view__listItemToAdd {
+  position: relative;
+}
+
+.v-app-data-view__listItemToAdd__item {
+  background: var(--ccc-color-alternate);
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  padding-top: 1rem;
+  transform: translateX(.5rem);
+  box-shadow: 0 20px 20px -10px black;
+  z-index: 1;
 }
 </style>
