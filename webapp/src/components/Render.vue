@@ -6,7 +6,7 @@
 
     <div class="v-render__body ccc-with-gutter ccc-no-margin ccc-with-raw">
 
-      <p class="v-render__result-value">{{parseFloat(totalValue).toFixed(3)}} tCO2e</p>
+      <p class="v-render__result-value">{{totalValue.toFixed(3)}} tCO2e</p>
 
       <img
           v-if="totalValue < coffeeLimit"
@@ -50,16 +50,8 @@ export default defineComponent({
   },
 
   computed: {
-    totalValue(): any {
-      if(this.dataStore.user.tempCurrentEditedProject === null) return 0
-
-      return this.dataStore.user.tempCurrentEditedProject.map( entityValue => {
-        return entityValue.entitySections.map( sectionValue => {
-          return sectionValue.item.map( itemValue => {
-            return itemValue.donnes * itemValue.tco2e
-          }).reduce( (previousValue, currentValue) => { return previousValue + currentValue }, 0 )
-        }).reduce( (previousValue, currentValue) => { return previousValue + currentValue } )
-      }).reduce( (previousValue, currentValue) => { return previousValue + currentValue } )
+    totalValue(): number {
+      return this.dataStore.totalValue
     }
   }
 

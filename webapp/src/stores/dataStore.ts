@@ -12,6 +12,19 @@ export const useDataStore = defineStore({
   }),
 
   getters: {
+    totalValue(state): number {
+      if(state.user.tempCurrentEditedProject === null) return 0
+
+      return state.user.tempCurrentEditedProject.map( entityValue => {
+        return entityValue.entitySections.map( sectionValue => {
+          return sectionValue.item.map( itemValue => {
+            if(itemValue.edited)  return itemValue.donnes * itemValue.tco2e
+            else return 0
+          }).reduce( (previousValue, currentValue) => { return previousValue + currentValue }, 0 )
+        }).reduce( (previousValue, currentValue) => { return previousValue + currentValue } )
+      }).reduce( (previousValue, currentValue) => { return previousValue + currentValue } )
+    }
+
   },
 
   actions: {
