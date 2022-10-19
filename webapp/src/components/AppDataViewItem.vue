@@ -1,10 +1,12 @@
 <template>
   <template v-if="dataItem !== null" >
     <div class="v-app-data-view-item">
-      <div class="v-app-data-view-item__choice-box ccc-with-gutter">
+      <div
+          class="v-app-data-view-item__choice-box ccc-with-gutter"
+          @click="removeItem"
+      >
         <div
             class="v-app-data-view-item__choice-box__ui ccc-ui-circle"
-            @click="removeItem"
         >-</div>
         <div class="v-app-data-view-item__choice-box__value"
         >{{dataItem.name}}</div>

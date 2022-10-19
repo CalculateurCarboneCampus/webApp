@@ -35,7 +35,7 @@
           <button-add
               v-for="unedtitedItem of arrayOfUneditedItemInDataSection"
               :is-alternate="true"
-              @click="unedtitedItem.edited = true"
+              @click="unedtitedItem.edited = true; showAddNewItemList = false"
           >
             {{ unedtitedItem.name }}
           </button-add>
