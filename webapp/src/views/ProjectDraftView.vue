@@ -71,7 +71,14 @@
             <div
                 class="v-result-print__stat-result"
             >
-              <h1>TOTAL: {{dataStore.totalValue}} tCO2e</h1>
+              <h1>TOTAL: {{dataStore.totalValue.toFixed(3)}} tCO2e</h1>
+              <div>
+                <div
+                    v-for="dataEntity of dataStore.user.tempCurrentEditedProject"
+                >
+                  <div></div><div>{{dataEntity.entityName}} : {{dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(3)}}</div>
+                </div>
+              </div>
             </div>
 
           </div>

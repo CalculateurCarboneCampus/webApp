@@ -89,6 +89,23 @@ export const useDataStore = defineStore({
 
     setCurrentEntiryName(value: string) {
       this.currentEntityName = value
+    },
+
+    getTotalValueOfEntity(entityName: string): number {
+
+      if(this.user.tempCurrentEditedProject === null) return 0
+
+      let totalEntityValue = 0
+
+      this.user.tempCurrentEditedProject.find(entity => {
+        return entity.entityName === entityName
+      })?.entitySections.map(section => {
+        section.item.map(sectionItem => {
+          if( sectionItem.edited ) totalEntityValue += sectionItem.donnes * sectionItem.tco2e
+        })
+      })
+
+      return totalEntityValue
     }
   },
 })
