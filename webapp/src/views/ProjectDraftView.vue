@@ -69,9 +69,9 @@
             ></div>
 
             <div
-                class="v-result-print__circle-result"
+                class="v-result-print__stat-result"
             >
-              <h1>TOTAL: 0 tCO2e</h1>
+              <h1>TOTAL: {{dataStore.totalValue}} tCO2e</h1>
             </div>
 
           </div>
@@ -166,11 +166,12 @@ export default defineComponent({
     exportPDF() {
       const element = document.querySelector('.v-result-print') as HTMLElement
 
-      element.style.transform = 'none'
-
       const toJpegOption: Options = {
         quality: 1,
         pixelRatio: 4,
+        style: {
+          transform: 'none'
+        },
       }
 
       toJpeg(element, toJpegOption ).then(dataUrl => {
@@ -221,6 +222,7 @@ export default defineComponent({
     transform: scale(.8);
     transform-origin: top left;
     position: relative;
+    flex-shrink: 0;
   }
 
   .v-result-viewer__print {
@@ -268,20 +270,28 @@ export default defineComponent({
   }
 
   .v-result-print__body {
-    position: absolute;
+    position: relative;
+    margin: auto;
     top: calc(100% / 5 * 1);
     left: 0;
-    width: 100%;
+    width: calc( 100% - 2cm);
+    display: flex;
   }
 
   .v-result-print__circle-result {
-    position: absolute;
-    top: 0;
-    left: 1cm;
-    width:  calc(10cm - 1.5cm);
-    height: calc(10cm - 1.5cm);
+    position: relative;
+    width:  calc( (21cm - 1.5cm) / 2 - .5cm);
+    height: calc( (21cm - 1.5cm) / 2 - .5cm);
     border: solid 1pt;
     border-radius: 100%;
+    flex-shrink: 0;
+    box-sizing: border-box;
+  }
+
+  .v-result-print__stat-result {
+    width: calc( 50% + .5cm);
+    box-sizing: border-box;
+    padding-left: 1cm;
   }
 
   .v-result-print__footer {

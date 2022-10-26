@@ -8,26 +8,52 @@
 
       <p class="v-render__result-value">{{totalValue.toFixed(3)}} tCO2e</p>
 
-      <img
-          v-if="totalValue < coffeeLimit"
-          alt="render icon fly"
-          src="../assets/cafe.svg"
+      <div
+          class="v-render__icon"
       >
-      <img
-          v-else
-          alt="render icon fly"
-          src="../assets/avion.svg"
-      >
+        <template
+            v-if="dataStore.valueEquivalent"
+        >
+          <transition-group
+              name="horizontal"
+          >
+            <img
+                v-if="dataStore.valueEquivalent.name === 'coffee'"
+                alt="render icon fly"
+                src="../assets/cafe.svg"
+            >
+            <img
+                v-else-if="dataStore.valueEquivalent.name === 'smartphone'"
+                alt="render icon fly"
+                src="../assets/fabrication_smartphone.svg"
+            >
+            <img
+                v-else-if="dataStore.valueEquivalent.name === 'airplane'"
+                alt="render icon fly"
+                src="../assets/avion.svg"
+            >
+            <img
+                v-else-if="dataStore.valueEquivalent.name === 'resident'"
+                alt="render icon fly"
+                src="../assets/suisse.svg"
+            >
+          </transition-group>
+        </template>
+      </div>
     </div>
 
-    <div class="v-render__footer ccc-with-gutter ccc-no-margin ccc-with-raw">
-      <p
-          v-if="totalValue < coffeeLimit"
-      ><i>{{totalValue}} tonnes de CO2 émis correspond à faire environs <strong>{{Math.round( totalValue / coffeeValue )}} cafés</strong></i></p>
+    <div
+        class="v-render__footer ccc-with-gutter ccc-no-margin ccc-with-raw"
+        v-if="dataStore.valueEquivalent"
+    >
+      <p>
+        <i>
+          {{totalValue}} tonnes de CO2 émis
+          <br>correspond à environs
+          <br><strong>{{Math.round( totalValue / dataStore.valueEquivalent.unitValue )}} {{dataStore.valueEquivalent.sentence}}</strong>
+        </i>
+      </p>
 
-      <p
-          v-else
-      ><i>{{totalValue}} tonnes de CO2 émis correspond à faire environs <strong>{{Math.round( totalValue / flyValue )}} allers retours Genève Londres en avion</strong></i></p>
     </div>
   </div>
 </template>
@@ -41,10 +67,6 @@ export default defineComponent({
   data() {
     return {
       dataStore: useDataStore(),
-      coffeeValue: 0.005, // tones
-      coffeeLimit: 1, // tones
-      phoneValue: 0.1,
-      phoneLimit: .5,
       flyValue: 1, // tones
     }
   },
@@ -60,7 +82,7 @@ export default defineComponent({
 <style lang="scss">
 .v-render {
   margin-right: var(--ccc-gutter-half);
-  max-width: 20rem;
+  width: 20rem;
 
   .v-render__header {
     display: inline-block;
@@ -96,11 +118,20 @@ export default defineComponent({
     text-align: center;
   }
 
-  img {
-    display: block;
+  .v-render__icon {
     width: 100%;
-    max-height: 10rem;
-    margin: auto;
+    height: 10rem;
+    position: relative;
+
+    img {
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      top: 0;
+      left: 0;
+    }
   }
 }
 </style>

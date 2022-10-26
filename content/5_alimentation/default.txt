@@ -26,7 +26,3 @@ Item:
       tco2e: 0.51
       unit: repas
       srcfr: ""
-- 
-  name: traiteur
-  description: ""
-  item: [ ]
