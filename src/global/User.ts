@@ -105,7 +105,7 @@ export class User {
 
       })
 
-      return CCCDataEntity
+      return CCCDataEntity as IUserEditedDataEntity
     })
 
     return new Promise<User>(resolve => {
