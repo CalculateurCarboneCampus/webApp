@@ -1,50 +1,28 @@
-# System files
-# ------------
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-Icon
+node_modules
 .DS_Store
+dist
+dist-ssr
+coverage
+*.local
 
-# Temporary files
-# ---------------
+/cypress/videos/
+/cypress/screenshots/
 
-/media/*
-!/media/index.html
-
-# Lock files
-# ---------------
-
-.lock
-
-# Editors
-# (sensitive workspace files)
-# ---------------------------
-*.sublime-workspace
-/.vscode
-/.idea
-
-# -------------SECURITY-------------
-# NEVER publish these files via Git!
-# -------------SECURITY-------------
-
-# Cache Files
-# ---------------
-
-/site/cache/*
-!/site/cache/index.html
-
-# Accounts
-# ---------------
-
-/site/accounts/*
-!/site/accounts/index.html
-
-# Sessions
-# ---------------
-
-/site/sessions/*
-!/site/sessions/index.html
-
-# License
-# ---------------
-
-/site/config/.license
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

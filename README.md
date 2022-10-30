@@ -1,34 +1,40 @@
-<img src="http://getkirby.com/assets/images/github/plainkit.jpg" width="300">
+# webapp
 
+This template should help get you started developing with Vue 3 in Vite.
 
-**Kirby: the CMS that adapts to any project, loved by developers and editors alike.**  
-The Plainkit is a minimal Kirby setup with the basics you need to start a project from scratch. It is the ideal choice if you are already familiar with Kirby and want to start step-by-step.
+## Recommended IDE Setup
 
-You can learn more about Kirby at [getkirby.com](https://getkirby.com).
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
 
-### Try Kirby for free  
-You can try Kirby and the Plainkit on your local machine or on a test server as long as you need to make sure it is the right tool for your next project. … and when you’re convinced, [buy your license](https://getkirby.com/buy).
+## Type Support for `.vue` Imports in TS
 
-### Get going
-Read our guide on [how to get started with Kirby](https://getkirby.com/docs/guide/quickstart).
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
 
-You can [download the latest version](https://github.com/getkirby/plainkit/archive/main.zip) of the Plainkit.  
-If you are familiar with Git, you can clone Kirby's Plainkit repository from Github.
+If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
-    git clone https://github.com/getkirby/plainkit.git
+1. Disable the built-in TypeScript Extension
+    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
-## What's Kirby?
-- **[getkirby.com](https://getkirby.com)** – Get to know the CMS.
-- **[Try it](https://getkirby.com/try)** – Take a test ride with our online demo. Or download one of our kits to get started.
-- **[Documentation](https://getkirby.com/docs/guide)** – Read the official guide, reference and cookbook recipes.
-- **[Issues](https://github.com/getkirby/kirby/issues)** – Report bugs and other problems.
-- **[Feedback](https://feedback.getkirby.com)** – You have an idea for Kirby? Share it.
-- **[Forum](https://forum.getkirby.com)** – Whenever you get stuck, don't hesitate to reach out for questions and support.
-- **[Discord](https://chat.getkirby.com)** – Hang out and meet the community.
-- **[Twitter](https://twitter.com/getkirby)** – Spread the word.
-- **[Instagram](https://www.instagram.com/getkirby/)** – Share your creations: #madewithkirby.
+## Customize configuration
 
----
+See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-© 2009-2022 Bastian Allgeier  
-[getkirby.com](https://getkirby.com) · [License agreement](https://getkirby.com/license)
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Type-Check, Compile and Minify for Production
+
+```sh
+npm run build
+```
