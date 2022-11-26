@@ -12,7 +12,7 @@
         >{{dataItem.name}}</div>
       </div>
 
-      <div class="v-app-data-view-item__element ccc-with-gutter">
+      <div class="v-app-data-view-item__element v-app-data-view-item__element--value ccc-with-gutter">
 
         <div class="v-app-data-view-item__element__value">
           <input
@@ -238,6 +238,10 @@ export default defineComponent({
 
     .v-app-data-view-item__element__unit {
       color: var(--ccc-color-white);
+    }
+
+    &.v-app-data-view-item__element--value {
+      width: 10rem;
     }
   }
 
