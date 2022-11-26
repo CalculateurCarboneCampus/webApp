@@ -66,17 +66,39 @@
           >
             <div
                 class="v-result-print__circle-result"
-            ></div>
+            >
+              <div
+                  class="v-result-print__circle-result__line"
+                  v-for="dataEntity of dataStore.user.tempCurrentEditedProject"
+                  :style="{
+                  transform: 'rotate(' + (dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue) * 100 / 360 + 'deg'
+                    }"
+              >
+                <div
+                    class="v-result-print__circle-result__line__graphic"
+                ></div>
+                <div class="v-result-print__circle-result__line__name"    >{{dataEntity.entityName}}</div>
+              </div>
+            </div>
 
             <div
                 class="v-result-print__stat-result"
             >
-              <h1>TOTAL: {{dataStore.totalValue.toFixed(3)}} tCO2e</h1>
+              <h1 class="v-result-print__stat-result__title" >TOTAL: {{dataStore.totalValue.toFixed(3)}}<span>tCO2e</span></h1>
               <div>
                 <div
+                    class="v-result-print__stat-result__entity-box"
                     v-for="dataEntity of dataStore.user.tempCurrentEditedProject"
                 >
-                  <div></div><div>{{dataEntity.entityName}} : {{dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(3)}}</div>
+                  <div
+                      class="v-result-print__stat-result__entity-box__value"
+                  >{{dataEntity.entityName}}: {{dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(3)}}</div>
+                  <div
+                      class="v-result-print__stat-result__entity-box__viz"
+                  >
+                    <span :style="{width: (dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(3) + '%'}"></span>
+                    <span>{{(dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(3) }}%</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -295,10 +317,64 @@ export default defineComponent({
     box-sizing: border-box;
   }
 
+  .v-result-print__circle-result__line{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    transform-origin: top left;
+  }
+
+  .v-result-print__circle-result__line__graphic {
+    width: 100%;
+    background: black;
+    height: 1px;
+  }
+
+  .v-result-print__circle-result__line__name {
+    position: absolute;
+    right: 0;
+    text-align: right;
+    max-width: 50%;
+  }
+
   .v-result-print__stat-result {
     width: calc( 50% + .5cm);
     box-sizing: border-box;
     padding-left: 1cm;
+  }
+
+  .v-result-print__stat-result__title {
+    font-size: 2.4rem;
+    line-height: 3rem;
+    margin-top: 0;
+
+    > span {
+      font-weight: 900;
+      font-size: .8rem;
+    }
+  }
+
+  .v-result-print__stat-result__entity-box {
+    margin-top: 1rem;
+  }
+
+  .v-result-print__stat-result__entity-box__value {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+
+  .v-result-print__stat-result__entity-box__viz {
+    > span {
+      display: inline-block;
+
+      &:first-child {
+        background: black;
+        height: 1rem;
+        margin-right: 1rem;
+        min-width: 2px;
+      }
+    }
   }
 
   .v-result-print__footer {
