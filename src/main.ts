@@ -14,6 +14,6 @@ app.use(router)
 
 app.mount('#app')
 
-const response = await window.fetch('http://localhost:8000/', {})
+const response = await window.fetch('https://api.campus-carbone.ch/', {})
 
 useDataStore().setCCCData(await response.json())
