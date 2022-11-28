@@ -2,6 +2,7 @@ import type {api} from "@/global/api"
 import router from "@/router"
 import type {ICCCDataEntity} from "@/GlobalInterfaces"
 import type {ICCCDataItem, ICCCDataSection} from "@/GlobalInterfaces"
+import {apiUrl} from "@/main";
 
 export class User {
 
@@ -46,7 +47,7 @@ export class User {
         userPassword: this.password,
       })
 
-      const response = await fetch("http://localhost:8000/rest.user.data", {
+      const response = await fetch(apiUrl + "rest.user.data", {
         method: 'POST',
         headers: myHeaders,
         body: raw,
@@ -75,7 +76,7 @@ export class User {
 
   async save(raw: {projectName: string | string[], value: string}) {
 
-    const response = await fetch("http://localhost:8000/rest.user.save", {
+    const response = await fetch(apiUrl + "rest.user.save", {
       method: 'POST',
       body: JSON.stringify({
         userId: this.id,
