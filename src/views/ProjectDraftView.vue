@@ -69,15 +69,15 @@
             >
               <div
                   class="v-result-print__circle-result__line"
-                  v-for="dataEntity of dataStore.user.tempCurrentEditedProject"
+                  v-for="currentResult of concatResults"
                   :style="{
-                  transform: 'rotate(' + (dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue) * 100 / 360 + 'deg'
+                  transform: 'rotate(' + currentResult.concatRotationPercent + 'deg'
                     }"
               >
                 <div
                     class="v-result-print__circle-result__line__graphic"
                 ></div>
-                <div class="v-result-print__circle-result__line__name"    >{{dataEntity.entityName}}</div>
+                <div class="v-result-print__circle-result__line__name"    >{{currentResult.dataEntity.entityName}}</div>
               </div>
             </div>
 
@@ -144,6 +144,7 @@ import Render from "@/components/Render.vue"
 import AppDataView from "@/components/AppDataView.vue"
 import {toJpeg} from "html-to-image"
 import type {Options} from "html-to-image/lib/types"
+import type {IUserEditedDataEntity} from "@/global/User";
 
 export default defineComponent({
   components: {Render, AppNavigation, AppDataView},
@@ -160,6 +161,31 @@ export default defineComponent({
   },
 
   computed: {
+    concatResults(): { concatRotationPercent: number, dataEntity: IUserEditedDataEntity }[] {
+      if( this.dataStore.user.tempCurrentEditedProject === null ) return []
+
+      const toReturn: {concatRotationPercent: number, dataEntity: IUserEditedDataEntity }[] = []
+
+      let concatRotationPercent = 0
+
+      for(const dataEntity of this.dataStore.user.tempCurrentEditedProject) {
+        const percent = (this.dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / this.dataStore.totalValue)
+
+        concatRotationPercent += 360*percent/100
+
+        console.log( percent )
+        console.log( concatRotationPercent )
+
+
+        toReturn.push({
+          concatRotationPercent: concatRotationPercent,
+          dataEntity: dataEntity,
+        })
+      }
+
+      return toReturn
+    },
+
     project(): api.project | null {
       return Object.values(this.dataStore.user.listOfProjects).find(value => {
         return value.slug === this.$route.params.projectSlug
