@@ -14,6 +14,9 @@ app.use(router)
 
 app.mount('#app')
 
-const response = await window.fetch('https://api.campus-carbone.ch/', {})
+async function main() {
+    const response = await window.fetch('https://api.campus-carbone.ch/', {})
 
-useDataStore().setCCCData(await response.json())
+    useDataStore().setCCCData(await response.json())
+}
+main()
