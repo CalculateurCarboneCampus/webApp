@@ -1,22 +1,30 @@
 <template>
   <div class="v-app-footer ccc-with-raw">
     <div class="ccc-with-gutter">
-      Initié par:
+      soutenu par
     </div>
 
-    <div class="ccc-with-gutter">
+    <div class="ccc-with-gutter-xl">
       <img
           class="v-app-footer__logo"
-          alt="logo hesso"
+          alt="logo hes-ge"
           src="../assets/logo_heg-ge.svg"
       >
     </div>
 
-    <div class="ccc-with-gutter">
+    <div class="ccc-with-gutter-xl">
       <img
           class="v-app-footer__logo"
+          alt="logo head"
+          src="/logo-head.png"
+      >
+    </div>
+    <div class="ccc-with-gutter-xl">
+      <img
+          style="height: 2.5rem"
+          class="v-app-footer__logo"
           alt="logo hesso"
-          src="/logo-hesso.svg"
+          src="/logo-hesso-geneve.png"
       >
     </div>
   </div>
@@ -35,12 +43,9 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
 
-  > * {
-    display: block;
-  }
-
   .v-app-footer__logo {
     height: 3rem;
+    display: block;
   }
 }
 </style>
