@@ -17,13 +17,15 @@
             :to="{name: 'admin.project', params: {userID: user.userID, projectSlug: project.slug}}"
         >edit -></router-link>
       </div>
-      <div
+      <form
           class="v-admin-view__add-calculation"
+          @click="focusToInput"
+          @submit="addCalculation"
       >
         <div class="ccc-ui-circle" @click="addCalculation">+</div>
         <div>Nouveau Calcul</div>
-        <input type="text" v-model="newProjectName">
-      </div>
+        <input ref="nameNewDocumentInput" type="text" v-model="newProjectName">
+      </form>
     </div>
   </div>
 </template>
@@ -57,6 +59,11 @@ export default defineComponent({
   methods: {
     addCalculation(): void {
       this.dataStore.user.createNewProject(this.dataStore.CCCData, this.newProjectName)
+    },
+
+    focusToInput() {
+      if(this.$refs.nameNewDocumentInput instanceof HTMLInputElement)
+        this.$refs.nameNewDocumentInput.focus()
     },
   },
 
