@@ -56,8 +56,6 @@ export class User {
 
       this.state = await response.json() as api.userData
 
-    // debugger
-
       return this
   }
 
