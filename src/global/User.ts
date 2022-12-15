@@ -37,7 +37,6 @@ export class User {
 
   public async reloadData() {
 
-      console.log("reloadData")
       const myHeaders = new Headers()
       // todo: cookie session
       // myHeaders.append("Cookie", "kirby_session=")
@@ -72,24 +71,29 @@ export class User {
   public set error(value: string | null) {this.state.error}
   public get error(): string | null {return this.state.error}
 
-  async save(raw: {projectName: string | string[], value: string}) {
+  async save(raw: {projectName: string | string[], value: string}): Promise<{ error: string | null; success: boolean }> {
 
-    const response = await fetch(apiUrl + "rest.user.save", {
-      method: 'POST',
-      body: JSON.stringify({
-        userId: this.id,
-        userPassword: this.password,
-        ...raw,
-      }),
-      credentials: "same-origin",
-    })
+    try {
+      const response = await fetch(apiUrl + "rest.user.save", {
+        method: 'POST',
+        body: JSON.stringify({
+          userId: this.id,
+          userPassword: this.password,
+          ...raw,
+        }),
+        credentials: "same-origin",
+      })
 
-    // debugger
-
-    return await response.json() as { 'error': string | null, success: boolean }
+      return await response.json() as { 'error': string | null, success: boolean }
+    } catch (e) {
+      return {
+        error: e as string,
+        success: false,
+      }
+    }
   }
 
-  async createNewProject(userEditedData: ICCCDataEntity[], projectName: string) {
+  async createNewProject(userEditedData: ICCCDataEntity[], projectName: string): Promise<{success: boolean, slugOfNewProject: string}> {
 
     this.tempCurrentEditedProject = userEditedData.map(CCCDataEntity => {
 
@@ -107,15 +111,23 @@ export class User {
       return CCCDataEntity as IUserEditedDataEntity
     })
 
-    return new Promise<User>(resolve => {
+    return new Promise<{success: boolean, slugOfNewProject: string}>(resolve => {
       this.save({
         projectName: projectName,
         value: JSON.stringify(this.tempCurrentEditedProject as IUserEditedDataEntity[]),
       }).then(async response => {
         if(response.success) {
-          resolve(await this.reloadData())
+          await this.reloadData()
+          resolve({
+            slugOfNewProject: projectName,
+            success: true,
+          })
         } else {
-          resolve(this)
+          console.error("Oups, Failed to fetch")
+          resolve({
+            slugOfNewProject: projectName,
+            success: false,
+          })
         }
       })
     })

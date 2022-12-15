@@ -57,8 +57,15 @@ export default defineComponent({
   },
 
   methods: {
-    addCalculation(): void {
-      this.dataStore.user.createNewProject(this.dataStore.CCCData, this.newProjectName)
+    async addCalculation(): Promise<void> {
+      const newProjectResponse = await this.dataStore.user.createNewProject(this.dataStore.CCCData, this.newProjectName)
+      if(newProjectResponse.success) await this.$router.push({
+        name: 'admin.project',
+        params: {
+          userID: this.user.userID,
+          projectSlug: newProjectResponse.slugOfNewProject
+        }
+      })
     },
 
     focusToInput() {
