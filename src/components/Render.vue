@@ -48,7 +48,7 @@
     >
       <p>
         <i>
-          {{totalValue}} tonnes de CO2 émis
+          {{totalValue.toFixed(2).replace('.', ',')}} tonnes de CO2 émis
           <br>correspond à environs
           <br><strong>{{Math.round( totalValue / dataStore.valueEquivalent.unitValue )}} {{dataStore.valueEquivalent.sentence}}</strong>
         </i>
