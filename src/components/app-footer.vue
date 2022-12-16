@@ -1,7 +1,7 @@
 <template>
   <div class="v-app-footer ccc-with-raw">
     <div class="ccc-with-gutter">
-      Soutenu par
+      Développé par
     </div>
 
     <div class="ccc-with-gutter-xl">

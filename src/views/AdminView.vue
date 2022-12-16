@@ -1,6 +1,6 @@
 <template>
   <div class="v-admin-view ccc-with-gutter">
-    <h1 class="ccc-with-gutter">Mon éspace: {{dataStore.user.username}}</h1>
+    <h1 class="ccc-with-gutter">Mon espace: {{dataStore.user.username}}</h1>
 
     <div
         class="v-admin-view__projects"
@@ -12,10 +12,24 @@
         <div
             class="v-admin-view__projects__item__slug"
         >{{project.slug}}</div>
-        <router-link
-            class="ccc-ui-button--small v-admin-view__projects__item__button"
-            :to="{name: 'admin.project', params: {userID: user.userID, projectSlug: project.slug}}"
-        >modifier -></router-link>
+        <div>
+          <div
+              style="margin-right: 1rem"
+              class="ccc-ui-button--small v-admin-view__projects__item__button"
+          >supprimer</div>
+          <div
+              style="margin-right: 1rem"
+              class="ccc-ui-button--small v-admin-view__projects__item__button"
+          >publier</div>
+          <div
+              style="margin-right: 1rem"
+              class="ccc-ui-button--small v-admin-view__projects__item__button"
+          >notes projet</div>
+          <router-link
+              class="ccc-ui-button--small v-admin-view__projects__item__button"
+              :to="{name: 'admin.project', params: {userID: user.userID, projectSlug: project.slug}}"
+          >modifier -></router-link>
+        </div>
       </div>
       <form
           class="v-admin-view__add-calculation"

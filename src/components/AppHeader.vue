@@ -8,7 +8,7 @@
       <div class="ccc-with-gutter">
         <router-link
             to="/admin"
-            class="v-app-header__link" >Mon éspace</router-link>
+            class="v-app-header__link" >Mon espace</router-link>
       </div>
       <div class="ccc-with-gutter">
         <a href="https://calculateurcarbonecampus.github.io/" target="_blank" class="v-app-header__link" >À propos</a>

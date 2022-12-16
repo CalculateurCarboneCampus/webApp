@@ -42,6 +42,17 @@
             class="ccc-ui-button v-result-viewer__print__export"
             @click="exportPDF()"
         >export PDF</button>
+        <div class="v-result-print"
+        >
+          <h1
+              contenteditable="true"
+              style="padding: 4rem"
+          >Titre</h1>
+          <div
+              contenteditable="true"
+              style="padding: 4rem; padding-top: 0;"
+          >text descriptif</div>
+        </div>
         <div
             class="v-result-print"
         >
@@ -117,7 +128,7 @@
               class="v-result-print__footer"
           >
             <div class="ccc-with-gutter">
-              Soutenu par:
+              Développé par:
             </div>
 
             <div class="ccc-with-gutter">
