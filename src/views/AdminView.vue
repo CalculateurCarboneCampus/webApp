@@ -15,7 +15,7 @@
         <router-link
             class="ccc-ui-button--small v-admin-view__projects__item__button"
             :to="{name: 'admin.project', params: {userID: user.userID, projectSlug: project.slug}}"
-        >edit -></router-link>
+        >modifier -></router-link>
       </div>
       <form
           class="v-admin-view__add-calculation"
