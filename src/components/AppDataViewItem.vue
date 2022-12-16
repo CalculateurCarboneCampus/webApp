@@ -42,7 +42,7 @@
         <div
             class="v-app-data-view-item__element__value has-not-interaction ccc-with-gutter"
         >
-          {{dataItem.tco2e}}
+          {{dataItem.tco2e.toString().replace('.', ',')}}
         </div>
         <div
             class="v-app-data-view-item__element__unit ccc-with-gutter"

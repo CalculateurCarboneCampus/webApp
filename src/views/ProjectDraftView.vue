@@ -84,7 +84,7 @@
             <div
                 class="v-result-print__stat-result"
             >
-              <h1 class="v-result-print__stat-result__title" >TOTAL: {{dataStore.totalValue.toFixed(3)}}<span>tCO2e</span></h1>
+              <h1 class="v-result-print__stat-result__title" >TOTAL: {{dataStore.totalValue.toFixed(2).replace('.', ',')}}<span>tCO2e</span></h1>
               <div>
                 <div
                     class="v-result-print__stat-result__entity-box"
@@ -92,12 +92,12 @@
                 >
                   <div
                       class="v-result-print__stat-result__entity-box__value"
-                  >{{dataEntity.entityName}}: {{dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(3)}}</div>
+                  >{{dataEntity.entityName}}: {{dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(2).replace('.', ',')}}</div>
                   <div
                       class="v-result-print__stat-result__entity-box__viz"
                   >
-                    <span :style="{width: (dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(3) + '%'}"></span>
-                    <span>{{(dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(3) }}%</span>
+                    <span :style="{width: (dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(2).replace('.', ',') + '%'}"></span>
+                    <span>{{(dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(2).replace('.', ',') }}%</span>
                   </div>
                 </div>
               </div>
