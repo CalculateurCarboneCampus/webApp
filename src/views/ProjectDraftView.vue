@@ -109,7 +109,7 @@
               class="v-result-print__footer"
           >
             <div class="ccc-with-gutter">
-              Initié par:
+              Soutenu par:
             </div>
 
             <div class="ccc-with-gutter">
