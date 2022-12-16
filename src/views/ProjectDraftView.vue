@@ -103,7 +103,7 @@
                     <div
                         class="v-result-print__stat-result__entity-box__viz"
                     >
-                      <span :style="{width: (dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(2).replace('.', ',') + '%'}"></span>
+                      <span :style="{width: (dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(2) + '%'}"></span>
                       <span>{{(dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(2).replace('.', ',') }}%</span>
                     </div>
                   </template>
