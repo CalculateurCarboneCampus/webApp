@@ -1,7 +1,7 @@
 <template>
   <div class="v-render">
     <div class="v-render__header ccc-with-gutter ccc-no-margin ccc-with-raw">
-      <h4>Émission de CO2 du projet</h4>
+      <h4>Émissions de CO2 du projet</h4>
     </div>
 
     <div class="v-render__body ccc-with-gutter ccc-no-margin ccc-with-raw">
