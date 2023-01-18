@@ -54,7 +54,7 @@ export const useDataStore = defineStore({
       return state.user.tempCurrentEditedProject.map( entityValue => {
         return entityValue.entitySections.map( sectionValue => {
           return sectionValue.item.map( itemValue => {
-            if(itemValue.edited)  return itemValue.donnes * itemValue.tco2e
+            if(itemValue.edited)  return itemValue.donnes * itemValue.tco2e / 1_000
             else return 0
           }).reduce( (previousValue, currentValue) => { return previousValue + currentValue }, 0 )
         }).reduce( (previousValue, currentValue) => { return previousValue + currentValue } )
@@ -101,7 +101,7 @@ export const useDataStore = defineStore({
         return entity.entityName === entityName
       })?.entitySections.map(section => {
         section.item.map(sectionItem => {
-          if( sectionItem.edited ) totalEntityValue += sectionItem.donnes * sectionItem.tco2e
+          if( sectionItem.edited ) totalEntityValue += sectionItem.donnes * sectionItem.tco2e / 1_000
         })
       })
 

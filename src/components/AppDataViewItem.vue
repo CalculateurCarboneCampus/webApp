@@ -47,7 +47,7 @@
         <div
             class="v-app-data-view-item__element__unit ccc-with-gutter"
         >
-          tCO2e
+          kgCO2e
         </div>
       </div>
     </div>
