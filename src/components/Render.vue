@@ -6,7 +6,7 @@
 
     <div class="v-render__body ccc-with-gutter ccc-no-margin ccc-with-raw">
 
-      <p class="v-render__result-value">{{totalValue.toFixed(2).replace('.', ',')}} tCO2e</p>
+      <p class="v-render__result-value">{{totalValue.toFixed(4).replace('.', ',')}} tCO2e</p>
 
       <div
           class="v-render__icon"
@@ -48,7 +48,7 @@
     >
       <p>
         <i>
-          {{totalValue.toFixed(2).replace('.', ',')}} tonnes de CO2 émis
+          {{totalValue.toFixed(4).replace('.', ',')}} tonnes de CO2 émis
           <br>correspond à environs
           <br><strong>{{Math.round( totalValue / dataStore.valueEquivalent.unitValue )}} {{dataStore.valueEquivalent.sentence}}</strong>
         </i>

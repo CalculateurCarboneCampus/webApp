@@ -86,7 +86,7 @@
                     }"
               >
                 <template
-                    v-if="dataStore.getTotalValueOfEntity( currentResult.dataEntity.entityName ).toFixed(2) > 0"
+                    v-if="dataStore.getTotalValueOfEntity( currentResult.dataEntity.entityName ).toFixed(4) > 0"
                 >
                   <div
                       class="v-result-print__circle-result__line__graphic"
@@ -99,23 +99,23 @@
             <div
                 class="v-result-print__stat-result"
             >
-              <h1 class="v-result-print__stat-result__title" >TOTAL: {{dataStore.totalValue.toFixed(2).replace('.', ',')}}<span>tCO2e</span></h1>
+              <h1 class="v-result-print__stat-result__title" >TOTAL: {{dataStore.totalValue.toFixed(4).replace('.', ',')}}<span>tCO2e</span></h1>
               <div>
                 <div
                     class="v-result-print__stat-result__entity-box"
                     v-for="dataEntity of dataStore.user.tempCurrentEditedProject"
                 >
                   <template
-                      v-if="dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(2) > 0"
+                      v-if="dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(4) > 0"
                   >
                     <div
                         class="v-result-print__stat-result__entity-box__value"
-                    >{{dataEntity.entityName}}: {{dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(2).replace('.', ',')}}</div>
+                    >{{dataEntity.entityName}}: {{dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(4).replace('.', ',')}}</div>
                     <div
                         class="v-result-print__stat-result__entity-box__viz"
                     >
-                      <span :style="{width: (dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(2) + '%'}"></span>
-                      <span>{{(dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(2).replace('.', ',') }}%</span>
+                      <span :style="{width: (dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(4) + '%'}"></span>
+                      <span>{{(dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(4).replace('.', ',') }}%</span>
                     </div>
                   </template>
                 </div>
