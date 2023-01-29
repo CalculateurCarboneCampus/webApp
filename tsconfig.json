@@ -6,9 +6,9 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "lib": ["ES2017"]
+    "lib": ["ES2017"],
+    "allowJs": true,
   },
-
   "references": [
     {
       "path": "./tsconfig.vite-config.json"

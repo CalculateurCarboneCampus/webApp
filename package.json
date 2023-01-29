@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "html-to-image": "^1.10.8",
+    "pdf-lib": "^1.17.1",
     "pinia": "^2.0.13",
     "vue": "^3.2.33",
     "vue-router": "^4.0.14"

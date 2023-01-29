@@ -164,6 +164,7 @@ import AppDataView from "@/components/AppDataView.vue"
 import {toJpeg} from "html-to-image"
 import type {Options} from "html-to-image/lib/types"
 import type {IUserEditedDataEntity} from "@/global/User";
+import {PDFDocument} from "pdf-lib";
 
 export default defineComponent({
   components: {Render, AppNavigation, AppDataView},
@@ -237,8 +238,8 @@ export default defineComponent({
       })
     },
 
-    exportPDF() {
-      const element = document.querySelector('.v-result-print') as HTMLElement
+    async exportPDF() {
+      const nodeListOfImageToEmbedElements = document.querySelectorAll('.v-result-print')
 
       const toJpegOption: Options = {
         quality: 1,
@@ -248,13 +249,55 @@ export default defineComponent({
         },
       }
 
-      toJpeg(element, toJpegOption ).then(dataUrl => {
+      const arrayOfImageToEmbedDataURL: string[] = []
+
+      for await (const elementToEmbed of Object.values(nodeListOfImageToEmbedElements)) {
+        if(elementToEmbed instanceof HTMLElement) {
+          const jpegResult = await toJpeg(elementToEmbed, toJpegOption )
+          arrayOfImageToEmbedDataURL.push(jpegResult)
+          console.log('jpeg create')
+        }
+      }
+
+      console.log('suite')
+
+
+      this.createPDF(arrayOfImageToEmbedDataURL).then((pdfBytes: Uint8Array) => {
+
+        const blobData = this.blobUrl(
+            pdfBytes, 'Calculateur_carbone_campus.pdf', "application/pdf")
+
         const htmlLinkElement = document.createElement('a')
-        htmlLinkElement.href = dataUrl
-        htmlLinkElement.download="Calculateur_carbone_campus.jpg"
+        htmlLinkElement.href = blobData.url
+        htmlLinkElement.download = blobData.fileName
         htmlLinkElement.click()
-        element.style.transform = ''
+        window.URL.revokeObjectURL(blobData.url)
       })
+    },
+
+    async createPDF(arrayOfImageData: string[]) {
+
+      const pdfDoc = await PDFDocument.create()
+
+      for(const imageData of arrayOfImageData) {
+        const imageToEmbed = await pdfDoc.embedJpg(imageData)
+        const page = pdfDoc.addPage()
+        page.drawImage(imageToEmbed, {
+          x: 0,
+          y: 0,
+          height: page.getHeight(),
+          width: page.getWidth(),
+        })
+      }
+      return await pdfDoc.save()
+    },
+
+    blobUrl(data: Uint8Array, fileName: string, mimeType: string) {
+      const blob = new Blob([data], {
+        type: mimeType
+      });
+      const url = window.URL.createObjectURL(blob)
+      return{url, fileName}
     },
   },
 
@@ -297,6 +340,14 @@ export default defineComponent({
     transform-origin: top left;
     position: relative;
     flex-shrink: 0;
+
+    > *:first-child {
+      margin-top: 0;
+    }
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .v-result-viewer__print {
