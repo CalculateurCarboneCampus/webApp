@@ -19,5 +19,13 @@ async function main() {
     const response = await window.fetch(apiUrl, {})
 
     useDataStore().setCCCData(await response.json())
+
+    const sessionUserId = sessionStorage.getItem('sessionUserId')
+    const sessionUserPassword = sessionStorage.getItem('sessionUserPassword')
+
+    if(sessionUserId === null) return
+    if(sessionUserPassword === null) return
+
+    useDataStore().user.connection(sessionUserId, sessionUserPassword)
 }
 main()

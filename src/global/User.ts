@@ -29,7 +29,11 @@ export class User {
     this.password = password
 
     this.reloadData().then(async () => {
-      if(this.state.isConnected) await router.push('/admin')
+      if(this.state.isConnected) {
+        sessionStorage.setItem('sessionUserId', this.id)
+        sessionStorage.setItem('sessionUserPassword', this.password)
+        await router.push('/admin')
+      }
 
       return this
     })
