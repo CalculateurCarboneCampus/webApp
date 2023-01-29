@@ -81,7 +81,6 @@ export const useDataStore = defineStore({
   },
 
   actions: {
-    // todo: ok
     setCCCData(CCCData: ICCCDataEntity[]) {
       this.currentEntityName = CCCData[0]?.entityName
       this.CCCData = CCCData
