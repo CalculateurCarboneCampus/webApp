@@ -7,6 +7,7 @@
     <nav>
       <div class="ccc-with-gutter">
         <router-link
+            v-if="$route.name !== 'admin'"
             to="/admin"
             class="v-app-header__link" >Mon espace</router-link>
       </div>
