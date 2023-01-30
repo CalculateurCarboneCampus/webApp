@@ -19,6 +19,8 @@ export const useDataStore = defineStore({
     CCCData: [] as ICCCDataEntity[],
     currentEntityName: "",
     user: new User(),
+    dataHasChange: false,
+    waitForSavingData: false,
     divisionMark: {
       resident: {
         sentence: "année(s) de vie d'une personne résident à Genève",

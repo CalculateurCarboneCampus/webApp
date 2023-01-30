@@ -10,7 +10,17 @@
       <div class="v-project-draft-view__data-container ccc-with-gutter">
         <div class="v-project-draft-view__data-container__header">
           <h1 class="v-project-draft-view__project-title">{{$route.params.projectSlug}}</h1>
-          <button class="ccc-ui-button" type="button" @click="save">Enregistrer</button>
+          <button
+              class="ccc-ui-button"
+              type="button"
+              v-if="dataStore.waitForSavingData"
+          >Enregistrement en cours…</button>
+          <button
+              v-else-if="dataStore.dataHasChange"
+              class="ccc-ui-button"
+              type="button"
+              @click="save"
+          >Enregistrer</button>
         </div>
         <section
             class="v-section-data ccc-with-raw"
@@ -229,11 +239,18 @@ export default defineComponent({
 
   methods: {
     save() {
+      this.dataStore.waitForSavingData = true
+
       this.dataStore.user.save({
         value: JSON.stringify(this.dataStore.user.tempCurrentEditedProject),
         projectName: this.$route.params.projectSlug,
       }).then(response => {
-        if( response.success ) this.dataStore.user.reloadData()
+        if( response.success ) {
+          this.dataStore.user.reloadData().then(() => {
+            this.dataStore.waitForSavingData  = false
+            this.dataStore.dataHasChange      = false
+          })
+        }
         else this.dataStore.user.error = response.error
       })
     },
@@ -330,6 +347,7 @@ export default defineComponent({
     margin-bottom: 2rem;
     align-items: center;
     flex-direction: row;
+    height: 2rem;
   }
 
   .v-result-print {

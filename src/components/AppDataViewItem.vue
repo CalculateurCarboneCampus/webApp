@@ -103,6 +103,7 @@ export default defineComponent({
     },
 
     removeItem() {
+      this.dataStore.dataHasChange = true
       this.dataItem!.edited = false
     }
   },
@@ -114,7 +115,8 @@ export default defineComponent({
         return this.dataItem?.donnes || 0
       },
       set(newValue: any) {
-        console.log(newValue)
+
+        this.dataStore.dataHasChange = true
 
         if(this.dataItem === null) return
 
