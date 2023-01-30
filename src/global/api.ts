@@ -14,7 +14,7 @@ export namespace api {
     uid:     string
     content: {
       content: string
-      status:  string
+      status:  'draft' | 'archive' | 'publish'
       userid:  string
     }
   }

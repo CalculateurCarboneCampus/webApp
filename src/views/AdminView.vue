@@ -7,7 +7,7 @@
     >
       <div
           class="v-admin-view__projects__item ccc-with-gutter"
-          v-for="project of projects"
+          v-for="project of projectsNotArchive"
       >
         <div
             class="v-admin-view__projects__item__slug"
@@ -16,7 +16,8 @@
           <div
               style="margin-right: 1rem"
               class="ccc-ui-button--small v-admin-view__projects__item__button"
-          >supprimer</div>
+              @click="changeProjectContentStatus(project, 'archive')"
+          >archiver</div>
           <div
               style="margin-right: 1rem"
               class="ccc-ui-button--small v-admin-view__projects__item__button"
@@ -65,12 +66,18 @@ export default defineComponent({
       return this.dataStore.$state.user as User
     },
 
-    projects(): { [key: string] : api.project} {
-      return this.dataStore.$state.user.listOfProjects
+    projectsNotArchive(): api.project[] {
+      return Object.values( this.dataStore.$state.user.listOfProjects ).filter(value => {
+        return value.content.status !== 'archive'
+      })
     }
   },
 
   methods: {
+    changeProjectContentStatus(project: api.project, newStatus: 'draft' | 'publish' | 'archive') {
+      project.content.status = newStatus
+    },
+
     async addCalculation(): Promise<void> {
       const newProjectResponse = await this.dataStore.user.createNewProject(this.dataStore.CCCData, this.newProjectName)
       if(newProjectResponse.success) await this.$router.push({
