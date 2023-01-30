@@ -104,8 +104,7 @@ export class User {
       CCCDataEntity.entitySections = (CCCDataEntity as IUserEditedDataEntity).entitySections.map(CCCDataSection => {
 
         CCCDataSection.item = CCCDataSection.item.map(CCCDataItem => {
-          // todo: set edited status to false by default
-          CCCDataItem.edited = true
+          CCCDataItem.edited = false
           return CCCDataItem
         })
         return CCCDataSection
