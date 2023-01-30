@@ -215,6 +215,7 @@ export default defineComponent({
           -webkit-appearance: none;
           margin: 0;
         }
+        -moz-appearance: textfield;
       }
 
       .v-app-data-view-item__element__value__ui-box {
