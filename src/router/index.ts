@@ -38,6 +38,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+
+  if(to.params.currentEntityName) useDataStore().currentEntityName = to.params.currentEntityName as string
+  else useDataStore().currentEntityName = useDataStore().CCCData[0]?.entityName
+
   if(
     to.name !== 'connection'
     &&  useDataStore().user.isNotConnected ) next({name: 'connection'}

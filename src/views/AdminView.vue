@@ -22,10 +22,11 @@
               style="margin-right: 1rem"
               class="ccc-ui-button--small v-admin-view__projects__item__button"
           >publier</div>
-          <div
+          <router-link
               style="margin-right: 1rem"
               class="ccc-ui-button--small v-admin-view__projects__item__button"
-          >notes projet</div>
+              :to="{name: 'admin.project', params: {userID: user.userID, projectSlug: project.slug, currentEntityName: 'Résultat'}}"
+          >notes projet</router-link>
           <router-link
               class="ccc-ui-button--small v-admin-view__projects__item__button"
               :to="{name: 'admin.project', params: {userID: user.userID, projectSlug: project.slug}}"
