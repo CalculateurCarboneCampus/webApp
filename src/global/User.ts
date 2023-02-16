@@ -39,6 +39,33 @@ export class User {
     })
   }
 
+  async sendNewUserAccount({newUserName, newUserMail, newUserPassword}: {
+    newUserName: string
+    newUserMail: string
+    newUserPassword: string
+  }): Promise<{
+    status: 'success' | 'error',
+    message: string,
+  }> {
+    const myHeaders = new Headers()
+
+    // todo: API REQUEST
+    // myHeaders.append("Cookie", "kirby_session=XXX");
+
+    const formData = new FormData()
+    formData.append("newUserName",      newUserName)
+    formData.append("newUserMail",      newUserMail)
+    formData.append("newUserPassword",  newUserPassword)
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: formData,
+    }
+
+    return await (await fetch(apiUrl + "rest.user.create", requestOptions)).json()
+  }
+
   public async reloadData() {
 
       const myHeaders = new Headers()

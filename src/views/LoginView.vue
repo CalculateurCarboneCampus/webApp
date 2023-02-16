@@ -1,8 +1,11 @@
 <template>
   <div class="v-login-view">
-    <h2>Connection</h2>
+    <h2>Connexion</h2>
     <h1>Identifiez-vous pour accéder à vos projets</h1>
-    <p>ou créez <span>un compte -></span></p>
+    <p
+        style="text-decoration: underline; user-select: none; cursor: pointer"
+        @click="showCreateUserInterface = true"
+    >ou créez un compte -></p>
 
     <form class="v-login-view__form" >
 
@@ -27,9 +30,66 @@
         <button class="ccc-ui-button ccc-ui-button--alternate" type="button" @click="showPassword = !showPassword">afficher le mot de passe</button>
       </fieldset>
 
-      <button class="ccc-ui-button" type="button" @click="sendDataConnection">connection</button>
+      <button class="ccc-ui-button" type="button" @click="sendDataConnection">connexion</button>
 
     </form>
+
+    <div
+        v-if="showCreateUserInterface"
+        class="v-login-view__create-user"
+    >
+      <div
+          class="v-login-view__create-user__cache"
+          @click.stop="closeCreateUserPanel"
+      ></div>
+      <form>
+        <input
+            class="v-login-view__form__input"
+            type="text"
+            placeholder="nom"
+            name="newUserName"
+            v-model="newUserName"
+        >
+
+        <input
+            class="v-login-view__form__input"
+            type="text"
+            placeholder="adresse mail"
+            name="newUserMail"
+            v-model="newUserMail"
+        >
+
+        <fieldset
+            class="v-login-view__form__fieldset"
+        >
+          <input
+              class="v-login-view__form__input"
+              :type="showNewUserPassword ? '' : 'password'"
+              placeholder="mot de passe"
+              name="newUserPassword"
+                v-model="newUserPassword"
+          >
+          <button class="ccc-ui-button ccc-ui-button--alternate" type="button" @click="showNewUserPassword = !showNewUserPassword">afficher le mot de passe</button>
+        </fieldset>
+
+        <div
+            class="v-login-view__create-user__message"
+            v-if="requestResponseCreateUserSate"
+        >
+          <p>{{requestResponseCreateUserSate.message}}</p>
+        </div>
+
+        <button
+            v-if="requestResponseCreateUserSate && requestResponseCreateUserSate.status === 'success'"
+            class="ccc-ui-button" type="button" @click="closeCreateUserPanel"
+        >se connecter -></button>
+
+        <button class="ccc-ui-button" type="button" @click="createNewCount"
+                v-else
+        >créer le compte</button>
+
+      </form>
+    </div>
   </div>
 </template>
 
@@ -45,13 +105,42 @@ export default defineComponent({
       mail: '',
       dataStore: useDataStore(),
       showPassword: false,
+      showCreateUserInterface: false,
+
+      newUserName: '',
+      newUserMail: '',
+      newUserPassword: '',
+      showNewUserPassword: false,
+
+      requestResponseCreateUserSate: null as null | {
+        status: 'success' | 'error',
+        message: string,
+      }
     }
   },
 
   methods: {
     sendDataConnection() {
       this.dataStore.$state.user.connection(this.mail, this.password)
-    }
+    },
+
+    closeCreateUserPanel() {
+      this.showCreateUserInterface = false
+      this.requestResponseCreateUserSate = null
+    },
+
+    async createNewCount() {
+      this.requestResponseCreateUserSate = await this.dataStore.$state.user.sendNewUserAccount({
+        newUserName: this.newUserName,
+        newUserMail: this.newUserMail,
+        newUserPassword: this.newUserPassword,
+      })
+
+      if( this.requestResponseCreateUserSate.status === 'success' ) {
+        this.mail = this.newUserMail
+        this.password = this.newUserPassword
+      }
+    },
   }
 
 })</script>
@@ -100,6 +189,41 @@ export default defineComponent({
     padding: 0;
     padding-top: 1rem;
     padding-bottom: 2rem;
+  }
+}
+
+.v-login-view__create-user {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  > form {
+    position: absolute;
+    background: var(--ccc-color-main);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem;
+    width: 20rem;
+    box-shadow: var(--ccc-box-shadow);
+
+    > input + input {
+      margin-top: 1rem;
+    }
+
+    > button {
+      display: block;
+      margin: auto;
+    }
+
+  }
+
+  .v-login-view__create-user__cache {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .75);
   }
 }
 </style>
