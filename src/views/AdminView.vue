@@ -18,10 +18,10 @@
               class="ccc-ui-button--small v-admin-view__projects__item__button"
               @click="changeProjectContentStatus(project, 'archive')"
           >archiver</div>
-          <div
-              style="margin-right: 1rem"
-              class="ccc-ui-button--small v-admin-view__projects__item__button"
-          >publier</div>
+<!--          <div-->
+<!--              style="margin-right: 1rem"-->
+<!--              class="ccc-ui-button&#45;&#45;small v-admin-view__projects__item__button"-->
+<!--          >publier</div>-->
           <router-link
               style="margin-right: 1rem"
               class="ccc-ui-button--small v-admin-view__projects__item__button"
