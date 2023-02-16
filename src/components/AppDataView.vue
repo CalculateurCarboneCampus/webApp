@@ -10,7 +10,7 @@
         >{{ dataSection.name }}</h4>
       </div>
 
-      <div>Facteurs d'émissions</div>
+      <div style="text-align: right" >Facteurs d'émissions</div>
 
       <template
         v-for="(dataItem, ItemIndex) of arrayOfItemInDataSection"
