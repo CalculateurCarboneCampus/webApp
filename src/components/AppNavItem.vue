@@ -38,6 +38,10 @@ export default defineComponent({
 
   methods: {
     navItemActivated() {
+      window.scroll({
+        top: 0,
+        behavior: "smooth",
+      })
       this.dataStore.setCurrentEntiryName(this.name)
     }
   },

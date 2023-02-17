@@ -54,15 +54,55 @@
         >export PDF</button>
         <div class="v-result-print"
         >
+          <div
+              class="v-result-print__logo"
+          ><img src="/logo.svg" alt=""></div>
+          <div
+              class="v-result-print__header"
+          >
+            <div
+                class="v-result-print__project-name"
+            >
+              {{$route.params.projectSlug}}
+            </div>
+            {{dataStore.user.username}}
+            <br>Base de donnée du {{formatedDate}}
+          </div>
           <h1
+              class="v-result-print__editable-title"
               contenteditable="true"
               style="padding: 4rem"
           >Titre</h1>
           <div
+              class="v-result-print__editable-content"
               contenteditable="true"
               style="padding: 4rem; padding-top: 0;"
           >text descriptif</div>
+
+          <div
+              class="v-result-print__footer"
+          >
+            <div class="ccc-with-gutter">
+              Développé par:
+            </div>
+
+            <div class="ccc-with-gutter">
+              <img
+                  alt="logo hesso"
+                  src="../assets/logo_heg-ge.svg"
+              >
+            </div>
+
+            <div class="ccc-with-gutter">
+              <img
+                  alt="logo hesso"
+                  src="/logo-hesso.svg"
+              >
+            </div>
+          </div>
         </div>
+
+
         <div
             class="v-result-print"
         >
@@ -79,7 +119,7 @@
               {{$route.params.projectSlug}}
             </div>
             {{dataStore.user.username}}
-            <br>exporté le {{formatedDate}}
+            <br>Base de donnée du {{formatedDate}}
           </div>
 
           <div
@@ -406,6 +446,20 @@ export default defineComponent({
     position: absolute;
     top: 1cm;
     left: calc(100%/3);
+  }
+
+  .v-result-print__editable-title {
+    width: 59%;
+    margin-left: auto;
+    margin-right: 0;
+    font-size: 1.8rem;
+    padding-top: 10rem;
+  }
+
+  .v-result-print__editable-content {
+    width: 75%;
+    margin-left: auto;
+    margin-right: 0;
   }
 
   .v-result-print__project-name {

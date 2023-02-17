@@ -16,7 +16,7 @@
           <div
               style="margin-right: 1rem"
               class="ccc-ui-button--small v-admin-view__projects__item__button"
-              @click="changeProjectContentStatus(project, 'archive')"
+              @click="changeProjectContentStatus(project, 'archive', project.slug)"
           >archiver</div>
 <!--          <div-->
 <!--              style="margin-right: 1rem"-->
@@ -69,14 +69,29 @@ export default defineComponent({
 
     projectsNotArchive(): api.project[] {
       return Object.values( this.dataStore.$state.user.listOfProjects ).filter(value => {
+
+        console.log( value.content.status )
+
         return value.content.status !== 'archive'
       })
     }
   },
 
   methods: {
-    changeProjectContentStatus(project: api.project, newStatus: 'draft' | 'publish' | 'archive') {
-      project.content.status = newStatus
+    changeProjectContentStatus(project: api.project, newStatus: 'draft' | 'publish' | 'archive', projectSlug: string) {
+      // console.log( project.content )
+      // const tempContent = JSON.parse( JSON.parse(project.content.content) )
+      // // tempContent.status = newStatus
+      //
+      // console.log( tempContent )
+      //
+      // // this.dataStore.user.save({
+      // //   value: JSON.stringify(project.content),
+      // //   projectName: projectSlug,
+      // // }).then(value => {
+      // //   console.log(value)
+      // //   console.log(this.dataStore.user)
+      // // })
     },
 
     async addCalculation(): Promise<void> {
