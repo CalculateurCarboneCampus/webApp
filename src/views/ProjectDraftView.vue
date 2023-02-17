@@ -167,6 +167,19 @@
                       <span :style="{width: (dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(4) + '%'}"></span>
                       <span>{{(dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(4).replace('.', ',') }}%</span>
                     </div>
+                    <div>
+                      <div v-for="subsection of dataEntity.entitySections">
+                        <div
+                            v-for="item of subsection.item"
+                        >
+                          <template
+                              v-if="item.donnes > 0"
+                          >
+                          {{item.name}}
+                          </template>
+                        </div>
+                      </div>
+                    </div>
                   </template>
                 </div>
               </div>
@@ -453,7 +466,7 @@ export default defineComponent({
     margin-left: auto;
     margin-right: 0;
     font-size: 1.8rem;
-    padding-top: 10rem;
+    padding-top: 10rem !important;
   }
 
   .v-result-print__editable-content {
