@@ -421,6 +421,11 @@ export default defineComponent({
     }
   }
 
+  .v-result-viewer {
+    position: sticky;
+    top: 1rem;
+  }
+
   .v-result-viewer__print {
     position: relative;
     width: 100%;
