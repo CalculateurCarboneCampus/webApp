@@ -71,12 +71,10 @@
           <h1
               class="v-result-print__editable-title"
               contenteditable="true"
-              style="padding: 4rem"
           >Titre</h1>
           <div
               class="v-result-print__editable-content"
               contenteditable="true"
-              style="padding: 4rem; padding-top: 0;"
           >text descriptif</div>
 
           <div
@@ -407,10 +405,11 @@ export default defineComponent({
     width: 21cm;
     height: 29.7cm;
     background-color: white;
-    transform: scale(.8);
     transform-origin: top left;
     position: relative;
     flex-shrink: 0;
+    overflow: hidden;
+    margin-bottom: 2rem;
 
     > *:first-child {
       margin-top: 0;
@@ -467,17 +466,21 @@ export default defineComponent({
   }
 
   .v-result-print__editable-title {
-    width: 59%;
-    margin-left: auto;
-    margin-right: 0;
+    width: calc(100% / 3 * 2);
+    margin: calc(20% - 1rem) 0 0 calc(100% / 3 * 1 - 1rem);
+    box-sizing: border-box;
     font-size: 1.8rem;
-    padding-top: 10rem !important;
+    padding: 1rem;
+    position: relative;
+    left: -0.1em;
   }
 
   .v-result-print__editable-content {
-    width: 75%;
-    margin-left: auto;
-    margin-right: 0;
+    width: calc(100% / 3 * 2);
+    margin-left: calc(100% / 3 * 1 - 1rem);
+    padding: 1rem;
+    box-sizing: border-box;
+    word-wrap: break-word;
   }
 
   .v-result-print__project-name {
