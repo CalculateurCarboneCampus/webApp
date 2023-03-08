@@ -78,12 +78,12 @@ export default defineComponent({
     dataSection(): IUserEditedDataSection | null {
       if( ! this.dataStore.user.tempCurrentEditedProject) return null
 
-      const indexOfCurrentEntity = this.dataStore.user.tempCurrentEditedProject
-          .indexOf(this.dataStore.user.tempCurrentEditedProject.filter( (value) => {
+      const indexOfCurrentEntity = this.dataStore.user.tempCurrentEditedProject.dataEntity
+          .indexOf(this.dataStore.user.tempCurrentEditedProject.dataEntity.filter( (value) => {
             return value.entityName === this.dataStore.currentEntityName
           })[0] || null)
 
-      return this.dataStore.user.tempCurrentEditedProject[indexOfCurrentEntity]?.entitySections[this.index] || null
+      return this.dataStore.user.tempCurrentEditedProject.dataEntity[indexOfCurrentEntity]?.entitySections[this.index] || null
     },
 
     arrayOfItemInDataSection(): IUserEditedDataItem[] {

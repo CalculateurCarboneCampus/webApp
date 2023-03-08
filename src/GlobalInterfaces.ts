@@ -1,3 +1,8 @@
+export interface ICCProject {
+  status: "draft",
+  dataEntity: ICCCDataEntity[],
+}
+
 export interface ICCCDataEntity {
   entityName: string
   entitySections: ICCCDataSection[]

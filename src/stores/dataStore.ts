@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type {ICCCDataEntity, ICCCDataSection} from "@/GlobalInterfaces"
+import type {ICCProject, ICCCDataEntity, ICCCDataSection} from "@/GlobalInterfaces"
 import {User} from "@/global/User"
 
 type DivisionMarkName = "coffee" | "smartphone" | "airplane" | "resident"
@@ -16,7 +16,7 @@ export const useDataStore = defineStore({
   id: 'dataStore',
 
   state: () => ({
-    CCCData: [] as ICCCDataEntity[],
+    CCCData: {dataEntity: [], status: "draft"} as ICCProject,
     currentEntityName: "",
     user: new User(),
     dataHasChange: false,
@@ -53,7 +53,7 @@ export const useDataStore = defineStore({
     totalValue(state): number {
       if(state.user.tempCurrentEditedProject === null) return 0
 
-      return state.user.tempCurrentEditedProject.map( entityValue => {
+      return state.user.tempCurrentEditedProject.dataEntity.map( entityValue => {
         return entityValue.entitySections.map( sectionValue => {
           return sectionValue.item.map( itemValue => {
             if(itemValue.edited)  return itemValue.donnes * itemValue.tco2e / 1_000
@@ -83,9 +83,13 @@ export const useDataStore = defineStore({
   },
 
   actions: {
-    setCCCData(CCCData: ICCCDataEntity[]) {
-      this.currentEntityName = CCCData[0]?.entityName
-      this.CCCData = CCCData
+    setCCCData(iccProject: ICCCDataEntity[]) {
+      console.log( iccProject )
+      this.currentEntityName = iccProject[0]?.entityName
+      this.CCCData = {
+        status: "draft",
+        dataEntity: iccProject,
+      }
     },
 
     setCurrentEntiryName(value: string) {
@@ -98,7 +102,7 @@ export const useDataStore = defineStore({
 
       let totalEntityValue = 0
 
-      this.user.tempCurrentEditedProject.find(entity => {
+      this.user.tempCurrentEditedProject.dataEntity.find(entity => {
         return entity.entityName === entityName
       })?.entitySections.map(section => {
         section.item.map(sectionItem => {

@@ -6,6 +6,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import {useDataStore} from "@/stores/dataStore"
+import type {ICCCDataEntity, ICCProject} from "@/GlobalInterfaces";
 
 const app = createApp(App)
 export const apiUrl = 'https://api.campus-carbone.ch/'
@@ -18,7 +19,7 @@ app.mount('#app')
 async function main() {
     const response = await window.fetch(apiUrl, {})
 
-    useDataStore().setCCCData(await response.json())
+    useDataStore().setCCCData(await response.json() as ICCCDataEntity[])
 
     const sessionUserId = sessionStorage.getItem('sessionUserId')
     const sessionUserPassword = sessionStorage.getItem('sessionUserPassword')

@@ -85,13 +85,14 @@ export default defineComponent({
   mounted() {
     if (!this.dataStore.user.tempCurrentEditedProject) return
 
-    const indexOfCurrentEntity = this.dataStore.user.tempCurrentEditedProject
-        .indexOf(this.dataStore.user.tempCurrentEditedProject.filter((value) => {
+    const indexOfCurrentEntity = this.dataStore.user.tempCurrentEditedProject.dataEntity
+        .indexOf(this.dataStore.user.tempCurrentEditedProject.dataEntity.filter((value) => {
           return value.entityName === this.dataStore.currentEntityName
         })[0] || null)
 
     this.dataItem = this.dataStore.user
-        .tempCurrentEditedProject[indexOfCurrentEntity]
+        .tempCurrentEditedProject
+        .dataEntity[indexOfCurrentEntity]
         .entitySections[this.parentSectionIndex]
         .item[this.index]
   },

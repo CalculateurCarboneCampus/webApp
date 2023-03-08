@@ -1,6 +1,6 @@
 import type {api} from "@/global/api"
 import router from "@/router"
-import type {ICCCDataEntity} from "@/GlobalInterfaces"
+import type {ICCCDataEntity, ICCProject} from "@/GlobalInterfaces"
 import type {ICCCDataItem, ICCCDataSection} from "@/GlobalInterfaces"
 import {apiUrl} from "@/main";
 
@@ -18,7 +18,7 @@ export class User {
   private id = ""
   private password = ""
 
-  tempCurrentEditedProject: IUserEditedDataEntity[] | null = null
+  tempCurrentEditedProject: IUserEditedProject | null = null
 
   constructor() {
     return this
@@ -103,6 +103,8 @@ export class User {
   public get error(): string | null {return this.state.error}
 
   async save(raw: {projectName: string | string[], value: string}): Promise<{ error: string | null; success: boolean }> {
+    console.log(raw)
+
 
     try {
       const response = await fetch(apiUrl + "rest.user.save", {
@@ -124,9 +126,9 @@ export class User {
     }
   }
 
-  async createNewProject(userEditedData: ICCCDataEntity[], projectName: string): Promise<{success: boolean, slugOfNewProject: string}> {
-
-    this.tempCurrentEditedProject = userEditedData.map(CCCDataEntity => {
+  async createNewProject(userEditedData: IUserEditedProject, projectName: string): Promise<{success: boolean, slugOfNewProject: string}> {
+    if (this.tempCurrentEditedProject === null) this.tempCurrentEditedProject = {dataEntity: [], status: "draft"}
+    this.tempCurrentEditedProject.dataEntity = userEditedData.dataEntity.map(CCCDataEntity => {
 
       CCCDataEntity.entitySections = (CCCDataEntity as IUserEditedDataEntity).entitySections.map(CCCDataSection => {
 
@@ -144,7 +146,7 @@ export class User {
     return new Promise<{success: boolean, slugOfNewProject: string}>(resolve => {
       this.save({
         projectName: projectName,
-        value: JSON.stringify(this.tempCurrentEditedProject as IUserEditedDataEntity[]),
+        value: JSON.stringify(this.tempCurrentEditedProject as IUserEditedProject),
       }).then(async response => {
         if(response.success) {
           await this.reloadData()
@@ -162,6 +164,10 @@ export class User {
       })
     })
   }
+}
+
+export interface IUserEditedProject extends ICCProject {
+  dataEntity: IUserEditedDataEntity[],
 }
 
 export interface IUserEditedDataEntity extends ICCCDataEntity {

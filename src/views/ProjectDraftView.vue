@@ -151,7 +151,8 @@
               <div>
                 <div
                     class="v-result-print__stat-result__entity-box"
-                    v-for="dataEntity of dataStore.user.tempCurrentEditedProject"
+                    v-if="dataStore.user.tempCurrentEditedProject"
+                    v-for="dataEntity of dataStore.user.tempCurrentEditedProject.dataEntity"
                 >
                   <template
                       v-if="dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(4) > 0"
@@ -249,7 +250,7 @@ export default defineComponent({
 
       let concatRotationPercent = 0
 
-      for(const dataEntity of this.dataStore.user.tempCurrentEditedProject) {
+      for(const dataEntity of this.dataStore.user.tempCurrentEditedProject.dataEntity) {
         const percent = (this.dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / this.dataStore.totalValue)
 
         concatRotationPercent += 360*percent/100
@@ -277,7 +278,7 @@ export default defineComponent({
 
       if(this.dataStore.user.tempCurrentEditedProject === null) return []
 
-      return this.dataStore.user.tempCurrentEditedProject.filter( (value) => {
+      return this.dataStore.user.tempCurrentEditedProject.dataEntity.filter( (value) => {
         return value.entityName === this.dataStore.currentEntityName
       })[0]?.entitySections
     },
