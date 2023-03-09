@@ -46,7 +46,7 @@
         <div
             class="v-result-viewer__print__project-title"
         >
-          <h1>{{$route.params.projectSlug}}</h1>
+          <h1>identifiant: {{$route.params.projectSlug}} / titre: {{dataStore.user.tempCurrentEditedProject?.title}}</h1>
         </div>
         <div
             class="v-result-viewer__buttons"
@@ -67,56 +67,6 @@
               @click="save"
           >Enregistrer</button>
         </div>
-        <div class="v-result-print"
-        >
-          <div
-              class="v-result-print__logo"
-          ><img src="/logo.svg" alt=""></div>
-          <div
-              class="v-result-print__header"
-          >
-            <div
-                class="v-result-print__project-name"
-            >
-              {{$route.params.projectSlug}}
-            </div>
-            {{dataStore.user.username}}
-            <br>Base de donnée du {{formatedDate}}
-          </div>
-          <input
-              class="v-result-print__editable-title"
-              contenteditable="true"
-              v-model="title"
-          >
-          <textarea
-              class="v-result-print__editable-content"
-              v-model="description"
-              maxlength="2023"
-          ></textarea>
-
-          <div
-              class="v-result-print__footer"
-          >
-            <div class="ccc-with-gutter">
-              Développé par:
-            </div>
-
-            <div class="ccc-with-gutter">
-              <img
-                  alt="logo hesso"
-                  src="../assets/logo_heg-ge.svg"
-              >
-            </div>
-
-            <div class="ccc-with-gutter">
-              <img
-                  alt="logo hesso"
-                  src="/logo-hesso.svg"
-              >
-            </div>
-          </div>
-        </div>
-
 
         <div
             class="v-result-print"
@@ -131,9 +81,9 @@
             <div
                 class="v-result-print__project-name"
             >
-              {{$route.params.projectSlug}}
+              identifiant unique: {{$route.params.projectSlug}}
             </div>
-            {{dataStore.user.username}}
+            par {{dataStore.user.username}}
             <br>Base de donnée du {{formatedDate}}
           </div>
 
@@ -191,7 +141,7 @@
                           <template
                               v-if="item.donnes > 0"
                           >
-                          {{item.name}}
+                            {{item.name}}
                           </template>
                         </div>
                       </div>
@@ -203,29 +153,79 @@
 
           </div>
 
-          <div
-              class="v-result-print__footer"
-          >
-            <div class="ccc-with-gutter">
-              Développé par:
-            </div>
+          <!--          <div-->
+          <!--              class="v-result-print__footer"-->
+          <!--          >-->
+          <!--            <div class="ccc-with-gutter">-->
+          <!--              Développé par:-->
+          <!--            </div>-->
 
-            <div class="ccc-with-gutter">
-              <img
-                  alt="logo hesso"
-                  src="../assets/logo_heg-ge.svg"
-              >
-            </div>
+          <!--            <div class="ccc-with-gutter">-->
+          <!--              <img-->
+          <!--                  alt="logo hesso"-->
+          <!--                  src="../assets/logo_heg-ge.svg"-->
+          <!--              >-->
+          <!--            </div>-->
 
-            <div class="ccc-with-gutter">
-              <img
-                  alt="logo hesso"
-                  src="/logo-hesso.svg"
-              >
-            </div>
-          </div>
+          <!--            <div class="ccc-with-gutter">-->
+          <!--              <img-->
+          <!--                  alt="logo hesso"-->
+          <!--                  src="/logo-hesso.svg"-->
+          <!--              >-->
+          <!--            </div>-->
+          <!--          </div>-->
 
         </div>
+
+        <div class="v-result-print"
+        >
+          <div
+              class="v-result-print__logo"
+          ><img src="/logo.svg" alt=""></div>
+          <div
+              class="v-result-print__header"
+          >
+            <div
+                class="v-result-print__project-name"
+            >
+              identifiant unique: {{$route.params.projectSlug}}
+            </div>
+            par {{dataStore.user.username}}
+            <br>Base de donnée du {{formatedDate}}
+          </div>
+          <input
+              class="v-result-print__editable-title"
+              v-model="title"
+          >
+          <textarea
+              class="v-result-print__editable-content"
+              v-model="description"
+              maxlength="2023"
+          ></textarea>
+
+<!--          <div-->
+<!--              class="v-result-print__footer"-->
+<!--          >-->
+<!--            <div class="ccc-with-gutter">-->
+<!--              Développé par:-->
+<!--            </div>-->
+
+<!--            <div class="ccc-with-gutter">-->
+<!--              <img-->
+<!--                  alt="logo hesso"-->
+<!--                  src="../assets/logo_heg-ge.svg"-->
+<!--              >-->
+<!--            </div>-->
+
+<!--            <div class="ccc-with-gutter">-->
+<!--              <img-->
+<!--                  alt="logo hesso"-->
+<!--                  src="/logo-hesso.svg"-->
+<!--              >-->
+<!--            </div>-->
+<!--          </div>-->
+        </div>
+
       </div>
     </template>
 
@@ -483,7 +483,7 @@ export default defineComponent({
     padding-bottom: 0;
     box-shadow: 0 0 0 0 var(--ccc-color-main--light);
     position: sticky;
-    top: 1rem;
+    top: 0;
     z-index: 100;
     background-color: var(--ccc-color-main--light);
   }
@@ -528,6 +528,7 @@ export default defineComponent({
     padding: 1rem;
     position: relative;
     left: -0.1em;
+    border: none;
   }
 
   .v-result-print__editable-content {
@@ -537,6 +538,7 @@ export default defineComponent({
     box-sizing: border-box;
     resize: none;
     height: 50rem;
+    border: none;
   }
 
   .v-result-print__project-name {
