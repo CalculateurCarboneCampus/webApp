@@ -151,7 +151,7 @@
                     }"
               >
                 <template
-                    v-if="dataStore.getTotalValueOfEntity( currentResult.dataEntity.entityName ).toFixed(4) > 0"
+                    v-if="parseFloat( dataStore.getTotalValueOfEntity( currentResult.dataEntity.entityName ).toFixed(4) ) > 0"
                 >
                   <div
                       class="v-result-print__circle-result__line__graphic"
@@ -172,7 +172,7 @@
                     v-for="dataEntity of dataStore.user.tempCurrentEditedProject.dataEntity"
                 >
                   <template
-                      v-if="dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(4) > 0"
+                      v-if="parseFloat( dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(4) ) > 0"
                   >
                     <div
                         class="v-result-print__stat-result__entity-box__value"
