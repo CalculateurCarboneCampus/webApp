@@ -48,10 +48,25 @@
         >
           <h1>{{$route.params.projectSlug}}</h1>
         </div>
-        <button
-            class="ccc-ui-button v-result-viewer__print__export"
-            @click="exportPDF()"
-        >export PDF</button>
+        <div
+            class="v-result-viewer__print__buttons"
+        >
+          <button
+              class="ccc-ui-button v-result-viewer__print__buttons__export"
+              @click="exportPDF()"
+          >export PDF</button>
+          <button
+              class="ccc-ui-button"
+              type="button"
+              v-if="dataStore.waitForSavingData"
+          >Enregistrement en cours…</button>
+          <button
+              v-else-if="dataStore.dataHasChange"
+              class="ccc-ui-button"
+              type="button"
+              @click="save"
+          >Enregistrer</button>
+        </div>
         <div class="v-result-print"
         >
           <div
@@ -247,6 +262,14 @@ export default defineComponent({
     this.description = this.dataStore.user.tempCurrentEditedProject?.description || ''
   },
 
+  watch: {
+    description() {
+      if( this.dataStore.user.tempCurrentEditedProject === null ) return
+      this.dataStore.user.tempCurrentEditedProject.description = this.description
+      this.dataStore.dataHasChange = true
+    },
+  },
+
   computed: {
     concatResults(): { concatRotationPercent: number, dataEntity: IUserEditedDataEntity }[] {
       if( this.dataStore.user.tempCurrentEditedProject === null ) return []
@@ -438,7 +461,7 @@ export default defineComponent({
     flex-wrap: wrap;
   }
 
-  .v-result-viewer__print__export {
+  .v-result-viewer__print__buttons__export {
     margin-left: calc(21cm / 100 * 80);
     transform: translate(-100%);
   }

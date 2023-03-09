@@ -16,7 +16,12 @@ export const useDataStore = defineStore({
   id: 'dataStore',
 
   state: () => ({
-    CCCData: {dataEntity: [], status: "draft"} as ICCProject,
+    CCCData: {
+      dataEntity: [],
+      status: "draft",
+      title: "",
+      description: "",
+    } as ICCProject,
     currentEntityName: "",
     user: new User(),
     dataHasChange: false,
@@ -89,6 +94,8 @@ export const useDataStore = defineStore({
       this.CCCData = {
         status: "draft",
         dataEntity: iccProject,
+        title: "",
+        description: "",
       }
     },
 
