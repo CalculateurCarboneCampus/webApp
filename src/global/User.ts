@@ -127,7 +127,13 @@ export class User {
   }
 
   async createNewProject(userEditedData: IUserEditedProject, projectName: string): Promise<{success: boolean, slugOfNewProject: string}> {
-    if (this.tempCurrentEditedProject === null) this.tempCurrentEditedProject = {dataEntity: [], status: "draft"}
+    if (this.tempCurrentEditedProject === null)
+      this.tempCurrentEditedProject = {
+        dataEntity: [],
+        status: "draft",
+        title: projectName,
+        description: "Votre description est vide",
+      }
     this.tempCurrentEditedProject.dataEntity = userEditedData.dataEntity.map(CCCDataEntity => {
 
       CCCDataEntity.entitySections = (CCCDataEntity as IUserEditedDataEntity).entitySections.map(CCCDataSection => {

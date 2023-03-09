@@ -72,10 +72,11 @@
               class="v-result-print__editable-title"
               contenteditable="true"
           >Titre</h1>
-          <div
+          <textarea
               class="v-result-print__editable-content"
-              contenteditable="true"
-          >text descriptif</div>
+              v-model="description"
+              maxlength="2023"
+          ></textarea>
 
           <div
               class="v-result-print__footer"
@@ -232,7 +233,9 @@ export default defineComponent({
   components: {Render, AppNavigation, AppDataView},
   data() {
     return {
-      dataStore: useDataStore()
+      dataStore: useDataStore(),
+      title: '',
+      description: '',
     }
   },
 
@@ -240,6 +243,8 @@ export default defineComponent({
     if (this.project === null) return
     console.log( JSON.parse(JSON.parse(this.project.content.content)) )
     this.dataStore.user.tempCurrentEditedProject = JSON.parse(JSON.parse(this.project.content.content))
+
+    this.description = this.dataStore.user.tempCurrentEditedProject?.description || ''
   },
 
   computed: {
@@ -481,7 +486,8 @@ export default defineComponent({
     margin-left: calc(100% / 3 * 1 - 1rem);
     padding: 1rem;
     box-sizing: border-box;
-    word-wrap: break-word;
+    resize: none;
+    height: 50rem;
   }
 
   .v-result-print__project-name {

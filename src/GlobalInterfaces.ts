@@ -1,5 +1,7 @@
 export interface ICCProject {
   status: "draft",
+  title: string,
+  description: string,
   dataEntity: ICCCDataEntity[],
 }
 
