@@ -20,6 +20,7 @@
   border-top-left-radius: var(--ccc-ui-size-unit);
   border-bottom-left-radius: var(--ccc-ui-size-unit);
   cursor: pointer;
+  user-select: none;
 
   &.ccc-ui-button--alternate {
     background-color: var(--ccc-color-white);
