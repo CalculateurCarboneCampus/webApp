@@ -83,10 +83,11 @@
             {{dataStore.user.username}}
             <br>Base de donnée du {{formatedDate}}
           </div>
-          <h1
+          <input
               class="v-result-print__editable-title"
               contenteditable="true"
-          >Titre</h1>
+              v-model="title"
+          >
           <textarea
               class="v-result-print__editable-content"
               v-model="description"
@@ -259,14 +260,24 @@ export default defineComponent({
     console.log( JSON.parse(JSON.parse(this.project.content.content)) )
     this.dataStore.user.tempCurrentEditedProject = JSON.parse(JSON.parse(this.project.content.content))
 
-    this.description = this.dataStore.user.tempCurrentEditedProject?.description || ''
+    this.title        = this.dataStore.user.tempCurrentEditedProject?.title || ''
+    this.description  = this.dataStore.user.tempCurrentEditedProject?.description || ''
   },
 
   watch: {
+    title() {
+      if( this.dataStore.user.tempCurrentEditedProject === null ) return
+      if(this.dataStore.user.tempCurrentEditedProject.title === this.title) return
+
+      this.dataStore.dataHasChange = true
+      this.dataStore.user.tempCurrentEditedProject.title = this.title
+    },
     description() {
       if( this.dataStore.user.tempCurrentEditedProject === null ) return
-      this.dataStore.user.tempCurrentEditedProject.description = this.description
+      if(this.dataStore.user.tempCurrentEditedProject.description === this.description) return
+
       this.dataStore.dataHasChange = true
+      this.dataStore.user.tempCurrentEditedProject.description = this.description
     },
   },
 
