@@ -49,10 +49,10 @@
           <h1>{{$route.params.projectSlug}}</h1>
         </div>
         <div
-            class="v-result-viewer__print__buttons"
+            class="v-result-viewer__buttons"
         >
           <button
-              class="ccc-ui-button v-result-viewer__print__buttons__export"
+              class="ccc-ui-button v-result-viewer__buttons__export"
               @click="exportPDF()"
           >export PDF</button>
           <button
@@ -472,9 +472,24 @@ export default defineComponent({
     flex-wrap: wrap;
   }
 
-  .v-result-viewer__print__buttons__export {
-    margin-left: calc(21cm / 100 * 80);
-    transform: translate(-100%);
+  .v-result-viewer__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    width: 100%;
+    padding-top: 0;
+    padding-right: .5rem;
+    padding-bottom: 0;
+    box-shadow: 0 0 0 0 var(--ccc-color-main--light);
+    position: sticky;
+    top: 1rem;
+    z-index: 100;
+    background-color: var(--ccc-color-main--light);
+  }
+
+  .v-result-viewer__buttons__export {
+    margin-right: 1rem;
   }
 
   .v-result-viewer__print__project-title {
