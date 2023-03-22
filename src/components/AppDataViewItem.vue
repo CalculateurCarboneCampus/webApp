@@ -159,7 +159,6 @@ export default defineComponent({
     background-color: var(--ccc-color-alternate);
     padding-left: var(--ccc-gutter);
     cursor: pointer;
-    width: 250px;
     padding-right: 1rem;
     white-space: break-spaces;
     line-height: 1rem;
