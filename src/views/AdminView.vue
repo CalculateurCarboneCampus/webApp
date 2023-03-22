@@ -205,6 +205,9 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: space-between;
+    user-select: none;
+    margin-left: -.5rem;
+    margin-right: -.5rem;
 
     &:hover {
       background-color: var(--ccc-color-main);
