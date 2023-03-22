@@ -102,9 +102,7 @@ export class User {
   public set error(value: string | null) {this.state.error}
   public get error(): string | null {return this.state.error}
 
-  async save(raw: {projectName: string | string[], value: string}): Promise<{ error: string | null; success: boolean }> {
-    console.log(raw)
-
+  async save(raw: {projectName: string | string[], value: IUserEditedProject}): Promise<{ error: string | null; success: boolean }> {
 
     try {
       const response = await fetch(apiUrl + "rest.user.save", {
@@ -152,7 +150,7 @@ export class User {
     return new Promise<{success: boolean, slugOfNewProject: string}>(resolve => {
       this.save({
         projectName: projectName,
-        value: JSON.stringify(this.tempCurrentEditedProject as IUserEditedProject),
+        value: this.tempCurrentEditedProject as IUserEditedProject,
       }).then(async response => {
         if(response.success) {
           await this.reloadData()

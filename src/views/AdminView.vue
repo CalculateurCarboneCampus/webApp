@@ -50,7 +50,7 @@
 import {defineComponent} from "vue"
 import {useDataStore} from "@/stores/dataStore"
 import type {api} from "@/global/api"
-import type {User} from "@/global/User"
+import type {IUserEditedProject, User} from "@/global/User"
 import type {IUserEditedDataEntity} from "@/global/User"
 
 export default defineComponent({
@@ -79,19 +79,11 @@ export default defineComponent({
 
   methods: {
     changeProjectContentStatus(project: api.project, newStatus: 'draft' | 'publish' | 'archive', projectSlug: string) {
-      // console.log( project.content )
-      // const tempContent = JSON.parse( JSON.parse(project.content.content) )
-      // // tempContent.status = newStatus
-      //
-      // console.log( tempContent )
-      //
-      // // this.dataStore.user.save({
-      // //   value: JSON.stringify(project.content),
-      // //   projectName: projectSlug,
-      // // }).then(value => {
-      // //   console.log(value)
-      // //   console.log(this.dataStore.user)
-      // // })
+      const tempContent = JSON.parse(project.content.content) as IUserEditedProject
+      this.dataStore.user.save({
+        value: tempContent,
+        projectName: projectSlug,
+      })
     },
 
     async addCalculation(): Promise<void> {

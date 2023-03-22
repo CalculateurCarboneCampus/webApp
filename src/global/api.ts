@@ -12,10 +12,12 @@ export namespace api {
     parent:  string
     slug:    string
     uid:     string
-    content: {
-      content: string
-      status:  'draft' | 'archive' | 'publish'
-      userid:  string
-    }
+    content: projectContent
+  }
+
+  export interface projectContent {
+    content: string
+    status:  'draft' | 'archive' | 'publish'
+    userid:  string
   }
 }

@@ -242,7 +242,7 @@ import Render from "@/components/Render.vue"
 import AppDataView from "@/components/AppDataView.vue"
 import {toJpeg} from "html-to-image"
 import type {Options} from "html-to-image/lib/types"
-import type {IUserEditedDataEntity} from "@/global/User";
+import type {IUserEditedDataEntity, IUserEditedProject} from "@/global/User";
 import {PDFDocument} from "pdf-lib";
 
 export default defineComponent({
@@ -257,8 +257,7 @@ export default defineComponent({
 
   mounted() {
     if (this.project === null) return
-    console.log( JSON.parse(JSON.parse(this.project.content.content)) )
-    this.dataStore.user.tempCurrentEditedProject = JSON.parse(JSON.parse(this.project.content.content))
+    this.dataStore.user.tempCurrentEditedProject = JSON.parse(this.project.content.content)
 
     this.title        = this.dataStore.user.tempCurrentEditedProject?.title || ''
     this.description  = this.dataStore.user.tempCurrentEditedProject?.description || ''
@@ -332,8 +331,10 @@ export default defineComponent({
     save() {
       this.dataStore.waitForSavingData = true
 
+      if( this.dataStore.user.tempCurrentEditedProject === null ) return
+
       this.dataStore.user.save({
-        value: JSON.stringify(this.dataStore.user.tempCurrentEditedProject),
+        value: this.dataStore.user.tempCurrentEditedProject,
         projectName: this.$route.params.projectSlug,
       }).then(response => {
         if( response.success ) {
