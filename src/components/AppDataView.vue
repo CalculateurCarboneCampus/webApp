@@ -10,14 +10,19 @@
         >{{ dataSection.name }}</h4>
       </div>
 
-      <div style="text-align: right" >Facteurs d'émissions</div>
+      <div
+          v-if="arrayOfEditedItemInDataSection.length > 0"
+          class="v-app-data-view__section__info ccc-with-gutter"
+      >
+        <div>Durée<br>de vie</div>
+        <div>Facteurs<br>d'émissions</div>
+      </div>
 
       <template
-        v-for="(dataItem, ItemIndex) of arrayOfItemInDataSection"
+        v-for="(dataItem, ItemIndex) of arrayOfEditedItemInDataSection"
         v-if="showItem"
       >
           <app-data-view-item
-            v-if="dataItem.edited"
             :index="ItemIndex"
             :parent-section-index="index"
           ></app-data-view-item>
@@ -86,8 +91,8 @@ export default defineComponent({
       return this.dataStore.user.tempCurrentEditedProject.dataEntity[indexOfCurrentEntity]?.entitySections[this.index] || null
     },
 
-    arrayOfItemInDataSection(): IUserEditedDataItem[] {
-      return this.dataSection?.item || []
+    arrayOfEditedItemInDataSection(): IUserEditedDataItem[] {
+      return this.dataSection?.item.filter(item => item.edited) || []
     },
 
     arrayOfUneditedItemInDataSection():IUserEditedDataItem[] {
@@ -98,7 +103,7 @@ export default defineComponent({
   },
 
   watch: {
-    arrayOfItemInDataSection() {
+    arrayOfEditedItemInDataSection() {
       this.showItem = false
       // todo: force to reload component
       window.setTimeout(()=>{
@@ -126,6 +131,14 @@ export default defineComponent({
     box-shadow: var(--ccc-box-shadow);
     padding-right: var(--ccc-ui-size-unit);
   }
+}
+
+.v-app-data-view__section__info {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+
 }
 
 .v-app-data-view__listItemToAdd {

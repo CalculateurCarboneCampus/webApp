@@ -9,6 +9,7 @@ export interface ICCCDataEntity {
   entityName: string
   entitySections: ICCCDataSection[]
   description: string
+  hasLifeCycleOption: boolean
 }
 
 export interface ICCCDataSection {
