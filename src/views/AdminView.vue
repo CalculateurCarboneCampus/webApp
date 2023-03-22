@@ -87,9 +87,6 @@ export default defineComponent({
         value: tempContent,
         projectName: projectSlug,
       }).then(response => {
-
-        console.log( response )
-
         if( response.success ) {
           this.dataStore.user.reloadData().then(() => {
             this.dataStore.waitForSavingData  = false
