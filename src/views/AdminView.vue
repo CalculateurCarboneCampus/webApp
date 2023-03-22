@@ -34,9 +34,17 @@
         </div>
       </div>
 
-      <div class="v-admin-view__projects__archived" >
-        <h3 style="margin-top: 5rem" class="ccc-with-gutter">Éléments archivés</h3>
+      <h3
+          style="margin-top: 5rem; user-select: none; cursor: pointer"
+          class="ccc-with-gutter"
+          @click="archiveViewIsOpen = !archiveViewIsOpen"
+          v-if="projectsArchived.length > 0"
+      >Éléments archivés [{{archiveViewText}}]</h3>
 
+      <div
+          v-if="archiveViewIsOpen && projectsArchived.length > 0"
+          class="v-admin-view__projects__archived"
+      >
         <div
             class="v-admin-view__projects__item v-admin-view__projects__item--archived ccc-with-gutter"
             v-for="project of projectsArchived"
@@ -89,10 +97,17 @@ export default defineComponent({
     return {
       dataStore: useDataStore(),
       newProjectName: '',
+      archiveViewIsOpen: false,
     }
   },
 
   computed: {
+
+    archiveViewText(): string {
+      if(this.archiveViewIsOpen) return "cacher"
+      return "afficher"
+    },
+
     user(): User {
       return this.dataStore.$state.user as User
     },
