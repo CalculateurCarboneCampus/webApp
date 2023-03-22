@@ -16,8 +16,9 @@ export namespace api {
   }
 
   export interface projectContent {
-    content: string
-    status:  'draft' | 'archive' | 'publish'
+    content: StringOfIUserEditedProject
     userid:  string
   }
+
+  export type StringOfIUserEditedProject = string
 }

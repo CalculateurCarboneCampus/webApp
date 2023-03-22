@@ -1,5 +1,5 @@
 export interface ICCProject {
-  status: "draft" | "publish" | "delete",
+  status: "draft" | "publish" | "delete" | "archive",
   title: string,
   description: string,
   dataEntity: ICCCDataEntity[],

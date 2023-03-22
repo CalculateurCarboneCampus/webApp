@@ -7,7 +7,7 @@
     >
       <div
           class="v-admin-view__projects__item ccc-with-gutter"
-          v-for="project of projectsNotArchive"
+          v-for="project of projectsArchived"
       >
         <div
             class="v-admin-view__projects__item__slug"
@@ -67,22 +67,36 @@ export default defineComponent({
       return this.dataStore.$state.user as User
     },
 
-    projectsNotArchive(): api.project[] {
+    projectsArchived(): api.project[] {
       return Object.values( this.dataStore.$state.user.listOfProjects ).filter(value => {
-
-        console.log( value.content.status )
-
-        return value.content.status !== 'archive'
+        const projectContent: IUserEditedProject = JSON.parse( value.content.content )
+        return projectContent.status === 'draft'
       })
     }
   },
 
   methods: {
-    changeProjectContentStatus(project: api.project, newStatus: 'draft' | 'publish' | 'archive', projectSlug: string) {
+    changeProjectContentStatus(project: api.project, newStatus: "draft" | "publish" | "delete" | "archive", projectSlug: string) {
+      this.dataStore.waitForSavingData = true
+
       const tempContent = JSON.parse(project.content.content) as IUserEditedProject
+
+      tempContent.status = newStatus
+
       this.dataStore.user.save({
         value: tempContent,
         projectName: projectSlug,
+      }).then(response => {
+
+        console.log( response )
+
+        if( response.success ) {
+          this.dataStore.user.reloadData().then(() => {
+            this.dataStore.waitForSavingData  = false
+            this.dataStore.dataHasChange      = false
+          })
+        }
+        else this.dataStore.user.error = response.error
       })
     },
 
