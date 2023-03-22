@@ -7,7 +7,7 @@
     >
       <div
           class="v-admin-view__projects__item ccc-with-gutter"
-          v-for="project of projectsArchived"
+          v-for="project of projectsDrafted"
       >
         <div
             class="v-admin-view__projects__item__slug"
@@ -17,7 +17,7 @@
               style="margin-right: 1rem"
               class="ccc-ui-button--small v-admin-view__projects__item__button"
               @click="changeProjectContentStatus(project, 'archive', project.slug)"
-          >archiver</div>
+          >archiver 😴</div>
 <!--          <div-->
 <!--              style="margin-right: 1rem"-->
 <!--              class="ccc-ui-button&#45;&#45;small v-admin-view__projects__item__button"-->
@@ -33,6 +33,36 @@
           >modifier -></router-link>
         </div>
       </div>
+
+      <div class="v-admin-view__projects__archived" >
+        <h3 style="margin-top: 5rem" class="ccc-with-gutter">Éléments archivés</h3>
+
+        <div
+            class="v-admin-view__projects__item v-admin-view__projects__item--archived ccc-with-gutter"
+            v-for="project of projectsArchived"
+        >
+          <div
+              class="v-admin-view__projects__item__slug"
+          >{{project.slug}}</div>
+          <div>
+            <div
+                style="margin-right: 1rem"
+                class="ccc-ui-button--small v-admin-view__projects__item__button"
+                @click="changeProjectContentStatus(project, 'draft', project.slug)"
+            >restaurer ⚡</div>
+
+            <div
+                style="background-color: hsl(0 75% 35% / 1)"
+                class="ccc-ui-button--small v-admin-view__projects__item__button"
+                @click="changeProjectContentStatus(project, 'delete', project.slug)"
+            >supprimer 💣</div>
+          </div>
+        </div>
+
+
+      </div>
+
+
       <form
           class="v-admin-view__add-calculation"
           @click="focusToInput"
@@ -67,12 +97,20 @@ export default defineComponent({
       return this.dataStore.$state.user as User
     },
 
-    projectsArchived(): api.project[] {
+    projectsDrafted(): api.project[] {
       return Object.values( this.dataStore.$state.user.listOfProjects ).filter(value => {
         const projectContent: IUserEditedProject = JSON.parse( value.content.content )
         return projectContent.status === 'draft'
       })
+    },
+
+    projectsArchived(): api.project[] {
+      return Object.values( this.dataStore.$state.user.listOfProjects ).filter(value => {
+        const projectContent: IUserEditedProject = JSON.parse( value.content.content )
+        return projectContent.status === 'archive'
+      })
     }
+
   },
 
   methods: {
