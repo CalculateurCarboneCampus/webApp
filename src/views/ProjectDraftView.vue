@@ -81,10 +81,10 @@
             <div
                 class="v-result-print__project-name"
             >
-              identifiant unique: {{$route.params.projectSlug}}
+              identifiant: {{$route.params.projectSlug}}
             </div>
-            par {{dataStore.user.username}}
-            <br>Base de donnée du {{formatedDate}}
+            réalisé par {{dataStore.user.username}}
+            <br>Bases de donnée du {{formatedDate}}
           </div>
 
           <div
@@ -141,7 +141,7 @@
                           <template
                               v-if="item.donnes > 0"
                           >
-                            {{item.name}}
+                            {{item.donnes}}/{{item.unit}} par CO2 | {{item.name}}
                           </template>
                         </div>
                       </div>
@@ -188,10 +188,10 @@
             <div
                 class="v-result-print__project-name"
             >
-              identifiant unique: {{$route.params.projectSlug}}
+              identifiant: {{$route.params.projectSlug}}
             </div>
-            par {{dataStore.user.username}}
-            <br>Base de donnée du {{formatedDate}}
+            réalisé par {{dataStore.user.username}}
+            <br>Bases de donnée du {{formatedDate}}
           </div>
           <input
               class="v-result-print__editable-title"
