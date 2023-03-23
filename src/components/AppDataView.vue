@@ -14,7 +14,7 @@
           v-if="arrayOfEditedItemInDataSection.length > 0"
           class="v-app-data-view__section__coll-header"
       >
-        <div class="ccc-with-gutter"  v-if="currentEditedEntity.hasLifeCycleOption">Durée<br>de vie</div>
+        <div class="ccc-with-gutter"  v-if="currentEditedEntity?.hasLifeCycleOption">Durée<br>de vie</div>
         <div class="ccc-with-gutter"  >Facteurs<br>d'émissions</div>
       </div>
 
