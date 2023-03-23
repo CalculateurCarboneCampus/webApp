@@ -38,7 +38,10 @@
         </div>
       </div>
 
-      <div class="v-app-data-view-item__element v-app-data-view-item__element--value ccc-with-gutter">
+      <div
+          v-if="currentEditedEntity?.hasLifeCycleOption || false"
+          class="v-app-data-view-item__element v-app-data-view-item__element--value ccc-with-gutter"
+      >
 
         <div class="v-app-data-view-item__element__value">
           <input
@@ -82,9 +85,9 @@
 
 <script lang="ts">
 import {defineComponent} from "vue"
-import type {PropType} from "vue"
 import {useDataStore} from "@/stores/dataStore"
 import type {IUserEditedDataItem} from "@/global/User"
+import type {IUserEditedDataEntity} from "@/global/User"
 
 export default defineComponent({
   props: {
@@ -188,7 +191,23 @@ export default defineComponent({
 
         this.dataItem.donnes = newValue
       },
-    }
+    },
+
+    indexOfCurrentEntity(): number | null {
+      if( ! this.dataStore.user.tempCurrentEditedProject) return null
+
+      return  this.dataStore.user.tempCurrentEditedProject.dataEntity
+          .indexOf(this.dataStore.user.tempCurrentEditedProject.dataEntity.filter( (value) => {
+            return value.entityName === this.dataStore.currentEntityName
+          })[0] || null)
+    },
+
+    currentEditedEntity(): IUserEditedDataEntity | null {
+      if( ! this.dataStore.user.tempCurrentEditedProject) return null
+      if(this.indexOfCurrentEntity === null) return null
+
+      return this.dataStore.user.tempCurrentEditedProject.dataEntity[this.indexOfCurrentEntity]
+    },
   },
 
 
