@@ -10,7 +10,10 @@
         >{{ dataSection.name }}</h4>
       </div>
 
-      <div style="display: flex; width: 100%; justify-content: flex-end">
+      <div
+          v-if="arrayOfEditedItemInDataSection.length > 0"
+          style="display: flex; width: 100%; justify-content: flex-end"
+      >
         <div class="ccc-with-gutter" style="width: 10rem" v-if="currentEditedEntity.hasLifeCycleOption">Durée<br>de vie</div>
         <div class="ccc-with-gutter" style="width: 9rem" >Facteurs<br>d'émissions</div>
       </div>
