@@ -202,7 +202,7 @@ export default defineComponent({
   white-space: nowrap;
 
   > * {
-    width: 10em;
+    width: 10rem;
     flex-shrink: 0;
     box-sizing: border-box;
   }
