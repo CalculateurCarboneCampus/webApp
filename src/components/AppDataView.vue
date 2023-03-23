@@ -10,7 +10,10 @@
         >{{ dataSection.name }}</h4>
       </div>
 
-      <div style="text-align: right" >Facteurs d'émissions</div>
+      <div style="display: flex; width: 100%; justify-content: flex-end">
+        <div class="ccc-with-gutter" style="width: 10rem" v-if="currentEditedEntity.hasLifeCycleOption">Durée<br>de vie</div>
+        <div class="ccc-with-gutter" style="width: 9rem" >Facteurs<br>d'émissions</div>
+      </div>
 
       <template
         v-for="(dataItem, ItemIndex) of arrayOfEditedItemInDataSection"
@@ -74,19 +77,28 @@ export default defineComponent({
   },
 
   computed: {
-    dataSection(): IUserEditedDataSection | null {
+    indexOfCurrentEntity(): number | null {
       if( ! this.dataStore.user.tempCurrentEditedProject) return null
 
-      const indexOfCurrentEntity = this.dataStore.user.tempCurrentEditedProject.dataEntity
+      return  this.dataStore.user.tempCurrentEditedProject.dataEntity
           .indexOf(this.dataStore.user.tempCurrentEditedProject.dataEntity.filter( (value) => {
             return value.entityName === this.dataStore.currentEntityName
           })[0] || null)
+    },
 
-      return this.dataStore.user.tempCurrentEditedProject.dataEntity[indexOfCurrentEntity]?.entitySections[this.index] || null
+    currentEditedEntity(): IUserEditedDataEntity | null {
+      if( ! this.dataStore.user.tempCurrentEditedProject) return null
+      if(this.indexOfCurrentEntity === null) return null
+
+      return this.dataStore.user.tempCurrentEditedProject.dataEntity[this.indexOfCurrentEntity]
     },
 
     arrayOfEditedItemInDataSection(): IUserEditedDataItem[] {
       return this.dataSection?.item.filter(item => item.edited) || []
+    },
+
+    dataSection(): IUserEditedDataSection | null {
+      return this.currentEditedEntity?.entitySections[this.index] || null
     },
 
     arrayOfUneditedItemInDataSection():IUserEditedDataItem[] {
