@@ -39,7 +39,7 @@
           @submit="addCalculation"
       >
         <div class="ccc-ui-circle" @click="addCalculation">+</div>
-        <div>Nouveau Calcul</div>
+        <div>Nouveau calcul</div>
         <input ref="nameNewDocumentInput" type="text" v-model="newProjectName">
       </form>
     </div>
