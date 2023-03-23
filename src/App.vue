@@ -25,7 +25,7 @@ export default defineComponent({
 
 <style lang="scss">
 .v-app {
-  max-width: 1100px;
+  max-width: 1280px;
   margin: auto;
 }
 </style>

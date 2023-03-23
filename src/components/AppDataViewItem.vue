@@ -202,7 +202,7 @@ export default defineComponent({
   white-space: nowrap;
 
   > * {
-    width: 7.8em;
+    width: 10em;
     flex-shrink: 0;
     box-sizing: border-box;
   }
@@ -301,7 +301,7 @@ export default defineComponent({
     }
 
     &.v-app-data-view-item__element--value {
-      width: 10rem;
+      //width: 10rem;
     }
   }
 
