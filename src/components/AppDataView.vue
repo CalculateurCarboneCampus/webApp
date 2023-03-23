@@ -13,11 +13,10 @@
       <div style="text-align: right" >Facteurs d'émissions</div>
 
       <template
-        v-for="(dataItem, ItemIndex) of arrayOfItemInDataSection"
+        v-for="(dataItem, ItemIndex) of arrayOfEditedItemInDataSection"
         v-if="showItem"
       >
           <app-data-view-item
-            v-if="dataItem.edited"
             :index="ItemIndex"
             :parent-section-index="index"
           ></app-data-view-item>
@@ -86,8 +85,8 @@ export default defineComponent({
       return this.dataStore.user.tempCurrentEditedProject.dataEntity[indexOfCurrentEntity]?.entitySections[this.index] || null
     },
 
-    arrayOfItemInDataSection(): IUserEditedDataItem[] {
-      return this.dataSection?.item || []
+    arrayOfEditedItemInDataSection(): IUserEditedDataItem[] {
+      return this.dataSection?.item.filter(item => item.edited) || []
     },
 
     arrayOfUneditedItemInDataSection():IUserEditedDataItem[] {
@@ -98,7 +97,7 @@ export default defineComponent({
   },
 
   watch: {
-    arrayOfItemInDataSection() {
+    arrayOfEditedItemInDataSection() {
       this.showItem = false
       // todo: force to reload component
       window.setTimeout(()=>{
