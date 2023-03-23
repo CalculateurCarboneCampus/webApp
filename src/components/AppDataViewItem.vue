@@ -38,6 +38,32 @@
         </div>
       </div>
 
+      <div class="v-app-data-view-item__element v-app-data-view-item__element--value ccc-with-gutter">
+
+        <div class="v-app-data-view-item__element__value">
+          <input
+              class="v-app-data-view-item__element__value__input"
+              type="number"
+              :min="valueMinForLifeCycle"
+              :max="valueMaxForLifeCycle"
+              :step="valueStepForLifeCycle"
+              v-model="dataItemLifeCycle"
+          >
+          <div
+              class="v-app-data-view-item__element__value__ui-box"
+          >
+            <div class="v-app-data-view-item__element__value__ui-box__ui" @click="changeValueOfLifeCycle(+1)" >+</div>
+            <div class="v-app-data-view-item__element__value__ui-box__ui" @click="changeValueOfLifeCycle(-1)" >-</div>
+          </div>
+        </div>
+
+        <div
+            class="v-app-data-view-item__element__unit ccc-with-gutter"
+        >
+          année(s)
+        </div>
+      </div>
+
       <div class="v-app-data-view-item__element ccc-with-gutter">
         <div
             class="v-app-data-view-item__element__value has-not-interaction ccc-with-gutter"
@@ -77,8 +103,11 @@ export default defineComponent({
       dataStore: useDataStore(),
       dataItem: null as null | IUserEditedDataItem,
       valueMin:   0,
-      valueMax:   9_999,
+      valueMax:   9_999_999,
       valueStep:  1,
+      valueMinForLifeCycle:   1,
+      valueMaxForLifeCycle:   100,
+      valueStepForLifeCycle:  1,
     }
   },
 
@@ -103,6 +132,11 @@ export default defineComponent({
       else this.dataItemDonnes--
     },
 
+    changeValueOfLifeCycle(value: number) {
+      if( value > 0 ) this.dataItemLifeCycle++
+      else this.dataItemLifeCycle--
+    },
+
     removeItem() {
       this.dataStore.dataHasChange = true
       this.dataItem!.edited = false
@@ -110,6 +144,29 @@ export default defineComponent({
   },
 
   computed: {
+
+    dataItemLifeCycle: {
+      get(): number {
+        return this.dataItem?.yearLifeCycle || this.valueMinForLifeCycle
+      },
+      set(newValue: any) {
+
+        this.dataStore.dataHasChange = true
+
+        if(this.dataItem === null) return
+
+        this.dataItem.yearLifeCycle = this.valueMinForLifeCycle // reset for v-model
+
+        newValue = +newValue
+
+        if(Number.isNaN( newValue) ) newValue = this.valueMin
+        if(newValue > this.valueMaxForLifeCycle) newValue = this.valueMaxForLifeCycle
+        if(newValue < this.valueMinForLifeCycle) newValue = this.valueMinForLifeCycle
+
+        this.dataItem.yearLifeCycle = newValue
+      },
+    },
+
 
     dataItemDonnes: {
       get(): number {
@@ -191,7 +248,7 @@ export default defineComponent({
       height: var(--ccc-ui-size-unit);
       line-height: var(--ccc-ui-size-unit);
       cursor: pointer;
-      width: 8ch;
+      width: 20ch;
       position: relative;
 
       &.has-not-interaction {
