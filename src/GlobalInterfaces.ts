@@ -9,6 +9,7 @@ export interface ICCCDataEntity {
   entityName: string
   entitySections: ICCCDataSection[]
   description: string
+  hasLifeCycleOption: boolean
 }
 
 export interface ICCCDataSection {
@@ -21,4 +22,5 @@ export interface ICCCDataItem {
   donnes: number
   unit: string
   tco2e: number
+  yearLifeCycle: number
 }
