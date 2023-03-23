@@ -12,10 +12,10 @@
 
       <div
           v-if="arrayOfEditedItemInDataSection.length > 0"
-          style="display: flex; width: 100%; justify-content: flex-end"
+          class="v-app-data-view__section__coll-header"
       >
-        <div class="ccc-with-gutter" style="width: 10rem" v-if="currentEditedEntity.hasLifeCycleOption">Durée<br>de vie</div>
-        <div class="ccc-with-gutter" style="width: 9rem" >Facteurs<br>d'émissions</div>
+        <div class="ccc-with-gutter"  v-if="currentEditedEntity.hasLifeCycleOption">Durée<br>de vie</div>
+        <div class="ccc-with-gutter"  >Facteurs<br>d'émissions</div>
       </div>
 
       <template
@@ -144,6 +144,17 @@ export default defineComponent({
 
 .v-app-data-view__listItemToAdd {
   position: relative;
+}
+
+.v-app-data-view__section__coll-header {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+
+  > * {
+    box-sizing: border-box;
+    width: 10rem;
+  }
 }
 
 .v-app-data-view__listItemToAdd__item {
