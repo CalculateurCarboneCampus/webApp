@@ -137,6 +137,7 @@ export class User {
       CCCDataEntity.entitySections = (CCCDataEntity as IUserEditedDataEntity).entitySections.map(CCCDataSection => {
 
         CCCDataSection.item = CCCDataSection.item.map(CCCDataItem => {
+          CCCDataItem.yearLifeCycle = 1
           CCCDataItem.edited = false
           return CCCDataItem
         })
