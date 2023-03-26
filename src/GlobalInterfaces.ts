@@ -25,4 +25,5 @@ export interface ICCCDataItem {
   unit: string
   tco2e: number
   yearLifeCycle: number
+  description: string
 }
