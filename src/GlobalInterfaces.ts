@@ -14,6 +14,8 @@ export interface ICCCDataEntity {
 
 export interface ICCCDataSection {
   name: string
+  description: string
+  id: string
   item: ICCCDataItem[]
 }
 
