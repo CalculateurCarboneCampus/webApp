@@ -9,7 +9,7 @@
     >
       <div class="v-project-draft-view__data-container ccc-with-gutter">
         <div class="v-project-draft-view__data-container__header">
-          <h1 class="v-project-draft-view__project-title">{{$route.params.projectSlug}}</h1>
+          <h1 class="v-project-draft-view__project-title">identifiant: {{$route.params.projectSlug}}</h1>
           <button
               class="ccc-ui-button"
               type="button"
