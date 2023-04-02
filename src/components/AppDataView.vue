@@ -20,7 +20,7 @@
 
       <template
         v-for="(dataItem) of arrayOfEditedItemInDataSectionWithIndex"
-        v-if="showItem"
+        :key="dataItem.index"
       >
           <app-data-view-item
             :index="dataItem.index"
@@ -30,7 +30,7 @@
 
       <div
           class="ccc-with-gutter v-app-data-view__listItemToAdd"
-          v-if="showItem && arrayOfUneditedItemInDataSection.length > 0"
+          v-if="arrayOfUneditedItemInDataSection.length > 0"
       >
         <button-add
             @click="showAddNewItemList = !showAddNewItemList"
@@ -67,7 +67,6 @@ export default defineComponent({
   data() {
     return {
       dataStore: useDataStore(),
-      showItem: true,
       showAddNewItemList: false,
     }
   },
@@ -125,19 +124,6 @@ export default defineComponent({
       this.showAddNewItemList = false
     },
   },
-
-  watch: {
-    arrayOfEditedItemInDataSectionWithIndex() {
-      console.log(this.arrayOfUneditedItemInDataSection)
-      console.log(this.arrayOfEditedItemInDataSectionWithIndex)
-      this.showItem = false
-      // todo: force to reload component
-      window.setTimeout(()=>{
-        this.showItem = true
-      }, 50)
-    }
-  }
-
 })</script>
 
 <style lang="scss">
