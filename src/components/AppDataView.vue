@@ -11,7 +11,7 @@
       </div>
 
       <div
-          v-if="arrayOfEditedItemInDataSection.length > 0"
+          v-if="arrayOfEditedItemInDataSectionWithIndex.length > 0"
           class="v-app-data-view__section__coll-header"
       >
         <div class="ccc-with-gutter"  v-if="currentEditedEntity?.hasLifeCycleOption">Durée<br>de vie</div>
@@ -19,11 +19,11 @@
       </div>
 
       <template
-        v-for="(dataItem, ItemIndex) of arrayOfEditedItemInDataSection"
+        v-for="(dataItem) of arrayOfEditedItemInDataSectionWithIndex"
         v-if="showItem"
       >
           <app-data-view-item
-            :index="ItemIndex"
+            :index="dataItem.index"
             :parent-section-index="index"
           ></app-data-view-item>
       </template>
@@ -42,7 +42,7 @@
           <button-add
               v-for="unedtitedItem of arrayOfUneditedItemInDataSection"
               :is-alternate="true"
-              @click="unedtitedItem.edited = true; showAddNewItemList = false"
+              @click="addItemToEditedList(unedtitedItem)"
           >
             {{ unedtitedItem.name }}
           </button-add>
@@ -96,8 +96,16 @@ export default defineComponent({
       return this.dataStore.user.tempCurrentEditedProject.dataEntity[this.indexOfCurrentEntity]
     },
 
-    arrayOfEditedItemInDataSection(): IUserEditedDataItem[] {
-      return this.dataSection?.item.filter(item => item.edited) || []
+    arrayOfEditedItemInDataSectionWithIndex(): {userEditedDataItem: IUserEditedDataItem, index: number}[] {
+      const filteredArray =
+          this.dataSection?.item.map((item, index) => {
+            return {
+              userEditedDataItem: item,
+              index: index,
+            }
+          }).filter( item => item.userEditedDataItem.edited )
+
+      return filteredArray || []
     },
 
     dataSection(): IUserEditedDataSection | null {
@@ -111,8 +119,17 @@ export default defineComponent({
     }
   },
 
+  methods: {
+    addItemToEditedList(unedtitedItem: IUserEditedDataItem) {
+      unedtitedItem.edited = true
+      this.showAddNewItemList = false
+    },
+  },
+
   watch: {
-    arrayOfEditedItemInDataSection() {
+    arrayOfEditedItemInDataSectionWithIndex() {
+      console.log(this.arrayOfUneditedItemInDataSection)
+      console.log(this.arrayOfEditedItemInDataSectionWithIndex)
       this.showItem = false
       // todo: force to reload component
       window.setTimeout(()=>{
