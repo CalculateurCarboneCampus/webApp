@@ -651,6 +651,7 @@ export default defineComponent({
     right: 0;
     text-align: right;
     max-width: 50%;
+    display: none;
   }
 
   .v-result-print__stat-result {
