@@ -352,10 +352,6 @@ export default defineComponent({
 
         concatRotationPercent += 360*percent/100
 
-        console.log( percent )
-        console.log( concatRotationPercent )
-
-
         toReturn.push({
           concatRotationPercent: concatRotationPercent,
           dataEntity: dataEntity,
