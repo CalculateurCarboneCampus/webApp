@@ -87,9 +87,20 @@
             <br>Bases de donnée du {{formatedDate}}
           </div>
 
+          <input
+              class="v-result-print__top-section v-result-print__editable-title ccc-no-margin"
+              v-model="title"
+          >
+          <textarea
+              class="v-result-print__editable-content"
+              v-model="description"
+              maxlength="1000"
+          ></textarea>
           <div
               class="v-result-print__body"
           >
+
+
             <div
                 class="v-result-print__circle-result"
             >
@@ -111,45 +122,7 @@
               </div>
             </div>
 
-            <div
-                class="v-result-print__stat-result"
-            >
-              <h1 class="v-result-print__stat-result__title" >TOTAL: {{dataStore.totalValue.toFixed(4).replace('.', ',')}}<span>tCO2e</span></h1>
-              <div>
-                <div
-                    class="v-result-print__stat-result__entity-box"
-                    v-if="dataStore.user.tempCurrentEditedProject"
-                    v-for="dataEntity of dataStore.user.tempCurrentEditedProject.dataEntity"
-                >
-                  <template
-                      v-if="parseFloat( dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(4) ) > 0"
-                  >
-                    <div
-                        class="v-result-print__stat-result__entity-box__value"
-                    >{{dataEntity.entityName}}: {{dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(4).replace('.', ',')}}</div>
-                    <div
-                        class="v-result-print__stat-result__entity-box__viz"
-                    >
-                      <span :style="{width: (dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(4) + '%'}"></span>
-                      <span>{{(dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(4).replace('.', ',') }}%</span>
-                    </div>
-                    <div>
-                      <div v-for="subsection of dataEntity.entitySections">
-                        <div
-                            v-for="item of subsection.item"
-                        >
-                          <template
-                              v-if="item.donnes > 0"
-                          >
-                            {{item.donnes}}/{{item.unit}} par CO2 | {{item.name}}
-                          </template>
-                        </div>
-                      </div>
-                    </div>
-                  </template>
-                </div>
-              </div>
-            </div>
+            <h2 class="v-result-print__stat-total" >TOTAL: {{dataStore.totalValue.toFixed(4).replace('.', ',')}}<span>tCO2e</span></h2>
 
           </div>
 
@@ -193,15 +166,93 @@
             réalisé par {{dataStore.user.username}}
             <br>Bases de donnée du {{formatedDate}}
           </div>
-          <input
-              class="v-result-print__editable-title"
-              v-model="title"
+
+          <div
+              class="v-result-print__top-section ccc-no-margin"
           >
-          <textarea
-              class="v-result-print__editable-content"
-              v-model="description"
-              maxlength="2023"
-          ></textarea>
+            <h2
+            >Vue Détaillée</h2>
+
+          </div>
+
+          <div
+              class="v-result-print__stat-result"
+              v-if="dataStore.user.tempCurrentEditedProject"
+          >
+            <div
+                class="v-result-print__stat-result__coll"
+            >
+              <div
+                  class="v-result-print__stat-result__entity-box"
+                  v-for="(dataEntity, indexDataEntity) of dataEntityWithTotalValue"
+              >
+                <template
+                    v-if="(indexDataEntity + 1) % 2 !== 0"
+                >
+                  <div
+                      class="v-result-print__stat-result__entity-box__value"
+                  >{{dataEntity.entityName}}: {{dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(4).replace('.', ',')}}</div>
+                  <div
+                      class="v-result-print__stat-result__entity-box__viz"
+                  >
+                    <span :style="{width: (dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(4) + '%'}"></span>
+                    <span>{{(dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(4).replace('.', ',') }}%</span>
+                  </div>
+                  <div>
+                    <div v-for="subsection of dataEntity.entitySections">
+                      <div
+                          v-for="item of subsection.item"
+                      >
+                        <template
+                            v-if="item.donnes > 0"
+                        >
+                          {{item.donnes}}/{{item.unit}} par CO2 | {{item.name}}
+                        </template>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </div>
+
+            <div
+                class="v-result-print__stat-result__coll"
+            >
+              <div
+                  class="v-result-print__stat-result__entity-box"
+                  v-for="(dataEntity, indexDataEntity) of dataEntityWithTotalValue"
+              >
+                <template
+                    v-if="(indexDataEntity + 1) % 2 === 0"
+                >
+                  <div
+                      class="v-result-print__stat-result__entity-box__value"
+                  >{{dataEntity.entityName}}: {{dataStore.getTotalValueOfEntity(dataEntity.entityName).toFixed(4).replace('.', ',')}}</div>
+                  <div
+                      class="v-result-print__stat-result__entity-box__viz"
+                  >
+                    <span :style="{width: (dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(4) + '%'}"></span>
+                    <span>{{(dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / dataStore.totalValue).toFixed(4).replace('.', ',') }}%</span>
+                  </div>
+                  <div>
+                    <div v-for="subsection of dataEntity.entitySections">
+                      <div
+                          v-for="item of subsection.item"
+                      >
+                        <template
+                            v-if="item.donnes > 0"
+                        >
+                          {{item.donnes}}/{{item.unit}} par CO2 | {{item.name}}
+                        </template>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </div>
+
+          </div>
+
 
 <!--          <div-->
 <!--              class="v-result-print__footer"-->
@@ -281,6 +332,14 @@ export default defineComponent({
   },
 
   computed: {
+
+    dataEntityWithTotalValue(): IUserEditedDataEntity[] {
+      return       this.dataStore.user.tempCurrentEditedProject?.dataEntity.filter(userEditedDataEntity => {
+            return parseFloat( this.dataStore.getTotalValueOfEntity(userEditedDataEntity.entityName).toFixed(4) ) > 0
+          })
+          || []
+    },
+
     concatResults(): { concatRotationPercent: number, dataEntity: IUserEditedDataEntity }[] {
       if( this.dataStore.user.tempCurrentEditedProject === null ) return []
 
@@ -521,15 +580,19 @@ export default defineComponent({
     left: calc(100%/3);
   }
 
-  .v-result-print__editable-title {
+  .v-result-print__top-section {
     width: calc(100% / 3 * 2);
-    margin: calc(20% - 1rem) 0 0 calc(100% / 3 * 1 - 1rem);
+    margin: calc( 100% / 5 * 1 - 1rem) 0 0 calc(100% / 3 * 1 - 1rem);
     box-sizing: border-box;
-    font-size: 1.8rem;
     padding: 1rem;
     position: relative;
     left: -0.1em;
     border: none;
+  }
+
+  .v-result-print__editable-title {
+    font-weight: 600;
+    font-size: 1.8rem;
   }
 
   .v-result-print__editable-content {
@@ -538,8 +601,9 @@ export default defineComponent({
     padding: 1rem;
     box-sizing: border-box;
     resize: none;
-    height: 50rem;
+    min-height: 2rem;
     border: none;
+    overflow: hidden;
   }
 
   .v-result-print__project-name {
@@ -549,10 +613,13 @@ export default defineComponent({
   .v-result-print__body {
     position: relative;
     margin: auto;
-    top: calc(100% / 5 * 1);
-    left: 0;
-    width: calc( 100% - 2cm);
+    //top: auto;
+    //bottom: 1cm;
+    left: 1cm;
+    width: calc(100% - 2cm);
     display: flex;
+    align-items: center;
+    height: calc(100% / 5 * 2);
   }
 
   .v-result-print__circle-result {
@@ -587,15 +654,29 @@ export default defineComponent({
   }
 
   .v-result-print__stat-result {
-    width: calc( 50% + .5cm);
+    width: calc( 100% - 1cm);
     box-sizing: border-box;
-    padding-left: 1cm;
+    padding-left: .5cm;
+    display: flex;
+    position: absolute;
+    top: calc(100% / 5 * 1);
   }
 
-  .v-result-print__stat-result__title {
-    font-size: 2.4rem;
-    line-height: 3rem;
+  .v-result-print__stat-result__coll {
+    display: block;
+    box-sizing: border-box;
+    width: 50%;
+    padding-left: .5cm;
+    padding-right: .5cm;
+  }
+
+  .v-result-print__stat-total {
+    font-size: 1.8rem;
+    line-height: 1.8rem;
     margin-top: 0;
+    margin-bottom: 0;
+    box-sizing: border-box;
+    padding-left: 2rem;
 
     > span {
       font-weight: 900;
