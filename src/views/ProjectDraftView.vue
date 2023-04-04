@@ -601,7 +601,7 @@ export default defineComponent({
     padding: 1rem;
     box-sizing: border-box;
     resize: none;
-    min-height: 2rem;
+    min-height: 20rem;
     border: none;
     overflow: hidden;
   }
