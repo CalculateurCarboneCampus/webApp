@@ -114,7 +114,13 @@
                 <div
                     class="v-result-print__circle-result__line__graphic"
                 ></div>
-                <div class="v-result-print__circle-result__line__name"    >{{currentResult.entityName.value}}</div>
+                <div
+                    class="v-result-print__circle-result__line__name"
+                    :class="{
+                      'has-small-percent': currentResult.concatRotationPercent < 2,
+                      'return-text': currentResult.concatRotationPercent > 90 && currentResult.concatRotationPercent < 270,
+                    }"
+                >{{currentResult.entityName.value}}</div>
               </div>
             </div>
 
@@ -644,6 +650,7 @@ export default defineComponent({
     border-radius: 100%;
     flex-shrink: 0;
     box-sizing: border-box;
+    transform: rotate(-45deg);
   }
 
   .v-result-print__circle-result__line{
@@ -665,7 +672,17 @@ export default defineComponent({
     right: 3px;
     bottom: 0;
     text-align: right;
-    max-width: 50%;
+
+    &.has-small-percent {
+      right: -3px;
+      bottom: -3px;
+      transform: translate(100%);
+    }
+
+    &.return-text {
+      transform: rotate(180deg);
+      transform-origin: center;
+    }
   }
 
   .v-result-print__stat-result {
