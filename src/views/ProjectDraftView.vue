@@ -368,7 +368,7 @@ export default defineComponent({
         }
       }
 
-      toReturn.push({
+      if(concatSmallRotationPercent > 0) toReturn.push({
         concatRotationPercent: concatSmallRotationPercent,
         entityName: {
           value: "autres"
