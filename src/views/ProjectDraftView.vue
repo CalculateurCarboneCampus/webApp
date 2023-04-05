@@ -334,9 +334,14 @@ export default defineComponent({
   computed: {
 
     dataEntityWithTotalValue(): IUserEditedDataEntity[] {
-      return       this.dataStore.user.tempCurrentEditedProject?.dataEntity.filter(userEditedDataEntity => {
-            return parseFloat( this.dataStore.getTotalValueOfEntity(userEditedDataEntity.entityName).toFixed(4) ) > 0
-          })
+      return this.dataStore.user.tempCurrentEditedProject?.dataEntity
+              .filter(userEditedDataEntity => {
+                return parseFloat(this.dataStore.getTotalValueOfEntity(userEditedDataEntity.entityName).toFixed(4)) > 0
+              })
+              .sort((a, b) => {
+                return this.dataStore.getTotalValueOfEntity(a.entityName) - this.dataStore.getTotalValueOfEntity(b.entityName)
+              })
+              .reverse()
           || []
     },
 
