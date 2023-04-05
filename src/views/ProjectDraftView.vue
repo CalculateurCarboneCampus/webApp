@@ -676,7 +676,8 @@ export default defineComponent({
     &.has-small-percent {
       right: -3px;
       bottom: -3px;
-      transform: translate(100%);
+      transform-origin: bottom left;
+      transform: translate(100%) rotate(15deg);
     }
 
     &.return-text {
