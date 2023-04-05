@@ -113,7 +113,7 @@ export const useDataStore = defineStore({
         return entity.entityName === entityName
       })?.entitySections.map(section => {
         section.item.map(sectionItem => {
-          if( sectionItem.edited ) totalEntityValue += sectionItem.donnes * sectionItem.tco2e / 1_000
+          if( sectionItem.edited ) totalEntityValue += sectionItem.donnes * sectionItem.tco2e / 1_000 / sectionItem.yearLifeCycle
         })
       })
 
