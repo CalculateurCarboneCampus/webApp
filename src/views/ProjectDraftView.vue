@@ -208,7 +208,7 @@
                         <template
                             v-if="item.donnes > 0"
                         >
-                          {{item.donnes}}/{{item.unit}} par CO2 | {{item.name}}
+                          {{item.donnes}}/{{item.unit}} | {{item.name}}
                         </template>
                       </div>
                     </div>
