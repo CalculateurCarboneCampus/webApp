@@ -111,14 +111,10 @@
                   transform: 'rotate(' + currentResult.concatRotationPercent + 'deg'
                     }"
               >
-                <template
-                    v-if="parseFloat( dataStore.getTotalValueOfEntity( currentResult.dataEntity.entityName ).toFixed(4) ) > 0"
-                >
-                  <div
-                      class="v-result-print__circle-result__line__graphic"
-                  ></div>
-                  <div class="v-result-print__circle-result__line__name"    >{{currentResult.dataEntity.entityName}}</div>
-                </template>
+                <div
+                    class="v-result-print__circle-result__line__graphic"
+                ></div>
+                <div class="v-result-print__circle-result__line__name"    >{{currentResult.entityName.value}}</div>
               </div>
             </div>
 
@@ -345,23 +341,40 @@ export default defineComponent({
           || []
     },
 
-    concatResults(): { concatRotationPercent: number, dataEntity: IUserEditedDataEntity }[] {
+    concatResults(): { concatRotationPercent: number, entityName: {value: string} }[] {
       if( this.dataStore.user.tempCurrentEditedProject === null ) return []
 
-      const toReturn: {concatRotationPercent: number, dataEntity: IUserEditedDataEntity }[] = []
+      const toReturn: {concatRotationPercent: number, entityName: {value: string} }[] = []
 
       let concatRotationPercent = 0
+      let concatSmallRotationPercent = 0
 
       for(const dataEntity of this.dataStore.user.tempCurrentEditedProject.dataEntity) {
-        const percent = (this.dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / this.dataStore.totalValue)
+        if(parseFloat( this.dataStore.getTotalValueOfEntity( dataEntity.entityName ).toFixed(4) ) > 0) {
+          const percent = (this.dataStore.getTotalValueOfEntity(dataEntity.entityName) * 100 / this.dataStore.totalValue)
 
-        concatRotationPercent += 360*percent/100
+          if(percent > 5) {
+            concatRotationPercent += 360*percent/100
+            toReturn.push({
+              concatRotationPercent: concatRotationPercent,
+              entityName: {
+                value: dataEntity.entityName
+              },
+            })
+          } else {
+            concatSmallRotationPercent += 360*percent/100
+          }
 
-        toReturn.push({
-          concatRotationPercent: concatRotationPercent,
-          dataEntity: dataEntity,
-        })
+        }
       }
+
+      toReturn.push({
+        concatRotationPercent: concatSmallRotationPercent,
+        entityName: {
+          value: "autres"
+        },
+      })
+
 
       return toReturn
     },
@@ -649,10 +662,10 @@ export default defineComponent({
 
   .v-result-print__circle-result__line__name {
     position: absolute;
-    right: 0;
+    right: 3px;
+    bottom: 0;
     text-align: right;
     max-width: 50%;
-    display: none;
   }
 
   .v-result-print__stat-result {
