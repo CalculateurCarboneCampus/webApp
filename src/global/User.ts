@@ -139,6 +139,7 @@ export class User {
         CCCDataSection.item = CCCDataSection.item.map(CCCDataItem => {
           CCCDataItem.yearLifeCycle = 1
           CCCDataItem.edited = false
+          CCCDataItem.scenario = "AB"
           return CCCDataItem
         })
         return CCCDataSection
@@ -183,6 +184,9 @@ export interface IUserEditedDataSection extends ICCCDataSection {
   item: IUserEditedDataItem[]
 }
 
+export type ScenarioOption = "AB" | "A" | "B"
+
 export interface IUserEditedDataItem extends ICCCDataItem {
   edited: boolean
+  scenario: ScenarioOption
 }

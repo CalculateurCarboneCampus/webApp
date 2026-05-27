@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import type {ICCProject, ICCCDataEntity, ICCCDataSection} from "@/GlobalInterfaces"
 import {User} from "@/global/User"
+import type {ScenarioOption} from "@/global/User"
 
 type DivisionMarkName = "coffee" | "smartphone" | "airplane" | "resident"
 
@@ -103,7 +104,22 @@ export const useDataStore = defineStore({
       this.currentEntityName = value
     },
 
-    getTotalValueOfEntity(entityName: string): number {
+    getTotalValueWithScenatio(scenarioOption: ScenarioOption) {
+      if(this.user.tempCurrentEditedProject === null) return 0
+
+      return this.user.tempCurrentEditedProject.dataEntity.map( entityValue => {
+        return entityValue.entitySections.map( sectionValue => {
+          return sectionValue.item.map( itemValue => {
+            const itemScenario = itemValue.scenario ?? "AB"
+            const inScenario = itemScenario === "AB" || itemScenario === scenarioOption
+            if(itemValue.edited && inScenario) return itemValue.donnes * itemValue.tco2e / 1_000 / itemValue.yearLifeCycle
+            else return 0
+          }).reduce( (previousValue, currentValue) => { return previousValue + currentValue }, 0 )
+        }).reduce( (previousValue, currentValue) => { return previousValue + currentValue } )
+      }).reduce( (previousValue, currentValue) => { return previousValue + currentValue } )
+    },
+
+    getTotalValueOfEntity(entityName: string, scenarioOption?: ScenarioOption): number {
 
       if(this.user.tempCurrentEditedProject === null) return 0
 
@@ -113,7 +129,9 @@ export const useDataStore = defineStore({
         return entity.entityName === entityName
       })?.entitySections.map(section => {
         section.item.map(sectionItem => {
-          if( sectionItem.edited ) totalEntityValue += sectionItem.donnes * sectionItem.tco2e / 1_000 / sectionItem.yearLifeCycle
+          const itemScenario = sectionItem.scenario ?? "AB"
+          const inScenario = itemScenario === "AB" || itemScenario === scenarioOption
+          if( sectionItem.edited && inScenario ) totalEntityValue += sectionItem.donnes * sectionItem.tco2e / 1_000 / sectionItem.yearLifeCycle
         })
       })
 

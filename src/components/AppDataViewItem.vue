@@ -78,6 +78,19 @@
         >
           kgCO2e
         </div>
+
+          <div
+              class="v-app-data-view-item__element__story_option ccc-with-gutter"
+          >
+            <button
+                v-for="opt in scenarioOptions"
+                :key="opt.value"
+                class="v-app-data-view-item__element__story_option__btn"
+                :class="{ 'is-active': dataItemScenario === opt.value }"
+                @click="dataItemScenario = opt.value"
+            >{{ opt.label }}</button>
+          </div>
+
       </div>
     </div>
   </template>
@@ -86,8 +99,7 @@
 <script lang="ts">
 import {defineComponent} from "vue"
 import {useDataStore} from "@/stores/dataStore"
-import type {IUserEditedDataItem} from "@/global/User"
-import type {IUserEditedDataEntity} from "@/global/User"
+import type {IUserEditedDataItem, IUserEditedDataEntity, ScenarioOption} from "@/global/User"
 
 export default defineComponent({
   props: {
@@ -111,6 +123,11 @@ export default defineComponent({
       valueMinForLifeCycle:   1,
       valueMaxForLifeCycle:   100,
       valueStepForLifeCycle:  1,
+      scenarioOptions: [
+        { value: "AB" as ScenarioOption, label: "A+B" },
+        { value: "A"  as ScenarioOption, label: "A" },
+        { value: "B"  as ScenarioOption, label: "B" },
+      ],
     }
   },
 
@@ -207,6 +224,17 @@ export default defineComponent({
       if(this.indexOfCurrentEntity === null) return null
 
       return this.dataStore.user.tempCurrentEditedProject.dataEntity[this.indexOfCurrentEntity]
+    },
+
+    dataItemScenario: {
+      get(): ScenarioOption {
+        return this.dataItem?.scenario ?? "AB"
+      },
+      set(newValue: ScenarioOption) {
+        if(this.dataItem === null) return
+        this.dataItem.scenario = newValue
+        this.dataStore.dataHasChange = true
+      },
     },
   },
 
@@ -317,6 +345,27 @@ export default defineComponent({
 
     .v-app-data-view-item__element__unit {
       color: var(--ccc-color-white);
+    }
+
+    .v-app-data-view-item__element__story_option {
+      display: flex;
+      gap: 2px;
+
+      &__btn {
+        border: none;
+        background: var(--ccc-color-alternate);
+        cursor: pointer;
+        padding: 0 .4ch;
+        font-size: inherit;
+        line-height: var(--ccc-ui-size-unit);
+        height: var(--ccc-ui-size-unit);
+        opacity: 0.4;
+
+        &.is-active {
+          opacity: 1;
+          background: var(--ccc-color-main--light);
+        }
+      }
     }
 
     &.v-app-data-view-item__element--value {

@@ -64,6 +64,13 @@ import {useDataStore} from "@/stores/dataStore"
 
 export default defineComponent({
 
+    props: {
+        scenario: {
+            type: String,
+            required: false,
+        },
+    },
+
   data() {
     return {
       dataStore: useDataStore(),
@@ -73,6 +80,7 @@ export default defineComponent({
 
   computed: {
     totalValue(): number {
+      if(this.scenario === 'B') return this.dataStore.getTotalValueWithScenatio("B")
       return this.dataStore.totalValue
     }
   }

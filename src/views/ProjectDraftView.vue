@@ -37,6 +37,9 @@
             class="v-result-viewer"
         >
           <render></render>
+            <div style="margin-top: 2rem">
+                <render :scenario="'B'"/>
+            </div>
         </section>
       </div>
     </template>
