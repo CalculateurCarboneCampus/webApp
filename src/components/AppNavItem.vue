@@ -8,20 +8,34 @@
       @click="navItemActivated"
   >
     <div>{{name}}</div>
+
+      <div class="v-app-nav-item__info">
+          <AppInfo
+              v-if="entity"
+              :msg="entity.description"
+          />
+      </div>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue"
+import {defineComponent, type PropType} from "vue"
 import {useDataStore} from "@/stores/dataStore"
+import type {ICCCDataEntity} from "@/GlobalInterfaces";
+import AppInfo from "@/components/AppInfo.vue";
 
 export default defineComponent({
+    components: {AppInfo},
   props: {
     name: {type: String, required: true},
     variantStyle: {
       type: Boolean,
       default: false,
-    }
+    },
+    entity: {
+      required: false,
+      type: Object as PropType<ICCCDataEntity> | undefined
+    },
   },
 
   data() {
@@ -85,5 +99,17 @@ export default defineComponent({
     box-shadow: var(--ccc-box-shadow);
     transform: translate(-.5rem, -.5rem);
   }
+
+  >  .v-app-nav-item__info {
+      top: initial;
+      left: initial;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        transform: translate(25%, 25%);
+        height: auto;
+        width: auto;
+    }
 }
+
 </style>

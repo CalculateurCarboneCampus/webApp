@@ -7,6 +7,11 @@
 
     <app-footer></app-footer>
 
+      <AppModalText
+          v-if="dataModalMsg.msg"
+          :msg="dataModalMsg.msg"
+      />
+
   </div>
 </template>
 
@@ -15,11 +20,19 @@ import {defineComponent} from "vue"
 import AppNavigation from "@/components/AppNavigation.vue"
 import AppHeader from "@/components/AppHeader.vue"
 import AppFooter from "@/components/app-footer.vue"
+import AppModalText from "@/components/AppModalText.vue";
+import {useDataModalMsg} from "@/stores/dataModalMsg";
 
 export default defineComponent({
-  components: {AppFooter, AppHeader, AppNavigation},
+  components: {AppModalText, AppFooter, AppHeader, AppNavigation},
   props: {
   },
+
+    data() {
+        return {
+            dataModalMsg: useDataModalMsg()
+        }
+    },
 
 })</script>
 

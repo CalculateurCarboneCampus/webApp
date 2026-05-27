@@ -4,9 +4,12 @@
     <div class="v-app-navigation__line"></div>
 
     <template
-        v-for="name of allCCCDataNames"
+        v-for="entity of allCCCDataEntity"
     >
-      <app-nav-item :name="name"></app-nav-item>
+      <app-nav-item
+          :name="entity.entityName"
+          :entity="entity"
+      ></app-nav-item>
       <div class="v-app-navigation__line"></div>
     </template>
 
@@ -29,10 +32,8 @@ export default defineComponent({
   },
 
   computed: {
-    allCCCDataNames(): string[] {
-      return this.dataStore.user.tempCurrentEditedProject?.dataEntity.map( value => {
-        return value.entityName
-      }) || []
+    allCCCDataEntity(): IUserEditedDataEntity[] {
+      return this.dataStore.user.tempCurrentEditedProject?.dataEntity || []
     }
   },
 })</script>
